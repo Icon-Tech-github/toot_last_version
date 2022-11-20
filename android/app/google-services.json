@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "681064674824",
+    "project_id": "toot-6b38a",
+    "storage_bucket": "toot-6b38a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681064674824:android:d94b0667b443b83df243bd",
+        "android_client_info": {
+          "package_name": "com.example.tood_driver_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681064674824-a4o5ln7mncl4up9l9hdgkk1gknp57cto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKSezhtLmW98wGjnG5dFRpo6DfzSI77ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681064674824-a4o5ln7mncl4up9l9hdgkk1gknp57cto.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "681064674824-drtpvsmh1v64ln1050i85h97s4d4m259.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.worlddesign.tootApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681064674824:android:b02b492a9804b47ef243bd",
+        "android_client_info": {
+          "package_name": "com.icontds.toot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681064674824-a4o5ln7mncl4up9l9hdgkk1gknp57cto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKSezhtLmW98wGjnG5dFRpo6DfzSI77ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681064674824-a4o5ln7mncl4up9l9hdgkk1gknp57cto.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "681064674824-drtpvsmh1v64ln1050i85h97s4d4m259.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.worlddesign.tootApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
