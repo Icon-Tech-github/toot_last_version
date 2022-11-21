@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:loz/bloc/single_product_bloc/single_product_cubit.dart';
 import 'package:loz/data/models/confirm_order_model.dart';
 import 'package:loz/data/models/products.dart';
@@ -10,6 +13,10 @@ import 'package:loz/local_storage.dart';
 import 'package:loz/presentation/screens/order_success.dart';
 import 'package:loz/presentation/widgets/helper.dart';
 import 'package:meta/meta.dart';
+import 'package:xml/xml.dart';
+
+import '../../payment_vars/network_helper.dart';
+import '../../presentation/screens/teller_webview.dart';
 part 'confirm_order_state.dart';
 
 class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
@@ -22,12 +29,47 @@ class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
   double totalBeforeDis=0;
   double deliveryFee =0;
   double discountRest=0;
+  var _url = '';
+  String? deviceId ;
+
+  void getDeviceId ()async{
+    deviceId = await _getId();
+  }
+  Future<String?> _getId() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) { // import 'dart:io'
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+    } else if(Platform.isAndroid) {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      return androidDeviceInfo.androidId; // unique ID on Android
+    }
+  }
+
+
+
+
   ConfirmOrderCubit(this.repo) : super(ConfirmOrderInitial()){
     discount = LocalStorage.getData(key: "discount")??0.0;
     limit = LocalStorage.getData(key: "limit")??0;
     type = LocalStorage.getData(key: "type")??0;
     getCart();
+    getDeviceId();
   }
+
+
+  void _launchURL(String url, String code_pay,context) async {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => WebViewScreen(
+              products: products,
+              codee: code_pay,
+              url : url,
+              code: code_pay,
+            )));
+  }
+
 
   void getCart(){
     emit(ConfirmOrderLoading());
@@ -258,6 +300,52 @@ getCartCount();
         emit(ConfirmSuccess());
       }
     });
+  }
+  void pay(XmlDocument xml,context)async{
+
+    NetworkHelper _networkHelper = NetworkHelper();
+    var response =  await _networkHelper.pay(xml);
+    print(response);
+    final doc = XmlDocument.parse(response);
+    print('$response');
+    final message = doc.findAllElements('status').map((node) => node.text);
+    String msg = message.toString();
+    msg =  msg.replaceAll('(', '');
+    msg = msg.replaceAll(')', '');
+    print(msg.toString()+"llllll");
+    if(msg != '' ){
+      print(msg);
+      Navigator.pop(context);
+      //  displayToastMessage(translate('lan.payment'));
+
+      // failed
+      // alertShow('Failed');
+    }
+    else
+    {
+      final doc = XmlDocument.parse(response);
+      final url = doc.findAllElements('start').map((node) => node.text);
+      final code = doc.findAllElements('code').map((node) => node.text);
+      print(url);
+      _url = url.toString();
+      String _code = code.toString();
+      if(_url.length>2){
+        _url =  _url.replaceAll('(', '');
+        _url = _url.replaceAll(')', '');
+        _code = _code.replaceAll('(', '');
+        _code = _code.replaceAll(')', '');
+        _launchURL(_url,_code,context);
+      }
+      print(_url);
+      final message = doc.findAllElements('message').map((node) => node.text);
+      print('Message =  $message');
+      if(message.toString().length>2){
+        String msg = message.toString();
+        msg = msg.replaceAll('(', '');
+        msg = msg.replaceAll(')', '');
+        //  alertShow(msg);
+      }
+    }
   }
 
 }

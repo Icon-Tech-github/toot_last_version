@@ -133,7 +133,7 @@ class _LocationActivateState extends State<LocationActivate> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         padding: EdgeInsets.only(top: 30),
-                        height: size.height * .43,
+
                         width: size.width,
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(.8),
@@ -144,6 +144,7 @@ class _LocationActivateState extends State<LocationActivate> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 28.0),
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 LocaleKeys.share_location.tr(),
@@ -156,9 +157,7 @@ class _LocationActivateState extends State<LocationActivate> {
                                   color: AppTheme.nearlyBlack,
                                 ),
                               ),
-                              SizedBox(
-                                height: size.height * 0.03,
-                              ),
+
                               Text(
                                 LocaleKeys.share_location_txt.tr(),
                                 // product!.title!.en!,
@@ -172,7 +171,7 @@ class _LocationActivateState extends State<LocationActivate> {
                                 ),
                               ),
                               SizedBox(
-                                height: size.height * 0.04,
+                                height: 10,
                               ),
                               DefaultButton(
                                 title:  LocaleKeys.home.tr(),
@@ -206,6 +205,9 @@ class _LocationActivateState extends State<LocationActivate> {
                                 textColor:  AppTheme.secondary,
                                 font: size.width * .045,
                                 height: size.height * .07,
+                              ),
+                              SizedBox(
+                                height: 40,
                               ),
                             ],
                           ),

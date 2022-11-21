@@ -69,7 +69,7 @@ class NotificationDetails extends StatelessWidget {
                 width: double.infinity,
               ):
               Image.asset(
-              "assets/images/logo.jpeg",
+              "assets/images/toot.png",
               fit: BoxFit.fill,
               height: 250,
               width:

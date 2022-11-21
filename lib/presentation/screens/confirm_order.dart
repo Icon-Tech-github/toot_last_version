@@ -10,6 +10,9 @@ import 'package:loz/presentation/widgets/loading.dart';
 import 'package:loz/theme.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:simple_shadow/simple_shadow.dart';
+import 'package:xml/xml.dart';
+
+import '../../payment_vars/constants_payment.dart';
 
 class ConfirmOrderScreen extends StatelessWidget {
   final double? delivery_fee;
@@ -625,9 +628,189 @@ class CartList extends StatelessWidget {
                         title: LocaleKeys.confirm.tr(),
                         radius: 15,
                         function: () {
-                          context
-                              .read<ConfirmOrderCubit>()
-                              .confirmOrder(context);
+                          String total =  delivery_fee !=0 ?
+                          '${((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)- confirmOrderState.discountRest) > 0 ?((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)- confirmOrderState.discountRest).toStringAsFixed(2) : 0.000}':
+                          '${((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)).toStringAsFixed(2)} ';
+                          print(total);
+
+                          if(LocalStorage.getData(key: "payment_method_id")==2) {
+                            final builder = XmlBuilder();
+                            builder.processing('xml', 'version="1.0"');
+                            builder.element('mobile', nest: () {
+                              builder.element('store', nest: () {
+                                builder.text(GlobalUtils.storeId);
+                              });
+                              builder.element('key', nest: () {
+                                builder.text(GlobalUtils.key);
+                              });
+
+                              builder.element('device', nest: () {
+                                builder.element('type', nest: () {
+                                  builder.text(GlobalUtils.devicetype);
+                                });
+                                builder.element('id', nest: () {
+                                  builder.text(context
+                                      .read<ConfirmOrderCubit>()
+                                      .deviceId
+                                      .toString());
+                                });
+                              });
+
+                              // app
+                              builder.element('app', nest: () {
+                                builder.element('name', nest: () {
+                                  builder.text(GlobalUtils.appname);
+                                });
+                                builder.element('version', nest: () {
+                                  builder.text(GlobalUtils.version);
+                                });
+                                builder.element('user', nest: () {
+                                  builder
+                                      .text(LocalStorage.getData(key: "token"));
+                                });
+                                builder.element('id', nest: () {
+                                  builder.text(GlobalUtils.appid);
+                                });
+                              });
+
+                              //tran
+                              builder.element('tran', nest: () {
+                                builder.element('test', nest: () {
+                                  builder.text(GlobalUtils.testmode);
+                                });
+                                builder.element('type', nest: () {
+                                  builder.text(GlobalUtils.transtype);
+                                });
+                                builder.element('class', nest: () {
+                                  builder.text(GlobalUtils.transclass);
+                                });
+                                builder.element('cartid', nest: () {
+                                  builder.text(
+                                      "${DateTime.now().millisecondsSinceEpoch}");
+                                });
+
+                                builder.element('description', nest: () {
+                                  builder.text('Test for Mobile API order');
+                                });
+                                builder.element('currency', nest: () {
+                                  builder.text('SAR');
+                                });
+                                builder.element('amount', nest: () {
+                                  builder.text(total.toString());
+                                });
+                                builder.element('language', nest: () {
+                                  builder.text("en");
+                                });
+                                builder.element('firstref', nest: () {
+                                  builder.text(GlobalUtils.firstref);
+                                });
+                                builder.element('ref', nest: () {
+                                  builder.text('null');
+                                });
+                              });
+
+                              //billing
+                              builder.element('billing', nest: () {
+                                // name
+                                builder.element('name', nest: () {
+                                  builder.element('title', nest: () {
+                                    builder.text('');
+                                  });
+                                  builder.element('first', nest: () {
+                                    builder.text(GlobalUtils.firstname);
+                                  });
+                                  builder.element('last', nest: () {
+                                    builder.text(GlobalUtils.lastname);
+                                  });
+                                });
+
+                                // address
+                                builder.element('address', nest: () {
+                                  builder.element('line1', nest: () {
+                                    builder.text(GlobalUtils.addressline1);
+                                  });
+                                  builder.element('city', nest: () {
+                                    builder.text(GlobalUtils.city);
+                                  });
+                                  builder.element('region', nest: () {
+                                    builder.text(GlobalUtils.region);
+                                  });
+                                  builder.element('country', nest: () {
+                                    builder.text(GlobalUtils.country);
+                                  });
+                                });
+
+                                builder.element('phone', nest: () {
+                                  builder.text(GlobalUtils.phone);
+                                });
+                                builder.element('email', nest: () {
+                                  builder.text(GlobalUtils.emailId);
+                                });
+                              });
+                              //custref savedcard
+                              builder.element('custref', nest: () {
+                                builder.text(GlobalUtils.custref);
+                              });
+                            });
+
+                            final bookshelfXml = builder.buildDocument();
+
+                            print(bookshelfXml);
+                            context
+                                .read<ConfirmOrderCubit>()
+                                .pay(bookshelfXml, context);
+                          }
+                          //  print(cardToken);
+                          //  link = dataOrder['link'];
+                          //   Navigator.pushReplacement(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             PaymentView(
+                          //               home: widget.home??false,
+                          //               link: link,
+                          //               allMyCardProducts: allMyCardProducts,
+                          //               code: code,
+                          //             )),);
+
+
+
+
+
+
+                          // String total =  delivery_fee !=0 ?
+                          // '${((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)- confirmOrderState.discountRest) > 0 ?((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)- confirmOrderState.discountRest).toStringAsFixed(2) : 0.000}':
+                          // '${((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)).toStringAsFixed(2)} ';
+                          // print(total);
+                          // if(LocalStorage.getData(key: "order_method_id") == 3 &&   LocalStorage.getData(key: "minTotalOrder") !=0){
+                          //   if(LocalStorage.getData(key: "minTotalOrder") > double.parse(total) ){
+                          //     showTopSnackBar(
+                          //         context,
+                          //         Card(
+                          //           child: CustomSnackBar.success(
+                          //             message:"${LocaleKeys.min_delivery.tr()}${LocalStorage.getData(key: "minTotalOrder")} ${LocaleKeys.kwd.tr()}",
+                          //             backgroundColor: Colors.white,
+                          //             textStyle: TextStyle(
+                          //                 color: Colors.black,
+                          //                 fontSize: size.height * 0.02),
+                          //           ),
+                          //         ));
+                          //   }else{
+                          //     context
+                          //         .read<ConfirmOrderCubit>()
+                          //         .confirmOrder(context);
+                          //   }
+                          // }else{
+
+                          else
+
+
+                            context
+                                .read<ConfirmOrderCubit>()
+                                .confirmOrder(context);
+                          // context
+                          //     .read<ConfirmOrderCubit>()
+                          //     .confirmOrder(context);
                         },
                         font: 18,
                       ),

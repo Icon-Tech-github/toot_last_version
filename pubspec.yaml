@@ -89,6 +89,10 @@ dependencies:
   open_store:
   skeletons: ^0.0.3
   share: ^2.0.4
+  xml:
+  webview_flutter: ^2.0.13
+  flutter_dialogs: ^2.1.1
+  device_info_plus:
 
 
 

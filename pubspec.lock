@@ -261,7 +261,7 @@ packages:
     source: hosted
     version: "0.7.3"
   device_info_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: device_info_plus
       url: "https://pub.dartlang.org"
@@ -461,6 +461,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
+  flutter_dialogs:
+    dependency: "direct main"
+    description:
+      name: flutter_dialogs
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0"
   flutter_html:
     dependency: "direct main"
     description:
@@ -1378,7 +1385,7 @@ packages:
     source: hosted
     version: "0.2.0"
   webview_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter
       url: "https://pub.dartlang.org"
@@ -1420,7 +1427,7 @@ packages:
     source: hosted
     version: "0.2.0+2"
   xml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: xml
       url: "https://pub.dartlang.org"

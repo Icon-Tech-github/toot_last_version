@@ -277,7 +277,7 @@ class _NotifyScreenState extends State<NotifyScreen> {
                                                           double.infinity,
                                                     )
                                                   : Image.asset(
-                                                      "assets/images/logo.jpeg",
+                                                      "assets/images/toot.png",
                                                       fit: BoxFit.fill,
                                                       height:  size.height *.28,
                                                       width:

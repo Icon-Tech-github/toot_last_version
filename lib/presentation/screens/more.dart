@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loz/bloc/notification_bloc/notification_cubit.dart';
 import 'package:loz/bloc/transaction_bloc/transaction_cubit.dart';
+import 'package:loz/data/repositories/notification_repo.dart';
 import 'package:loz/data/repositories/transaction_repo.dart';
 import 'package:loz/presentation/screens/contact.dart';
 import 'package:loz/presentation/screens/points.dart';
@@ -35,6 +37,7 @@ import '../widgets/loading.dart';
 import 'Auth_screens/login.dart';
 import 'about.dart';
 import 'bottom_nav.dart';
+import 'notifications.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -252,6 +255,34 @@ class MoreScreen extends StatelessWidget {
                         ));
                   },
                 ),
+
+              MenuWidget(
+                text: LocaleKeys.notifications.tr(),
+                image: "assets/images/bell.png",
+                press: () {
+                  print(context.read<AuthCubit>().status == true);
+                  context.read<AuthCubit>().status == true
+                      ? push(
+                    context,
+                    BlocProvider<NotificationCubit>(
+                        create: (BuildContext context) =>
+                            NotificationCubit(NotificationRepo()),
+                        child: NotifyScreen()),
+                  )
+                      : showTopSnackBar(
+                      context,
+                      Card(
+                        child: CustomSnackBar.success(
+                          message:
+                          " ${LocaleKeys.offline_translate.tr()}",
+                          backgroundColor: Colors.white,
+                          textStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: size.height * 0.025),
+                        ),
+                      ));
+                },
+              ),
 
               MenuWidget(
                 text: LocaleKeys.contact_us.tr(),
