@@ -75,42 +75,58 @@ class _LoginScreenState extends State<Login> {
             child: ListView(
               children: [
                 SizedBox(
-                    height: size.height * 0.12,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    height: size.height * 0.28,
+                    child: Column(
                       children: [
-                        InkWell(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: Icon(
-                              Icons.arrow_back,
-                              size: 30,
-                              color: Colors.white,
-                            ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     InkWell(
+                        //       onTap: (){
+                        //         Navigator.pop(context);
+                        //       },
+                        //       child: const Padding(
+                        //         padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+                        //         child: Icon(
+                        //           Icons.arrow_back,
+                        //           size: 30,
+                        //           color: Colors.white,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     //  Spacer(),
+                        //     Padding(
+                        //       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                        //       child: Text(
+                        //         LocaleKeys.login.tr(),
+                        //         textAlign: TextAlign.center,
+                        //         style: TextStyle(
+                        //           height: size.height *.002,
+                        //           fontSize: size.height * 0.03,
+                        //           fontWeight: FontWeight.w500,
+                        //           color: Colors.white,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Spacer(),
+                        //   ],
+                        // ),
+                        SizedBox(height: 30,),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.0),
                           ),
-                        ),
-                      //  Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                          child: Text(
-                            LocaleKeys.login.tr(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              height: size.height *.002,
-                                fontSize: size.height * 0.03,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                ),
+                          elevation: 5,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(40),
+                            child: Image.asset('assets/images/toot.png',
+                            height: size.height*0.2,
+                            fit: BoxFit.contain),
                           ),
-                        ),
-                        Spacer(),
+                        )
                       ],
                     )),
                 Container(
-                  height: size.height * 0.99,
                   width: size.width,
                   decoration: BoxDecoration(
                       color: AppTheme.background,
@@ -121,19 +137,17 @@ class _LoginScreenState extends State<Login> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+
                       Center(
                         child: Text(
                           LocaleKeys.lets_sign_you_in.tr(),
                           style: TextStyle(
-                            height: size.height *.002,
                               fontWeight: FontWeight.w500,
                               fontSize: size.height * 0.033,
                               ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+
                       // Center(
                       //   child: Text(
                       //     'Welcome back',
@@ -142,9 +156,7 @@ class _LoginScreenState extends State<Login> {
                       //         ),
                       //   ),
                       // ),
-                      SizedBox(
-                        height: size.height * 0.07,
-                      ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Container(
@@ -197,7 +209,7 @@ class _LoginScreenState extends State<Login> {
                         ),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -207,7 +219,6 @@ class _LoginScreenState extends State<Login> {
                           child: Text(
                             LocaleKeys.password.tr(),
                             style: TextStyle(
-                              height: size.height * 0.002,
                                 color: Colors.grey,
                                 fontSize: size.height * 0.02,
                                 ),
@@ -215,34 +226,75 @@ class _LoginScreenState extends State<Login> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: TextFormField(
-                          obscureText: isPassword,
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                        padding: const EdgeInsets.symmetric(horizontal: 60),
+                        child: Row(
+                          children: [
+                            Text(
+                              "    ",
+                              style: TextStyle(
+                                height: size.height * 0.002,
+                                color: Colors.black,
+                                fontSize: size.height * 0.019,
+                              ),),
+                            SizedBox(
+                                width: size.width * .03),
+                            SizedBox(
+                              width: size.width * .63,
+                              child:TextFormField(
+                                obscureText: isPassword,
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  suffixIcon:  IconButton(
+                                    icon: isPassword ?  Icon(Icons.visibility_off,color: Colors.grey,): Icon(Icons.visibility,color: Colors.grey,) ,
+                                    onPressed: () => setState(() => isPassword = !isPassword ),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return LocaleKeys.Required.tr();
+                                  } else if (value.length < 6) {
+                                    return LocaleKeys.phone_valid.tr();
+                                  }
+                                  return null;
+                                },
+                                onSaved: (val) {
+                                  password = val!;
+                                },
+                              ),
                             ),
-                            suffixIcon:  IconButton(
-                              icon: isPassword ?  Icon(Icons.visibility_off,color: Colors.grey,): Icon(Icons.visibility,color: Colors.grey,) ,
-                              onPressed: () => setState(() => isPassword = !isPassword ),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return LocaleKeys.Required.tr();
-                            } else if (value.length < 6) {
-                              return LocaleKeys.phone_valid.tr();
-                            }
-                            return null;
-                          },
-                          onSaved: (val) {
-                           password = val!;
-                          },
-                        ),
+                          ],
+                        )
+
+
+
                       ),
                       SizedBox(
-                        height: size.height * 0.12,
+                        height: size.height * 0.05,
+                      ),
+
+
+                      InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                                BlocProvider(
+                                    create: (BuildContext context) =>
+                                        AuthCubit(AuthRepo()),
+                                    child: ForgotPassword())));
+                          },
+                          child: Center(
+                            child: Text(
+                              LocaleKeys.forget_password.tr(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          )
+                      ),
+                      SizedBox(
+                        height: 30,
                       ),
                       InkWell(
                         onTap: () async{
@@ -274,26 +326,7 @@ class _LoginScreenState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>
-                              BlocProvider(
-                                  create: (BuildContext context) =>
-                                      AuthCubit(AuthRepo()),
-                                  child: ForgotPassword())));
-                        },
-                        child: Center(
-                          child: Text(
-                              LocaleKeys.forget_password.tr(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        )
-                      ),
+
                       SizedBox(
                         height: 30,
                       ),

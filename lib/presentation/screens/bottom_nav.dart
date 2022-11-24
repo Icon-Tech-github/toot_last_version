@@ -84,11 +84,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
     FontAwesomeIcons.userCog,
   ];
 
-  final iconTitlesAR = <String>[
-    'الرئيسية',
-    'المفضلة',
-    'الاعدادات',
-  ];
+
 
   bool d = false;
 

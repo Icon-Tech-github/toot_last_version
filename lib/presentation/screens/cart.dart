@@ -193,6 +193,19 @@ class _CartListState extends State<CartList> {
                         fontWeight: FontWeight.bold,
                         fontSize: size.height *.03,
                         color: Colors.white),
+                  ),
+                  SizedBox(height: size.height *.02,),
+                  DefaultButton(
+                    font: size.width * .055, radius: 15,
+                    title: LocaleKeys.back_to_make_order.tr(),
+                    color: AppTheme.orange,
+                    textColor: Colors.white,
+                    width: size.width * .5,
+                    function: (){
+                     Navigator.pushAndRemoveUntil(context,
+                         MaterialPageRoute(builder: (_)=>BottomNavBar()),
+                             (route) => false);
+                    },
                   )
                 ],
               ),
@@ -638,646 +651,453 @@ class _CartListState extends State<CartList> {
                             )),
                         padding: EdgeInsets.symmetric(horizontal: size.width * .05),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: size.height * .03,
-                            ),
-                            if (cartState.discount == 0.0 &&
-                                LocalStorage.getData(key: "token") != null)
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: size.width * .04,
-                                    right: size.width * .04,
-                                    top: size.width * .02),
-                                decoration: BoxDecoration(
 
-                                  borderRadius: BorderRadius.circular(7),
-                                  color: AppTheme.secondary.withOpacity(.1),
+
+                            SizedBox(height: size.height*0.02,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: ExpansionTile(
+                                title:    Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      LocaleKeys.total_amount.tr(),
+                                      style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 6.0, vertical: 2),
+                                      child: Text(
+                                          '${cartState.calculateTotal().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()}',
+                                          style:
+                                          TextStyle(fontSize: size.height * 0.023 , color: Colors.green, height: size.height * .0015,fontWeight: FontWeight.bold)),
+                                    ),
+                                  ],
                                 ),
-                                child: ExpandablePanel(
-                                  theme: const ExpandableThemeData(
-                                    headerAlignment:
-                                    ExpandablePanelHeaderAlignment.center,
-                                    tapBodyToCollapse: true,
-                                  ),
-                                  header: Text(
-                                    LocaleKeys.need_discount.tr(),
-                                    //  textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: size.height * 0.022,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  collapsed: Container(),
-                                  expanded: Column(
+                                iconColor: Colors.black45,
+
+                                children: [
+                                  Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        //  height: 100,
-                                          padding: EdgeInsets.only(bottom: 10),
-                                          child: Column(
-                                            //  crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              CheckboxListTile(
-                                                contentPadding: EdgeInsets.zero,
-                                                title: GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        checkedValue = !checkedValue;
-                                                      });
-                                                    },
-                                                    child: Text(
-                                                      LocaleKeys.you_have_promo_code
-                                                          .tr(),
-                                                      style: TextStyle(
-                                                          fontSize: size.height * 0.023,
-                                                          color: AppTheme.orange),
-                                                    )),
-                                                value: checkedValue,
-                                                onChanged: (newValue) {
-                                                  setState(() {
-                                                    checkedValue = newValue!;
-                                                  });
-                                                },
-                                                controlAffinity: ListTileControlAffinity
-                                                    .leading, //  <-- leading Checkbox
-                                              ),
-                                              if (cartState.discount == 0.0 &&
-                                                  LocalStorage.getData(key: "token") !=
-                                                      null)
-                                                Visibility(
-                                                  visible: checkedValue,
-                                                  child: TextFormField(
-                                                    controller: cartState.code,
+                                    children: [
+                                      SizedBox(
+                                        height: size.height * .03,
+                                      ),
+
+
+                                      if(LocalStorage.getData(key: "coupon") != null)
+                                        Container(
+                                            padding: EdgeInsets.only(
+                                                left: size.width * .04,
+                                                right: size.width * .04,
+                                                top: size.width * .02,
+                                                bottom: size.width *.01),
+                                            //   margin: EdgeInsets.only(bottom: 12),
+                                            decoration: BoxDecoration(
+
+                                              borderRadius: BorderRadius.circular(7),
+                                              color: AppTheme.secondary.withOpacity(.1),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  LocaleKeys.coupon.tr() +" : "+ (LocalStorage.getData(key: "coupon")??""),
+                                                  //  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: size.height * 0.022,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: (){
+                                                    cartState.deleteCoupon();
+                                                  },
+                                                  child: Text(
+                                                    LocaleKeys.delete.tr() ,
+                                                    //  textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        fontSize: size.height * 0.02,height:  size.height * 0.001),
-                                                    cursorColor: AppTheme.orange,
-                                                    keyboardType: TextInputType.text,
-                                                    decoration: InputDecoration(
-                                                      suffixIcon: !apply
-                                                          ? Text('')
-                                                          : GestureDetector(
-                                                        onTap: () {},
-                                                        child: Padding(
-                                                          padding:
-                                                          const EdgeInsets
-                                                              .only(
-                                                              top: 12.0,
-                                                              right: 10,left: 10),
-                                                          child: state
-                                                          is AddCouponLoading
-                                                              ? CircularProgressIndicator()
-                                                              : InkWell(
-                                                            onTap: () {
-                                                              FocusScope.of(
-                                                                  context)
-                                                                  .unfocus();
-                                                              cartState
-                                                                  .addCoupon();
-                                                            },
-                                                            child: Text(
-                                                              LocaleKeys.apply.tr(),
-                                                              style: TextStyle(
-                                                                  height: size.height * .002,
-                                                                  color: AppTheme
-                                                                      .orange,
-                                                                  fontSize:
-                                                                  size.height *
-                                                                      0.022),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      hintText: LocaleKeys
-                                                          .enter_discount_code
-                                                          .tr(),
-                                                      hintStyle: TextStyle(
-                                                          height: size.height * .002,
-                                                          fontSize: size.height * 0.022),
-                                                      border: OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(8)),
-                                                          borderSide: BorderSide(
-                                                              width: 1,
-                                                              color: AppTheme.orange)),
-                                                      focusedBorder: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(15)),
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color: Colors.grey),
-                                                      ),
-                                                    ),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        if (value != "")
-                                                          apply = true;
-                                                        else
-                                                          apply = false;
-                                                      });
-                                                    },
-                                                    validator: (value) {
-                                                      if (value!.isEmpty)
-                                                        return LocaleKeys.Required.tr();
-                                                      return null;
-                                                    },
+                                                        color: Colors.red,
+                                                        fontSize: size.height * 0.022,
+                                                        fontWeight: FontWeight.bold),
                                                   ),
                                                 ),
-                                              SizedBox(
-                                                height: size.height * .03,
-                                              ),
-                                              InkWell(
-                                                onTap: (){
-                                                  cartState.useBalance();
-                                                },
-                                                child: Container(
-                                                  height: size.height * .065,
+                                              ],
+                                            )
+                                        ),
+                                      SizedBox(
+                                        height: size.height * .02,
+                                      ),
+                                      Text(
+                                        LocaleKeys.the_total_amount.tr(),
+                                        style:
+                                        TextStyle(fontSize: size.height * 0.025, fontWeight: FontWeight.bold, height: size.height * .002,),
+                                      ),
+                                      SizedBox(
+                                        height: size.height * .02,
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            LocaleKeys.total_items.tr(),
+                                            style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 6.0, vertical: 2),
+                                            child: Text(
+                                                '${context.read<CartCubit>().calculateAmount()}',
+                                                style:
+                                                TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,)),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: size.height * .01,
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            LocaleKeys.total_price.tr(),
+                                            style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .001,),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 6.0, vertical: 2),
+                                            child: Text(
+                                                '${context.read<CartCubit>().calculatePrices().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()} ',
+                                                style:
+                                                TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .001,)),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: size.height * .01,
+                                      ),
+                                      if (cartState.tax != 0.0)
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              LocaleKeys.tax_expense.tr(),
+                                              style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 6.0, vertical: 2),
+                                              child: Text(
+                                                  '${context.read<CartCubit>().calculateTax().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()} ',
+                                                  style: TextStyle(
+                                                    fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,)),
+                                            ),
+                                          ],
+                                        ),
+                                      SizedBox(
+                                        height: size.height * .01,
+                                      ),
 
-                                                  width: size.width * .7,
-                                                  decoration: BoxDecoration(
-                                                      color: AppTheme.orange,
-                                                      borderRadius: BorderRadius.circular(15)
-                                                    //     bottomRight: Radius.circular(7),
-                                                    //     bottomLeft: Radius.circular(7)),
-                                                  ),
-                                                  child:  Center(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        children: [
-                                                          state is UseBalanceLoading?
-                                                          CircularProgressIndicator(color: Colors.white,strokeWidth: 2,):
-                                                          Image.asset(
-                                                            "assets/images/surprise.png",
-                                                            height: size.width * .08,
-                                                            color: Colors.white,
-                                                          ),
-
-                                                          Text(
-                                                            LocaleKeys.use_my_balance.tr(),
-
-                                                            //  textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                              height: size.height * .003,
-                                                              color: Colors.white,
-                                                              fontSize: size.height * 0.025,
-                                                              // fontWeight: FontWeight.bold
+                                      if (cartState.discount != 0)
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              LocaleKeys.discount.tr(),
+                                              style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 6.0, vertical: 2),
+                                              child: Text(
+                                                  '-${cartState.calculateDiscount()} ${LocaleKeys.kwd.tr()}',
+                                                  style: TextStyle(
+                                                    fontSize: size.height * 0.023, color: Colors.red, height: size.height * .0015,)),
+                                            ),
+                                          ],
+                                        ),
+                                      if (cartState.discount != 0)
+                                        SizedBox(
+                                          height: size.height * .03,
+                                        ),
+                                      // Row(
+                                      //   mainAxisSize: MainAxisSize.max,
+                                      //   crossAxisAlignment: CrossAxisAlignment.end,
+                                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //   children: <Widget>[
+                                      //     Text(
+                                      //       LocaleKeys.total_amount.tr(),
+                                      //       style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,fontWeight: FontWeight.bold),
+                                      //       textAlign: TextAlign.center,
+                                      //     ),
+                                      //     Padding(
+                                      //       padding: EdgeInsets.symmetric(
+                                      //           horizontal: 6.0, vertical: 2),
+                                      //       child: Text(
+                                      //           '${cartState.calculateTotal().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()}',
+                                      //           style:
+                                      //           TextStyle(fontSize: size.height * 0.023 , color: Colors.green, height: size.height * .0015,fontWeight: FontWeight.bold)),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        LocaleKeys.cart_warning.tr(),
+                                        style: TextStyle(fontSize: size.height * 0.018, color: Colors.red, height: size.height * .0015),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(
+                                        height: size.height * .02,
+                                      ),
+                                      // CheckboxListTile(
+                                      //   contentPadding: EdgeInsets.zero,
+                                      //   title: GestureDetector(
+                                      //       onTap: () {
+                                      //         setState(() {
+                                      //           checkedNote = !checkedNote;
+                                      //         });
+                                      //       },
+                                      //       child: Text(
+                                      //         LocaleKeys.any_special_request.tr(),
+                                      //         style:
+                                      //         TextStyle(fontSize: size.height * 0.025, color: AppTheme.orange),
+                                      //       )),
+                                      //   value: checkedNote,
+                                      //   onChanged: (newValue) {
+                                      //     setState(() {
+                                      //       checkedNote = newValue!;
+                                      //     });
+                                      //   },
+                                      //   controlAffinity: ListTileControlAffinity
+                                      //       .leading, //  <-- leading Checkbox
+                                      // ),
+                                      // Visibility(
+                                      //   visible: checkedNote,
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                      //     child: TextFormField(
+                                      //       controller: cartState.note,
+                                      //       cursorColor: AppTheme.orange,
+                                      //       keyboardType: TextInputType.text,
+                                      //       style: TextStyle(
+                                      //           fontSize: size.height * 0.025, height: size.height * .002,),
+                                      //       decoration: InputDecoration(
+                                      //         hintText: LocaleKeys.enter_your_notes.tr(),
+                                      //         hintStyle:  TextStyle(
+                                      //             fontSize: size.height * 0.025, height: size.height * .002,),
+                                      //         border: OutlineInputBorder(
+                                      //             borderRadius:
+                                      //             BorderRadius.all(Radius.circular(8)),
+                                      //             borderSide:
+                                      //             BorderSide(width: 1, color: AppTheme.orange)),
+                                      //         focusedBorder: OutlineInputBorder(
+                                      //           borderRadius: BorderRadius.all(Radius.circular(15)),
+                                      //           borderSide:
+                                      //           BorderSide(width: 1, color: Colors.grey),
+                                      //         ),
+                                      //       ),
+                                      //       onChanged: (value) {
+                                      //         cartState.setNote(value);
+                                      //       },
+                                      //       validator: (value) {
+                                      //         if (value!.isEmpty) return 'Required';
+                                      //         return null;
+                                      //       },
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      InkWell(
+                                        onTap: () {
+                                          Scaffold.of(context)
+                                              .showBottomSheet<void>(
+                                                (BuildContext context) {
+                                              return Container(
+                                                height: size.height * 0.25,
+                                                color: Colors.white,
+                                                child: Stack(
+                                                  children: [
+                                                    Center(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .start,
+                                                        mainAxisSize:
+                                                        MainAxisSize.min,
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(18.0),
+                                                            child: Container(
+                                                              height:
+                                                              size.height *
+                                                                  0.19,
+                                                              width: size.width,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      15),
+                                                                  border: Border.all(
+                                                                      color: AppTheme
+                                                                          .orange)),
+                                                              child: Padding(
+                                                                padding:
+                                                                const EdgeInsets
+                                                                    .all(
+                                                                    10.0),
+                                                                child:
+                                                                TextField(
+                                                                  maxLength: 140,
+                                                                  maxLines: 4,
+                                                                  controller:
+                                                                  cartState.note,
+                                                                  style:  TextStyle(
+                                                                      fontSize:
+                                                                      size.height * 0.025),
+                                                                  cursorColor:
+                                                                  AppTheme
+                                                                      .orange,
+                                                                  decoration:
+                                                                  InputDecoration(
+                                                                    label: Text(
+                                                                      LocaleKeys.add_notes.tr(),
+                                                                      style: TextStyle(
+                                                                          color: AppTheme
+                                                                              .orange,
+                                                                          fontSize:
+                                                                          size.height * 0.025),
+                                                                    ),
+                                                                    border:
+                                                                    InputBorder
+                                                                        .none,
+                                                                  ),
+                                                                  onChanged:
+                                                                      (text) {
+                                                                    cartState
+                                                                        .setNote(
+                                                                        text);
+                                                                  },
+                                                                  onEditingComplete:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                              // Row(
-                                              //   children: [
-                                              //     Image.asset(
-                                              //       "assets/images/gift.png",
-                                              //       height: size.width * .1,
-                                              //     ),
-                                              //     SizedBox(
-                                              //       width: size.width * .06,
-                                              //     ),
-                                              //     DefaultButton(
-                                              //       isLoad: state is UseBalanceLoading
-                                              //           ? true
-                                              //           : false,
-                                              //       textColor: Colors.white,
-                                              //       color: AppTheme.orange,
-                                              //       title:
-                                              //           LocaleKeys.use_my_balance.tr(),
-                                              //       radius: 20,
-                                              //       function: () {
-                                              //         cartState.useBalance();
-                                              //       },
-                                              //       font: 13,
-                                              //       width: size.width * .5,
-                                              //       height: size.height * .056,
-                                              //     ),
-                                              //   ],
-                                              // ),
-                                            ],
-                                          ))
-                                    ],
-                                  ),
-                                  builder: (_, collapsed, expanded) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 10, right: 10, bottom: 10),
-                                      child: Expandable(
-                                        collapsed: collapsed,
-                                        expanded: expanded,
-                                        theme: const ExpandableThemeData(
-                                            crossFadePoint: 0),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-
-                            if(LocalStorage.getData(key: "coupon") != null)
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: size.width * .04,
-                                  right: size.width * .04,
-                                  top: size.width * .02,
-                              bottom: size.width *.01),
-                           //   margin: EdgeInsets.only(bottom: 12),
-                              decoration: BoxDecoration(
-
-                                borderRadius: BorderRadius.circular(7),
-                                color: AppTheme.secondary.withOpacity(.1),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    LocaleKeys.coupon.tr() +" : "+ (LocalStorage.getData(key: "coupon")??""),
-                                    //  textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: size.height * 0.022,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      cartState.deleteCoupon();
-                                    },
-                                    child: Text(
-                                      LocaleKeys.delete.tr() ,
-                                      //  textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: size.height * 0.022,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ),
-                            SizedBox(
-                              height: size.height * .02,
-                            ),
-                            Text(
-                              LocaleKeys.the_total_amount.tr(),
-                              style:
-                              TextStyle(fontSize: size.height * 0.025, fontWeight: FontWeight.bold, height: size.height * .002,),
-                            ),
-                            SizedBox(
-                              height: size.height * .02,
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  LocaleKeys.total_price.tr(),
-                                  style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .001,),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 6.0, vertical: 2),
-                                  child: Text(
-                                      '${context.read<CartCubit>().calculatePrices().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()} ',
-                                      style:
-                                      TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .001,)),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height * .01,
-                            ),
-                            if (cartState.tax != 0.0)
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    LocaleKeys.tax_expense.tr(),
-                                    style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 6.0, vertical: 2),
-                                    child: Text(
-                                        '${context.read<CartCubit>().calculateTax().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()} ',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,)),
-                                  ),
-                                ],
-                              ),
-                            SizedBox(
-                              height: size.height * .01,
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  LocaleKeys.total_items.tr(),
-                                  style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 6.0, vertical: 2),
-                                  child: Text(
-                                      '${context.read<CartCubit>().calculateAmount()}',
-                                      style:
-                                      TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,)),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height * .01,
-                            ),
-                            if (cartState.discount != 0)
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    LocaleKeys.discount.tr(),
-                                    style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 6.0, vertical: 2),
-                                    child: Text(
-                                        '-${cartState.calculateDiscount()} ${LocaleKeys.kwd.tr()}',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.023, color: Colors.red, height: size.height * .0015,)),
-                                  ),
-                                ],
-                              ),
-                            if (cartState.discount != 0)
-                              SizedBox(
-                                height: size.height * .03,
-                              ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  LocaleKeys.total_amount.tr(),
-                                  style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 6.0, vertical: 2),
-                                  child: Text(
-                                      '${cartState.calculateTotal().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()}',
-                                      style:
-                                      TextStyle(fontSize: size.height * 0.023 , color: Colors.green, height: size.height * .0015,fontWeight: FontWeight.bold)),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height * .02,
-                            ),
-                            Text(
-                              LocaleKeys.cart_warning.tr(),
-                              style: TextStyle(fontSize: size.height * 0.018, color: Colors.red, height: size.height * .0015),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: size.height * .02,
-                            ),
-                            // CheckboxListTile(
-                            //   contentPadding: EdgeInsets.zero,
-                            //   title: GestureDetector(
-                            //       onTap: () {
-                            //         setState(() {
-                            //           checkedNote = !checkedNote;
-                            //         });
-                            //       },
-                            //       child: Text(
-                            //         LocaleKeys.any_special_request.tr(),
-                            //         style:
-                            //         TextStyle(fontSize: size.height * 0.025, color: AppTheme.orange),
-                            //       )),
-                            //   value: checkedNote,
-                            //   onChanged: (newValue) {
-                            //     setState(() {
-                            //       checkedNote = newValue!;
-                            //     });
-                            //   },
-                            //   controlAffinity: ListTileControlAffinity
-                            //       .leading, //  <-- leading Checkbox
-                            // ),
-                            // Visibility(
-                            //   visible: checkedNote,
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                            //     child: TextFormField(
-                            //       controller: cartState.note,
-                            //       cursorColor: AppTheme.orange,
-                            //       keyboardType: TextInputType.text,
-                            //       style: TextStyle(
-                            //           fontSize: size.height * 0.025, height: size.height * .002,),
-                            //       decoration: InputDecoration(
-                            //         hintText: LocaleKeys.enter_your_notes.tr(),
-                            //         hintStyle:  TextStyle(
-                            //             fontSize: size.height * 0.025, height: size.height * .002,),
-                            //         border: OutlineInputBorder(
-                            //             borderRadius:
-                            //             BorderRadius.all(Radius.circular(8)),
-                            //             borderSide:
-                            //             BorderSide(width: 1, color: AppTheme.orange)),
-                            //         focusedBorder: OutlineInputBorder(
-                            //           borderRadius: BorderRadius.all(Radius.circular(15)),
-                            //           borderSide:
-                            //           BorderSide(width: 1, color: Colors.grey),
-                            //         ),
-                            //       ),
-                            //       onChanged: (value) {
-                            //         cartState.setNote(value);
-                            //       },
-                            //       validator: (value) {
-                            //         if (value!.isEmpty) return 'Required';
-                            //         return null;
-                            //       },
-                            //     ),
-                            //   ),
-                            // ),
-                            InkWell(
-                              onTap: () {
-                                Scaffold.of(context)
-                                    .showBottomSheet<void>(
-                                      (BuildContext context) {
-                                    return Container(
-                                      height: size.height * 0.25,
-                                      color: Colors.white,
-                                      child: Stack(
-                                        children: [
-                                          Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .start,
-                                              mainAxisSize:
-                                              MainAxisSize.min,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .all(18.0),
-                                                  child: Container(
-                                                    height:
-                                                    size.height *
-                                                        0.19,
-                                                    width: size.width,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .circular(
-                                                            15),
-                                                        border: Border.all(
-                                                            color: AppTheme
-                                                                .orange)),
-                                                    child: Padding(
-                                                      padding:
-                                                      const EdgeInsets
-                                                          .all(
-                                                          10.0),
-                                                      child:
-                                                      TextField(
-                                                        maxLength: 140,
-                                                        maxLines: 4,
-                                                        controller:
-                                                        cartState.note,
-                                                        style:  TextStyle(
-                                                            fontSize:
-                                                            size.height * 0.025),
-                                                        cursorColor:
-                                                        AppTheme
-                                                            .orange,
-                                                        decoration:
-                                                        InputDecoration(
-                                                          label: Text(
-                                                            LocaleKeys.add_notes.tr(),
-                                                            style: TextStyle(
+                                                    Positioned(
+                                                        right: 10,
+                                                        top: 10,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Container(
+                                                            width: 28,
+                                                            height: 28,
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
                                                                 color: AppTheme
                                                                     .orange,
-                                                                fontSize:
-                                                                size.height * 0.025),
+                                                                border: Border.all(
+                                                                    color: AppTheme
+                                                                        .orange,
+                                                                    width: 2)),
+                                                            child: Center(
+                                                              child: Icon(
+                                                                Icons.check,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
                                                           ),
-                                                          border:
-                                                          InputBorder
-                                                              .none,
-                                                        ),
-                                                        onChanged:
-                                                            (text) {
-                                                          cartState
-                                                              .setNote(
-                                                              text);
-                                                        },
-                                                        onEditingComplete:
-                                                            () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
+                                                        ))
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 0),
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.messenger_outline),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                LocaleKeys.any_special_request.tr(),
+                                                style: TextStyle(
+                                                    height:  size.height*0.002,
+                                                    fontSize:
+                                                    size.height * 0.022,
+                                                    fontWeight:
+                                                    FontWeight.w500),
+                                              ),
+                                              Spacer(),
+                                              Text(
+                                                LocaleKeys.add_note.tr(),
+                                                style: TextStyle(
+                                                    height:  size.height*0.002,
+                                                    color: AppTheme.orange,
+                                                    fontSize:
+                                                    size.height * 0.022,
+                                                    fontWeight:
+                                                    FontWeight.w500),
+                                              )
+                                            ],
                                           ),
-                                          Positioned(
-                                              right: 10,
-                                              top: 10,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Navigator.pop(
-                                                      context);
-                                                },
-                                                child: Container(
-                                                  width: 28,
-                                                  height: 28,
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape
-                                                          .circle,
-                                                      color: AppTheme
-                                                          .orange,
-                                                      border: Border.all(
-                                                          color: AppTheme
-                                                              .orange,
-                                                          width: 2)),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.check,
-                                                      color: Colors
-                                                          .white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ))
-                                        ],
+                                        ),
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.messenger_outline),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      LocaleKeys.any_special_request.tr(),
-                                      style: TextStyle(
-                                          height:  size.height*0.002,
-                                          fontSize:
-                                          size.height * 0.022,
-                                          fontWeight:
-                                          FontWeight.w500),
-                                    ),
-                                    Spacer(),
-                                    Text(
-                                      LocaleKeys.add_note.tr(),
-                                      style: TextStyle(
-                                          height:  size.height*0.002,
-                                          color: AppTheme.orange,
-                                          fontSize:
-                                          size.height * 0.022,
-                                          fontWeight:
-                                          FontWeight.w500),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 38.0),
-                              child: Text(
-                                cartState.note.text.toString() ??
-                                    '',
-                                style: TextStyle(
-                                    color: Colors.black38,
-                                    height:  size.height*0.003,
-                                    fontSize: size.height * 0.02),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                                        child: Text(
+                                          cartState.note.text.toString() ??
+                                              '',
+                                          style: TextStyle(
+                                              color: Colors.black38,
+                                              height:  size.height*0.003,
+                                              fontSize: size.height * 0.02),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: size.height * .03,
+                                      ),
+
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                             SizedBox(
-                              height: size.height * .03,
+                              height: size.height * .07,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1291,7 +1111,7 @@ class _CartListState extends State<CartList> {
                                   title: LocaleKeys.add_more.tr(),
                                   radius: 15,
                                   function: () {
-                                push(context, BottomNavBar(branches: BranchesCubit.branches,));
+                                    push(context, BottomNavBar(branches: BranchesCubit.branches,));
                                   },
                                   font: size.height * 0.025,
                                 ),
@@ -1341,6 +1161,7 @@ class _CartListState extends State<CartList> {
                             ),
                           ],
                         ),
+
                       ),
                     ),
                     // SizedBox(

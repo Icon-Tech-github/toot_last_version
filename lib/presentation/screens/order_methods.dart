@@ -95,7 +95,7 @@ class OrderMethodsScreen extends StatelessWidget {
                   height: size.height * .07,
                   textColor: Colors.white,
                   color: AppTheme.orange,
-                  title: LocaleKeys.continuee.tr(),
+                  title: LocaleKeys.next.tr(),
                   radius: 15,
                   function: () {
                     if (LocalStorage.getData(key: "order_method_id") == null ||

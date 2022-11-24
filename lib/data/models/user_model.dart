@@ -73,7 +73,7 @@ class Client {
  String ?phone;
  int ?isActive;
  dynamic image;
- int ?balance;
+ double ?balance;
  dynamic verifyCode;
  String? createdAt;
  String ?updatedAt;
@@ -90,7 +90,7 @@ class Client {
       LocalStorage.saveData(key: 'phone', value: ("${json['phone']}"));
     isActive = json['is_active'];
     image = null;
-    balance = json['balance'];
+    balance =json['balance']!=null? json['balance'].toDouble():0.0;
     verifyCode = null;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];

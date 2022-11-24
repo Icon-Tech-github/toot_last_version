@@ -79,7 +79,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                   ),
                                 ),
                                 Text(
-                                  LocaleKeys.order_method.tr(),
+                                  LocaleKeys.addresses2.tr(),
                                   style: TextStyle(
                                     fontSize: size.width * .07,
                                     fontWeight: FontWeight.bold,
@@ -637,7 +637,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                       );
                     }
                   },
-                  title: LocaleKeys.apply.tr(),
+                  title: LocaleKeys.next.tr(),
                   color: AppTheme.secondary,
                   radius: 10,
                   textColor: AppTheme.white,

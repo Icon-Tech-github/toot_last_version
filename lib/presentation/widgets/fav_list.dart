@@ -121,7 +121,7 @@ class _FavListViewState extends State<FavListView>
                   children: [
                     SizedBox(height: size.height *.3,),
                     Text(
-                      LocaleKeys.sign_in_to_make.tr(),
+                      LocaleKeys.please_login.tr(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         //  fontWeight: FontWeight.bold,

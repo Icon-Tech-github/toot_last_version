@@ -19,14 +19,15 @@ import '../bottom_nav.dart';
 import 'login.dart';
 
 class NewPass extends StatefulWidget {
-  NewPass({Key? key}) : super(key: key);
+  String? phone;
+  NewPass({Key? key,this.phone}) : super(key: key);
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<NewPass> {
 
-  String? phone, password;
+  String?  password;
   bool isPassword = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -62,42 +63,60 @@ class _LoginScreenState extends State<NewPass> {
                     child: ListView(
                       children: [
                         SizedBox(
-                            height: size.height * 0.12,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            height: size.height * 0.4,
+                            child:  Column(
                               children: [
-                                // InkWell(
-                                //   onTap: (){
-                                //     Navigator.pop(context);
-                                //   },
-                                //   child: const Padding(
-                                //     padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                                //     child: Icon(
-                                //       Icons.arrow_back,
-                                //       size: 30,
-                                //       color: Colors.white,
-                                //     ),
-                                //   ),
-                                // ),
-                                //  Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
-                                  child: Text(
-                                    LocaleKeys.new_pass.tr(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      height: size.height *.002,
-                                      fontSize: size.height * 0.03,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // InkWell(
+                                    //   onTap: (){
+                                    //     Navigator.pop(context);
+                                    //   },
+                                    //   child: const Padding(
+                                    //     padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+                                    //     child: Icon(
+                                    //       Icons.arrow_back,
+                                    //       size: 30,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    //  Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+                                      child: Text(
+                                        LocaleKeys.new_pass.tr(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          height: size.height *.002,
+                                          fontSize: size.height * 0.03,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Spacer(),
+                                  ],
                                 ),
-                                Spacer(),
+                                SizedBox(height: 30,),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                  ),
+                                  elevation: 5,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(40),
+                                    child: Image.asset('assets/images/toot.png',
+                                        height: size.height*0.2,
+                                        fit: BoxFit.contain),
+                                  ),
+                                )
                               ],
                             )),
                         Container(
-                          height: size.height * 0.99,
+                          height: size.height*0.6,
+
                           width: size.width,
                           decoration: BoxDecoration(
                               color: AppTheme.background,
@@ -108,6 +127,7 @@ class _LoginScreenState extends State<NewPass> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              SizedBox(height: 30,),
                               Center(
                                 child: Text(
                                   LocaleKeys.enter_new_pass.tr(),
@@ -118,9 +138,7 @@ class _LoginScreenState extends State<NewPass> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
+
                               // Center(
                               //   child: Text(
                               //     'Welcome back',
@@ -130,62 +148,63 @@ class _LoginScreenState extends State<NewPass> {
                               //   ),
                               // ),
                               SizedBox(
-                                height: size.height * 0.07,
+                                height: 30,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: Container(
-                                  width: size.width,
-                                  //  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    LocaleKeys.phone.tr(),
-                                    style: TextStyle(
-                                      height: size.height * 0.002,
-                                      color: Colors.grey,
-                                      fontSize: size.height * 0.02,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "(+965)",
-                                      style: TextStyle(
-                                        height: size.height * 0.002,
-                                        color: Colors.black,
-                                        fontSize: size.height * 0.019,
-                                      ),),
-                                    SizedBox(
-                                        width: size.width * .03),
-                                    SizedBox(
-                                      width: size.width * .63,
-                                      child: TextFormField(
-                                        cursorColor: Colors.black,
-                                        keyboardType: TextInputType.phone,
-                                        decoration: InputDecoration(
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.grey),
-                                          ),
-                                        ),
-                                        validator: (val) {
-                                          if (val!.length != 10) {
-                                            return LocaleKeys.phone_valid.tr();
-                                          }
-                                        },
-                                        onSaved: (val) {
-                                          phone = val!;
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                              //   child: Container(
+                              //     width: size.width,
+                              //     //  alignment: Alignment.centerLeft,
+                              //     child: Text(
+                              //       LocaleKeys.phone.tr(),
+                              //       style: TextStyle(
+                              //         height: size.height * 0.002,
+                              //         color: Colors.grey,
+                              //         fontSize: size.height * 0.02,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                              //   child: Row(
+                              //     children: [
+                              //       Text(
+                              //         "(+965)",
+                              //         style: TextStyle(
+                              //           height: size.height * 0.002,
+                              //           color: Colors.black,
+                              //           fontSize: size.height * 0.019,
+                              //         ),),
+                              //       SizedBox(
+                              //           width: size.width * .03),
+                              //       SizedBox(
+                              //         width: size.width * .63,
+                              //         child: TextFormField(
+                              //           cursorColor: Colors.black,
+                              //           keyboardType: TextInputType.phone,
+                              //           decoration: InputDecoration(
+                              //             focusedBorder: UnderlineInputBorder(
+                              //               borderSide: BorderSide(color: Colors.grey),
+                              //             ),
+                              //           ),
+                              //           validator: (val) {
+                              //             if (val!.length != 10) {
+                              //               return LocaleKeys.phone_valid.tr();
+                              //             }
+                              //           },
+                              //           onSaved: (val) {
+                              //             phone = val!;
+                              //           },
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 40,
+                              // ),
+                              //
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 30),
                                 child: Container(
@@ -201,35 +220,73 @@ class _LoginScreenState extends State<NewPass> {
                                   ),
                                 ),
                               ),
+
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: TextFormField(
-                                  obscureText: isPassword,
-                                  cursorColor: Colors.black,
-                                  decoration: InputDecoration(
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
+                                child: Row(
+                                  children: [
+
+                                    SizedBox(
+                                        width: 60),
+                                    SizedBox(
+                                      width: size.width * .63,
+                                      child: TextFormField(
+                                        obscureText: isPassword,
+                                        cursorColor: Colors.black,
+                                        decoration: InputDecoration(
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.grey),
+                                          ),
+                                          suffixIcon:  IconButton(
+                                            icon: isPassword ?  Icon(Icons.visibility_off,color: Colors.grey,): Icon(Icons.visibility,color: Colors.grey,) ,
+                                            onPressed: () => setState(() => isPassword = !isPassword ),
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return LocaleKeys.Required.tr();
+                                          } else if (value.length < 6) {
+                                            return LocaleKeys.phone_valid.tr();
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (val) {
+                                          password = val!;
+                                        },
+                                      ),
                                     ),
-                                    suffixIcon:  IconButton(
-                                      icon: isPassword ?  Icon(Icons.visibility_off,color: Colors.grey,): Icon(Icons.visibility,color: Colors.grey,) ,
-                                      onPressed: () => setState(() => isPassword = !isPassword ),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return LocaleKeys.Required.tr();
-                                    } else if (value.length < 6) {
-                                      return LocaleKeys.phone_valid.tr();
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (val) {
-                                    password = val!;
-                                  },
+                                  ],
                                 ),
                               ),
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(horizontal: 30),
+                              //   child: TextFormField(
+                              //     obscureText: isPassword,
+                              //     cursorColor: Colors.black,
+                              //     decoration: InputDecoration(
+                              //       focusedBorder: UnderlineInputBorder(
+                              //         borderSide: BorderSide(color: Colors.grey),
+                              //       ),
+                              //       suffixIcon:  IconButton(
+                              //         icon: isPassword ?  Icon(Icons.visibility_off,color: Colors.grey,): Icon(Icons.visibility,color: Colors.grey,) ,
+                              //         onPressed: () => setState(() => isPassword = !isPassword ),
+                              //       ),
+                              //     ),
+                              //     validator: (value) {
+                              //       if (value == null || value.isEmpty) {
+                              //         return LocaleKeys.Required.tr();
+                              //       } else if (value.length < 6) {
+                              //         return LocaleKeys.phone_valid.tr();
+                              //       }
+                              //       return null;
+                              //     },
+                              //     onSaved: (val) {
+                              //       password = val!;
+                              //     },
+                              //   ),
+                              // ),
                               SizedBox(
-                                height: size.height * 0.12,
+                                height: size.height * 0.1,
                               ),
                               InkWell(
                                 onTap: () async{
@@ -239,7 +296,7 @@ class _LoginScreenState extends State<NewPass> {
 
                                   _formKey.currentState!.save();
                                   await BlocProvider.of<AuthCubit>(context).newPassword(
-                                    phone: phone,
+                                    phone: widget.phone,
                                     password: password,
                                   );
                                 },

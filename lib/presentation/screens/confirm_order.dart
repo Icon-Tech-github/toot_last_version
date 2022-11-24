@@ -1,4 +1,5 @@
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -323,6 +324,289 @@ class CartList extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 30,),
+                    if (context.read<ConfirmOrderCubit>().discount == 0.0 &&
+                        LocalStorage.getData(key: "token") != null)
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: size.width * .04,
+                            right: size.width * .04,
+                            top: size.width * .02),
+                        decoration: BoxDecoration(
+
+                          borderRadius: BorderRadius.circular(7),
+                          color: AppTheme.secondary.withOpacity(.1),
+                        ),
+                        child: ExpandablePanel(
+                          theme: const ExpandableThemeData(
+                            headerAlignment:
+                            ExpandablePanelHeaderAlignment.center,
+                            tapBodyToCollapse: true,
+                          ),
+                          header: Text(
+                            LocaleKeys.need_discount.tr(),
+                            //  textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: size.height * 0.022,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          collapsed: Container(),
+                          expanded: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                //  height: 100,
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Column(
+                                    //  crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      Row(
+                                        children: [
+                                          Switch(
+                                            value: context.read<ConfirmOrderCubit>().checkedValue,
+                                            activeColor: AppTheme.secondary,
+                                            onChanged: (newValue) {
+                                              // setState(() {
+                                              //   context.read<ConfirmOrderCubit>().checkedValue = newValue;
+                                              // });
+                                              BlocProvider.of<ConfirmOrderCubit>(context).switchCoupon();
+                                            },
+
+                                          ),
+                                          SizedBox(width: 10,),
+                                          GestureDetector(
+                                              onTap: () {
+                                                // setState(() {
+                                                //   checkedValue = !checkedValue;
+                                                // });
+                                                BlocProvider.of<ConfirmOrderCubit>(context).switchCoupon();
+                                              },
+                                              child: Text(
+                                                LocaleKeys.you_have_promo_code
+                                                    .tr(),
+                                                style: TextStyle(
+                                                    fontSize: size.height * 0.023,
+                                                    color: AppTheme.secondary),
+                                              ))
+                                        ],
+                                      ),
+
+
+
+                                      // CheckboxListTile(
+                                      //   contentPadding: EdgeInsets.zero,
+                                      //   title: GestureDetector(
+                                      //       onTap: () {
+                                      //         setState(() {
+                                      //           checkedValue = !checkedValue;
+                                      //         });
+                                      //       },
+                                      //       child: Text(
+                                      //         LocaleKeys.you_have_promo_code
+                                      //             .tr(),
+                                      //         style: TextStyle(
+                                      //             fontSize: size.height * 0.023,
+                                      //             color: AppTheme.secondary),
+                                      //       )),
+                                      //   value: checkedValue,
+                                      //   onChanged: (newValue) {
+                                      //     setState(() {
+                                      //       checkedValue = newValue!;
+                                      //     });
+                                      //   },
+                                      //   controlAffinity: ListTileControlAffinity
+                                      //       .leading, //  <-- leading Checkbox
+                                      // ),
+                                      if (context.read<ConfirmOrderCubit>().discount == 0.0 &&
+                                          LocalStorage.getData(key: "token") !=
+                                              null)
+                                        Visibility(
+                                          visible: context.read<ConfirmOrderCubit>().checkedValue,
+                                          child: Container(
+                                            height: size.height*0.08,
+                                            child: TextFormField(
+                                              controller: code,
+                                              style: TextStyle(
+                                                  fontSize: size.height * 0.02,height:  size.height * 0.001),
+                                              cursorColor: AppTheme.orange,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                suffixIcon: !context.read<ConfirmOrderCubit>().apply
+                                                    ? Text('')
+                                                    : GestureDetector(
+                                                  onTap: () {},
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      FocusScope.of(
+                                                          context)
+                                                          .unfocus();
+                                                      BlocProvider.of<ConfirmOrderCubit>(context)
+                                                          .addCoupon(code.text);
+                                                    },
+                                                    child: Container(
+                                                      width: 70,
+                                                      height: size.height*0.08,
+                                                      decoration: BoxDecoration(
+                                                        color: AppTheme.secondary,
+                                                        borderRadius: BorderRadius.only(
+                                                          topLeft: Radius.circular(10),
+                                                          bottomLeft: Radius.circular(10),
+                                                        )
+                                                      ),
+                                                      child:  Center(
+                                                        child: Text(
+                                                          LocaleKeys.apply.tr(),
+                                                          style: TextStyle(
+                                                              height: size.height * .002,
+                                                              color: Colors.white ,
+                                                              fontSize:
+                                                              size.height *
+                                                                  0.022),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                hintText: LocaleKeys
+                                                    .enter_discount_code
+                                                    .tr(),
+                                                hintStyle: TextStyle(
+                                                    height: size.height * .002,
+                                                    fontSize: size.height * 0.022),
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                    BorderRadius.all(
+                                                        Radius.circular(8)),
+                                                    borderSide: BorderSide(
+                                                        width: 1,
+                                                        color: AppTheme.orange)),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(15)),
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                ),
+                                              ),
+                                              onChanged: (value) {
+                                                // setState(() {
+                                                //   if (value != "")
+                                                //     apply = true;
+                                                //   else
+                                                //     apply = false;
+                                                // });
+
+                                                  if (value != "")
+                                                    BlocProvider.of<ConfirmOrderCubit>(context)
+                                                        .showApply(true);
+
+                                                  else
+                                                    BlocProvider.of<ConfirmOrderCubit>(context)
+                                                        .showApply(false);
+                                              },
+                                              validator: (value) {
+                                                if (value!.isEmpty)
+                                                  return LocaleKeys.Required.tr();
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      SizedBox(
+                                        height: size.height * .03,
+                                      ),
+                                      InkWell(
+                                        onTap: (){
+                                          BlocProvider.of<ConfirmOrderCubit>(context).useBalance();
+                                        },
+                                        child: Container(
+                                          height: size.height * .065,
+
+                                          width: size.width * .7,
+                                          decoration: BoxDecoration(
+                                              color: AppTheme.secondary,
+                                              borderRadius: BorderRadius.circular(15)
+                                            //     bottomRight: Radius.circular(7),
+                                            //     bottomLeft: Radius.circular(7)),
+                                          ),
+                                          child:  Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  state is UseBalanceLoading?
+                                                  CircularProgressIndicator(color: Colors.white,strokeWidth: 2,):
+                                                  Image.asset(
+                                                    "assets/images/surprise.png",
+                                                    height: size.width * .08,
+                                                    color: Colors.white,
+                                                  ),
+
+                                                  Text(
+                                                    LocaleKeys.use_my_balance.tr(),
+
+                                                    //  textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      height: size.height * .003,
+                                                      color: Colors.white,
+                                                      fontSize: size.height * 0.025,
+                                                      // fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     Image.asset(
+                                      //       "assets/images/gift.png",
+                                      //       height: size.width * .1,
+                                      //     ),
+                                      //     SizedBox(
+                                      //       width: size.width * .06,
+                                      //     ),
+                                      //     DefaultButton(
+                                      //       isLoad: state is UseBalanceLoading
+                                      //           ? true
+                                      //           : false,
+                                      //       textColor: Colors.white,
+                                      //       color: AppTheme.orange,
+                                      //       title:
+                                      //           LocaleKeys.use_my_balance.tr(),
+                                      //       radius: 20,
+                                      //       function: () {
+                                      //         cartState.useBalance();
+                                      //       },
+                                      //       font: 13,
+                                      //       width: size.width * .5,
+                                      //       height: size.height * .056,
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                          builder: (_, collapsed, expanded) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 10),
+                              child: Expandable(
+                                collapsed: collapsed,
+                                expanded: expanded,
+                                theme: const ExpandableThemeData(
+                                    crossFadePoint: 0),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     SizedBox(
                       height: size.height * .02,
                     ),
@@ -625,7 +909,7 @@ class CartList extends StatelessWidget {
                       child: DefaultButton(
                         textColor: Colors.white,
                         color: AppTheme.secondary,
-                        title: LocaleKeys.confirm.tr(),
+                        title: LocaleKeys.send_order.tr(),
                         radius: 15,
                         function: () {
                           String total =  delivery_fee !=0 ?

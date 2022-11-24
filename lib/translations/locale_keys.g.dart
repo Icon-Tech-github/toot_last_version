@@ -230,6 +230,14 @@ abstract class LocaleKeys {
   static const date = "date";
   static const time =  "time";
   static const gift_phone = "gift_phone";
+  static const must_be_member = "must_be_member";
+  static const phone_sender = "phone_sender";
+  static const back_to_make_order = "back_to_make_order";
+  static const addresses2 = "addresses2";
+  static const time_of_delivery = "time_of_delivery";
+  static const next = "next";
+  static const send_order = "send_order";
+  static const please_login = "please_login";
 
 
 }

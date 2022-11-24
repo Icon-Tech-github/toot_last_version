@@ -15,8 +15,10 @@ import 'package:loz/presentation/widgets/helper.dart';
 import 'package:meta/meta.dart';
 import 'package:xml/xml.dart';
 
+import '../../data/models/coupon_model.dart';
 import '../../payment_vars/network_helper.dart';
 import '../../presentation/screens/teller_webview.dart';
+import '../../translations/locale_keys.g.dart';
 part 'confirm_order_state.dart';
 
 class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
@@ -31,6 +33,10 @@ class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
   double discountRest=0;
   var _url = '';
   String? deviceId ;
+  TextEditingController code = new TextEditingController();
+  bool checkedValue = false;
+  bool apply = false;
+
 
   void getDeviceId ()async{
     deviceId = await _getId();
@@ -287,7 +293,7 @@ if(deliveryTime == "")
         LocalStorage.removeData(key: 'useBalance');
         LocalStorage.removeData(key: 'coupon');
         LocalStorage.removeData(key: 'note');
-        LocalStorage.removeData(key: 'addressId');
+        // LocalStorage.removeData(key: 'addressId');
         LocalStorage.removeData(key: 'carId');
         LocalStorage.removeData(key: 'addressTitle');
         LocalStorage.removeData(key: 'carTitle');
@@ -347,5 +353,66 @@ getCartCount();
       }
     }
   }
+
+
+  addCoupon(String promoCode) async {
+    emit(AddCouponLoading());
+    bool valid = true;
+    for (int j = 0; j < products.length; j++) {
+      if(products[j].denyCoupon ==1){
+        valid = false;
+        break;
+      }
+    }
+    if(valid == true){
+      var data =  await repo
+          .addCoupon(promoCode);
+      final  coupon = CouponModel.fromJson(data);
+      if(coupon.data == null){
+
+        emit(AddCouponFailure(error: LocaleKeys.not_valid.tr()));
+      }else {
+        discount = coupon.data!.value;
+        limit = coupon.data!.limit;
+        type = coupon.data!.type;
+        LocalStorage.saveData(key: "coupon", value: promoCode);
+
+        LocalStorage.saveData(key: "discount", value: discount);
+        LocalStorage.saveData(key: "limit", value: limit);
+        LocalStorage.saveData(key: "type", value: type);
+        emit(AddCouponSuccess(coupon: coupon));
+      }}else{
+      emit(AddCouponFailure(error: LocaleKeys.empty_fav.tr()));
+
+    }
+
+  }
+
+  useBalance() async {
+    emit(UseBalanceLoading());
+    var data =  await repo
+        .usePoints();
+    if(data == null){
+
+      emit(UseBalanceFailure(error: LocaleKeys.not_valid.tr()));
+    }else {
+      discount = double.parse(data['data'].toString());
+      LocalStorage.saveData(key: "discount", value: discount);
+      LocalStorage.saveData(key: "useBalance", value: 1);
+      type = 3;
+      LocalStorage.saveData(key: "type", value: 3);
+      emit(UseBalanceSuccess(balance: discount.toString()));
+    }
+
+  }
+  switchCoupon(){
+    checkedValue = !checkedValue;
+    emit(AddCouponLoading());
+  }
+  showApply(bool check){
+    apply = check;
+    emit(AddCouponLoading());
+  }
+
 
 }

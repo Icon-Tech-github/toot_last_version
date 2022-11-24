@@ -115,11 +115,11 @@ class TransactionDataModel {
   int? id;
   int ?fromClient;
   int ?toClient;
-  int ?amount;
-  int ?fromClientBalanceBefore;
-  int ?fromClientBalanceAfter;
-  int ?toClientBalanceBefore;
-  int ?toClientBalanceAfter;
+  double ?amount;
+  double ?fromClientBalanceBefore;
+  double ?fromClientBalanceAfter;
+  double ?toClientBalanceBefore;
+  double ?toClientBalanceAfter;
   String? createdAt;
   String ?updatedAt;
   Reciever ?sender;
@@ -129,11 +129,17 @@ class TransactionDataModel {
     id: json["id"],
     fromClient: json["from_client"] == null ? null : json["from_client"],
     toClient: json["to_client"],
-    amount: json["amount"],
-    fromClientBalanceBefore: json["from_client_balance_before"] == null ? null : json["from_client_balance_before"],
-    fromClientBalanceAfter: json["from_client_balance_after"] == null ? null : json["from_client_balance_after"],
-    toClientBalanceBefore: json["to_client_balance_before"],
-    toClientBalanceAfter: json["to_client_balance_after"],
+    amount: json["amount"].toDouble(),
+    fromClientBalanceBefore:json["from_client_balance_before"]!=null?
+  json["from_client_balance_before"].toDouble():0.0,
+    fromClientBalanceAfter: json["from_client_balance_after"]!=null?
+  json["from_client_balance_after"].toDouble():0.0,
+
+
+    toClientBalanceBefore:json["to_client_balance_before"]!=null?
+    json["to_client_balance_before"].toDouble():0.0,
+    toClientBalanceAfter: json["to_client_balance_after"]!=null?
+    json["to_client_balance_after"].toDouble():0.0,
     createdAt:json["created_at"].toString(),
     updatedAt:json["updated_at"],
     sender: json["sender"] == null ? null : Reciever.fromJson(json["sender"]),

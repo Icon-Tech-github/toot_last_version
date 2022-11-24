@@ -40,8 +40,9 @@ class RatingRepo implements RatingRepository {
   }) async {
     String token =LocalStorage.getData(key: "token");
     // Json Data
+
     var _data = {
-      "branch_id": LocalStorage.getData(key: "branchId").toString(),
+      "branch_id": '1',
       "order_id": "$orderId",
       "branch_rate": "$restaurantRate",
       "order_rate": "$foodRate",

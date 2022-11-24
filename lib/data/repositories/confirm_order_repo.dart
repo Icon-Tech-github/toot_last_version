@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:loz/data/models/user_model.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../local_storage.dart';
 import '../ServerConstants.dart';
 import 'api_exeptions.dart';
 
@@ -49,5 +50,42 @@ class ConfirmRepo implements ConfirmRepository {
       return null;
     }
   }
+
+  @override
+  Future addCoupon (String couponNum) async{
+    String token = LocalStorage.getData(key: "token");
+    var response = await dio.get(ServerConstants.checkCoupon+'/${couponNum}/1',
+        options: Options(
+          headers:{...apiHeaders,
+            'Authorization': '$token',
+          },
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ));
+
+
+    return response.data;
+
+  }
+  @override
+  Future usePoints () async{
+    String token = LocalStorage.getData(key: "token");
+    var response = await dio.get(ServerConstants.useBalance,
+        options: Options(
+          headers:{...apiHeaders,
+            'Authorization': '$token',
+          },
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ));
+
+
+    return response.data;
+
+  }
+
+
 
 }

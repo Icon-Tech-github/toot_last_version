@@ -74,7 +74,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                           ),
                         ),
                         Text(
-                          LocaleKeys.order_method.tr(),
+                          LocaleKeys.time_of_delivery.tr(),
                           style: TextStyle(
                             fontSize: size.width * .07,
                             fontWeight: FontWeight.bold,
@@ -404,7 +404,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                                 ));
                           }}
                         },
-                        title: LocaleKeys.apply.tr(),
+                        title: LocaleKeys.next.tr(),
                         color: AppTheme.orange,
                         radius: 10,
                         textColor: AppTheme.white,
@@ -412,7 +412,8 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                         width: size.width * .5,
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 50,),
                 ],
               ),
             ),

@@ -55,7 +55,7 @@ String ?otpCode;
                   BlocProvider(
                       create: (BuildContext context) =>
                           AuthCubit(AuthRepo()),
-                      child: NewPass())));
+                      child: NewPass(phone: phoneNumber,))));
             }else {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
@@ -93,41 +93,58 @@ String ?otpCode;
           ListView(
             children: [
               SizedBox(
-                  height: size.height * 0.12,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  height: size.height * 0.4,
+                  child: Column(
                     children: [
-                      InkWell(
-                        onTap: (){
-                          Navigator.pop(context);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 30,
-                            color: Colors.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                   //   Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-                        child: Text(
-                          LocaleKeys.verification.tr(),
-                          style: TextStyle(
-                            height:  size.height * 0.002,
-                            fontSize: size.height * 0.04,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                       //   Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+                            child: Text(
+                              LocaleKeys.verification.tr(),
+                              style: TextStyle(
+                                height:  size.height * 0.002,
+                                fontSize: size.height * 0.04,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        ),
+                          Spacer(),
+                        ],
                       ),
-                      Spacer(),
+                      SizedBox(height: 30,),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                        elevation: 5,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image.asset('assets/images/toot.png',
+                              height: size.height*0.2,
+                              fit: BoxFit.contain),
+                        ),
+                      )
                     ],
                   )),
               Container(
-                height: size.height * 0.85,
+
                 width: size.width,
                 decoration: BoxDecoration(
                     color: AppTheme.background,
@@ -139,7 +156,7 @@ String ?otpCode;
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: size.height * 0.1,
+                      height: 30,
                     ),
                     Center(
                       child: Text(
@@ -162,10 +179,10 @@ String ?otpCode;
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.1,
+                      height: 20,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: PinCodeTextField(
                         length: 4,
                         appContext: context,
@@ -231,7 +248,7 @@ String ?otpCode;
                     ),
 
                     SizedBox(
-                      height: size.height * 0.1,
+                      height: 30,
                     ),
 
                     InkWell(

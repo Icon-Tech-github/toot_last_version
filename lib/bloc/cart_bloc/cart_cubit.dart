@@ -89,7 +89,7 @@ if(products.length ==0)
     getCartCount();
     emit(CartLoaded(products: products));
   }
-
+///////////////////////////////////
   addCoupon() async {
     emit(AddCouponLoading());
     bool valid = true;
@@ -132,6 +132,8 @@ if(products.length ==0)
     LocalStorage.removeData(key: "coupon");
     emit(CartLoaded(products: products));
   }
+
+  //////////////////////////
   useBalance() async {
     emit(UseBalanceLoading());
     var data =  await cartRepo

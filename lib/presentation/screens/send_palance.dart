@@ -123,8 +123,18 @@ class _RegisterScreenState extends State<SendBalanceScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    height: size.height * 0.002,
                                     fontSize: size.height * 0.032,
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  LocaleKeys.must_be_member.tr(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: size.height * 0.015,
+                                    color: Colors.black38
                                   ),
                                 ),
                               ),
@@ -149,7 +159,7 @@ class _RegisterScreenState extends State<SendBalanceScreen> {
                                   width: size.width,
                                   //alignment: Alignment.centerLeft,
                                   child: Text(
-                                    LocaleKeys.phone.tr(),
+                                    LocaleKeys.phone_sender.tr(),
                                     style: TextStyle(
                                       color: Colors.grey,
                                       height: size.height * 0.002,

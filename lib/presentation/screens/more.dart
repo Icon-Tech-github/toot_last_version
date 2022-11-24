@@ -103,7 +103,7 @@ class MoreScreen extends StatelessWidget {
               SizedBox(height: size.height * .12 ,),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 18),
-                height: size.height * .26,
+
                 width: size.width *.8,
                 decoration: BoxDecoration(
                     boxShadow: <BoxShadow>[
@@ -130,7 +130,7 @@ class MoreScreen extends StatelessWidget {
                           ?"${LocalStorage.getData(key: "phone")}"
                           : ""),
                       style: TextStyle(
-                        color: AppTheme.orange,
+
                           fontSize: size.height * 0.02,
                           height: size.height * 0.002
                         // fontWeight: FontWeight.bold
@@ -313,16 +313,15 @@ class MoreScreen extends StatelessWidget {
               if (LocalStorage.getData(key: 'token') != null)
                 MenuWidget(
                   text: LocaleKeys.send_balance.tr(),
-                  image: "assets/images/present.png",
+                  image: "assets/images/money.png",
                   press: () {
                     context.read<AuthCubit>().status == true
-                        ? push(
-                      context,
-                      BlocProvider<TransactionCubit>(
-                          create: (BuildContext context) =>
-                              TransactionCubit(TransactionRepo()),
-                          child: TransactionScreen()),
-                    )
+                        ? Navigator.push(context, MaterialPageRoute(builder: (_)=>  BlocProvider<TransactionCubit>(
+                        create: (BuildContext context) =>
+                            TransactionCubit(TransactionRepo()),
+                        child: TransactionScreen()))).then((value) {
+                      context.read<AuthCubit>().statics();
+                    })
                         : showTopSnackBar(
                         context,
                         Card(
@@ -423,7 +422,7 @@ class MoreScreen extends StatelessWidget {
                     : LocaleKeys.login.tr(),
                 image: LocalStorage.getData(key: 'token') != null?
                 "assets/images/logout.png":
-    "assets/images/login.png",
+    "assets/images/login2.png",
                 press: () async {
                   if (context.read<AuthCubit>().status == true) {
                     if (LocalStorage.getData(key: 'token') != null)

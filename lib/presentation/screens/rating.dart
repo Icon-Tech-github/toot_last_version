@@ -291,6 +291,7 @@ class RatingScreen extends StatelessWidget {
                                   title: LocaleKeys.send.tr(),
                                   radius: 15,
                                   function: () {
+
                                     rateState.rateOrder(orderId!);
                                   },
                                   font: size.height * 0.03,

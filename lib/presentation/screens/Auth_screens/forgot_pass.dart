@@ -61,42 +61,60 @@ class _LoginScreenState extends State<ForgotPassword> {
                     child: ListView(
                       children: [
                         SizedBox(
-                            height: size.height * 0.15,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            height: size.height * 0.4,
+                            child: Column(
                               children: [
-                                InkWell(
-                                  onTap: (){
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                                    child: Icon(
-                                      Icons.arrow_back,
-                                      size: 30,
-                                      color: Colors.white,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+                                        child: Icon(
+                                          Icons.arrow_back,
+                                          size: 30,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                //  Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                                  child: Text(
-                                    LocaleKeys.forgot_pass.tr(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      height: size.height *.002,
-                                      fontSize: size.height * 0.03,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
+                                    //  Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                                      child: Text(
+                                        LocaleKeys.forgot_pass.tr(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          height: size.height *.002,
+                                          fontSize: size.height * 0.03,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Spacer(),
+                                  ],
                                 ),
-                                Spacer(),
+                                SizedBox(height: 30,),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                  ),
+                                  elevation: 5,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(40),
+                                    child: Image.asset('assets/images/toot.png',
+                                        height: size.height*0.2,
+                                        fit: BoxFit.contain),
+                                  ),
+                                )
                               ],
                             )),
-                        Container(
-                          height: size.height * 0.85,
+                         Container(
+                           height: size.height*0.6,
+
                           width: size.width,
                           decoration: BoxDecoration(
                               color: AppTheme.background,

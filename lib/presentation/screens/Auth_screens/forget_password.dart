@@ -27,40 +27,57 @@ class ForgetPassword extends StatelessWidget {
           ListView(
             children: [
               SizedBox(
-                  height: size.height * 0.12,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  height: size.height * 0.4,
+                  child: Column(
                     children: [
-                      InkWell(
-                        onTap: (){
-                          Navigator.pop(context);
-                        },
-                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 30,
-                            color: Colors.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                             child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 30,
+                                color: Colors.white,
+                              ),
                           ),
+                           ),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 30, 40, 0),
+                            child: Text(
+                              'Reset Password',
+                              style: TextStyle(
+                                fontSize: size.height * 0.032,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                        ],
                       ),
-                       ),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 30, 40, 0),
-                        child: Text(
-                          'Reset Password',
-                          style: TextStyle(
-                            fontSize: size.height * 0.032,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
+                      SizedBox(height: 30,),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
                         ),
-                      ),
-                      Spacer(),
+                        elevation: 5,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image.asset('assets/images/toot.png',
+                              height: size.height*0.2,
+                              fit: BoxFit.contain),
+                        ),
+                      )
                     ],
                   )),
               Container(
-                height: size.height * 0.85,
+
                 width: size.width,
                 decoration: BoxDecoration(
                     color: AppTheme.background,
