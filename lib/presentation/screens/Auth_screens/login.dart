@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loz/bloc/auth_bloc/auth_cubit.dart';
-import 'package:loz/bloc/branches_bloc/branches_cubit.dart';
 import 'package:loz/bloc/home/departments_bloc/departments_cubit.dart';
 import 'package:loz/bloc/home/home_ad_bloc/home_ad_cubit.dart';
 import 'package:loz/data/ServerConstants.dart';
@@ -53,7 +52,7 @@ class _LoginScreenState extends State<Login> {
                               DepartmentsCubit(GetHomeRepository(),false,context,context.locale.toString()),
                         ),
                       ],
-                      child: BottomNavBar(branches: BranchesCubit.branches,),
+                      child: BottomNavBar(),
                     ),
               ),
             );

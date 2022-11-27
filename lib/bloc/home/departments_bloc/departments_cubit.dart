@@ -36,7 +36,6 @@ List<CategoryModel> allDep=[];
         allDep =departments;
         emit(DepartmentLoaded(departments:departments ));
       }else{
-        showDialogBranchClosed(context, lang== 'ar'?data[0]['ar'].toString() : data[0]['en'].toString(),true);
 
         emit(DepartmentLoaded(departments:[] ));
 

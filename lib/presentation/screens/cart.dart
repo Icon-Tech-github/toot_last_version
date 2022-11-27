@@ -1,12 +1,10 @@
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loz/bloc/auth_bloc/auth_cubit.dart';
-import 'package:loz/bloc/branches_bloc/branches_cubit.dart';
 import 'package:lottie/lottie.dart'as lottie;
 
 import 'package:loz/bloc/cart_bloc/cart_cubit.dart';
@@ -1111,7 +1109,7 @@ class _CartListState extends State<CartList> {
                                   title: LocaleKeys.add_more.tr(),
                                   radius: 15,
                                   function: () {
-                                    push(context, BottomNavBar(branches: BranchesCubit.branches,));
+                                    push(context, BottomNavBar());
                                   },
                                   font: size.height * 0.025,
                                 ),

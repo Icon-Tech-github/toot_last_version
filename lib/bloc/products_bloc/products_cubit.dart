@@ -59,7 +59,6 @@ if(data.length !=0){
       controller.loadComplete();
       emit(ProductsLoaded(products: products));
     }else{
-      showDialogBranchClosed(context, lang== 'ar'?data[0]['ar'].toString() : data[0]['en'].toString(),true);
 
       emit(ProductsLoaded(products: []));
 

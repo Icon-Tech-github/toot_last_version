@@ -17,7 +17,6 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../bloc/about_bloc/about_cubit.dart';
 import '../../bloc/auth_bloc/auth_cubit.dart';
-import '../../bloc/branches_bloc/branches_cubit.dart';
 import '../../bloc/contact_bloc/contact_cubit.dart';
 import '../../bloc/home/departments_bloc/departments_cubit.dart';
 import '../../bloc/home/home_ad_bloc/home_ad_cubit.dart';
@@ -88,7 +87,7 @@ class MoreScreen extends StatelessWidget {
                         DepartmentsCubit(GetHomeRepository(),false,context,context.locale.toString()),
                   ),
                 ],
-                child: BottomNavBar(branches: BranchesCubit.branches,),
+                child: BottomNavBar(),
               ),
             ),
           );
@@ -104,7 +103,7 @@ class MoreScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 18),
 
-                width: size.width *.8,
+                width: size.width *.9,
                 decoration: BoxDecoration(
                     boxShadow: <BoxShadow>[
                       BoxShadow(
@@ -114,7 +113,7 @@ class MoreScreen extends StatelessWidget {
                           blurRadius: 8.0),
                     ],
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.shade200
+                  color: Colors.white
                 ),
                 child: Column(
                   children: [
@@ -255,7 +254,7 @@ class MoreScreen extends StatelessWidget {
                         ));
                   },
                 ),
-
+              if (LocalStorage.getData(key: 'token') != null)
               MenuWidget(
                 text: LocaleKeys.notifications.tr(),
                 image: "assets/images/bell.png",

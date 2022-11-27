@@ -90,16 +90,19 @@ class SingleDepAllWidget extends StatelessWidget {
                             //  padding: EdgeInsets.all(12),
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                shape: BoxShape.circle
+                                borderRadius:  BorderRadius.circular(20),
                               ),
-                              child: Hero(
-                                  tag:category!.id.toString(),
-                                  //product!.id!,
-                                  child:
-                                  Image.network(category!.image!.isNotEmpty?category!.image.toString():'',
-                                  //  height: size.width * .33,
-                                  //  width: size.width * .32,
-                                  )),
+                              child: ClipRRect(
+                                borderRadius:  BorderRadius.circular(20),
+                                child: Hero(
+                                    tag:category!.id.toString(),
+                                    //product!.id!,
+                                    child:
+                                    Image.network(category!.image!.isNotEmpty?category!.image.toString():'',
+                                    //  height: size.width * .33,
+                                    //  width: size.width * .32,
+                                    )),
+                              ),
                             ),
                             SizedBox(height: size.height *.01,),
                             SizedBox(

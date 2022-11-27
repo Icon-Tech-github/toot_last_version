@@ -80,6 +80,8 @@ if(products.length ==0)
     LocalStorage.removeData(key: 'limit');
     LocalStorage.removeData(key: 'type');
     LocalStorage.removeData(key: "coupon");
+    LocalStorage.removeData(key: "useBalance");
+
   }
     for (int j = 0; j < products.length; j++) {
       data.add(jsonEncode(products[j].toJson()));

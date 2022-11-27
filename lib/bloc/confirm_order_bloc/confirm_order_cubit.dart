@@ -31,6 +31,7 @@ class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
   double totalBeforeDis=0;
   double deliveryFee =0;
   double discountRest=0;
+  double percentageDiscount=0;
   var _url = '';
   String? deviceId ;
   TextEditingController code = new TextEditingController();
@@ -125,13 +126,15 @@ print(deliveryFee.toString()+"[[[kkkkk]]]");
           total = total - discount;
         }
       }else{
-        discount = discount/100;
-        if(discount > limit){
-          if(total<discount){
+        percentageDiscount = total * discount/100;
+        print(discount.toString()+"hhhh");
+        print(limit);
+        if(percentageDiscount < limit){
+          if(total<percentageDiscount){
             totalBeforeDis = total;
             total=0;
           }else {
-            total = total - discount;
+            total = total - percentageDiscount;
           }
         }else{
           if(total<limit){
@@ -173,7 +176,10 @@ print(deliveryFee.toString()+"[[[kkkkk]]]");
     double dis;
     print(totalBeforeDis.toString()+"nnnnnnnn");
     if(type == 2){
-      dis = (((calculatePrices()+calculateTax()) * discount)/100);
+      if(calculateTotal() ==0)
+        dis = totalBeforeDis;
+      else
+        dis= percentageDiscount;
     }else{
       if(calculateTotal() ==0)
         dis = totalBeforeDis;
@@ -241,7 +247,7 @@ if(deliveryTime == "")
       ).toJson());
     };
     print(attributes);
-    Map map =  orderMethodId ==3?{
+    Map map =  orderMethodId ==3 ||  orderMethodId ==4?{
       "payment_method_id": paymentMethodId,
       "order_method_id": orderMethodId,
       "branch_id": 1,
@@ -253,7 +259,7 @@ if(deliveryTime == "")
       //  "car_id": carId,
       "address_id": addressId,
       "details": details
-    }:orderMethodId ==2?{
+    }:orderMethodId ==2?{  
       "notes":note,
       "coupon":coupon,
       "payment_method_id": paymentMethodId,

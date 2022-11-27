@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loz/bloc/branches_bloc/branches_cubit.dart';
 import 'package:loz/data/repositories/branch_repo.dart';
 
 
@@ -110,10 +109,7 @@ class _MyAppState extends State<MyApp>
       //       child: Login()):
         home:LocalStorage.getData(
           key: 'token',
-        ) == null? BlocProvider(
-    create: (BuildContext context) =>
-    BranchesCubit(GetBranchesRepository()),
-    child:LocationActivate()):BottomNavBar(),
+        ) == null? LocationActivate():BottomNavBar(),
  // home:     MultiBlocProvider(
  //          providers: [
  //            BlocProvider<HomeAdCubit>(

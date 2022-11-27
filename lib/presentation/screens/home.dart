@@ -283,15 +283,13 @@ import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:loz/bloc/branches_bloc/branches_cubit.dart';
 import 'package:loz/bloc/home/departments_bloc/departments_cubit.dart';
 import 'package:loz/bloc/home/home_ad_bloc/home_ad_cubit.dart';
 import 'package:loz/bloc/search_bloc/search_cubit.dart';
 import 'package:loz/data/repositories/branch_repo.dart';
 import 'package:loz/data/repositories/home_repo.dart';
 import 'package:loz/local_storage.dart';
-import 'package:loz/presentation/screens/product_details.dart';
-import 'package:loz/presentation/screens/products.dart';
+
 import 'package:loz/presentation/screens/search.dart';
 
 import 'package:loz/presentation/widgets/dep.dart';
@@ -357,10 +355,6 @@ class HomeScreen extends StatelessWidget {
               //   ),),
               child: MultiBlocProvider(
                   providers: [
-                BlocProvider<BranchesCubit>(
-                  create: (BuildContext context) =>
-                      BranchesCubit(GetBranchesRepository()),
-                ),
                 BlocProvider<HomeAdCubit>(
                   create: (BuildContext context) => HomeAdCubit(GetHomeRepository()),
                 ),

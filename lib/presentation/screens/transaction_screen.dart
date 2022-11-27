@@ -292,7 +292,7 @@ Container(
                       ),
                     ),
                     SizedBox(
-                      width: size.width * .29,
+                      width: size.width * .25,
 
                       child: Text(
                         products[i].reciever!.name.toString(),
@@ -395,7 +395,7 @@ Container(
                             ),
                           ),
                           SizedBox(
-                            width: size.width * .29,
+                            width: size.width * .25,
                             child: Text(
                               products[i].sender != null ? products[i].sender!.name.toString() :"${LocaleKeys.app_admin.tr()}",
                               overflow: TextOverflow.ellipsis,
@@ -490,7 +490,7 @@ Container(
                           Row(
                             children: [
                               SizedBox(
-                                width: size.width * .23,
+                                width: size.width * .2,
                                 child: Text(
                       products[i].toClient != transactionState.id?
                                   products[i].reciever!.name.toString():

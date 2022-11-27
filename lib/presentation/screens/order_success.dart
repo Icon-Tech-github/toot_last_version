@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loz/bloc/branches_bloc/branches_cubit.dart';
 import 'package:loz/bloc/home/departments_bloc/departments_cubit.dart';
 import 'package:loz/bloc/home/home_ad_bloc/home_ad_cubit.dart';
 import 'package:loz/bloc/status_bloc/status_cubit.dart';
@@ -106,7 +105,7 @@ class OrderSuccess extends StatelessWidget {
                                     DepartmentsCubit(GetHomeRepository(),false,context,context.locale.toString()),
                               ),
                             ],
-                            child: BottomNavBar(branches: BranchesCubit.branches,),
+                            child: BottomNavBar(),
                           ),
                         ));},
                     font: 18,

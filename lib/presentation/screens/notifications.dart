@@ -203,7 +203,8 @@ class _NotifyScreenState extends State<NotifyScreen> {
                         child: Text(
                           LocaleKeys.mark_read.tr(),
                           style: TextStyle(
-                           // decoration: TextDecoration.underline,
+                            color: AppTheme.secondary,
+                            decoration: TextDecoration.underline,
                             fontSize: size.width * .04,
                             fontWeight: FontWeight.bold,
                           ),

@@ -11,6 +11,8 @@ import 'package:loz/presentation/widgets/loading.dart';
 import 'package:loz/theme.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:simple_shadow/simple_shadow.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:xml/xml.dart';
 
 import '../../payment_vars/constants_payment.dart';
@@ -71,6 +73,53 @@ class CartList extends StatelessWidget {
 
     return BlocConsumer<ConfirmOrderCubit, ConfirmOrderState>(
         listener: (context, state) {
+          if (state is AddCouponFailure) {
+            showTopSnackBar(
+                context,
+                Card(
+                  child: CustomSnackBar.success(
+                    message: state.error,
+                    backgroundColor: Colors.white,
+                    textStyle: TextStyle(
+                        color: Colors.black, fontSize: size.height * 0.04),
+                  ),
+                ));
+          } else if (state is UseBalanceFailure) {
+            showTopSnackBar(
+                context,
+                Card(
+                  child: CustomSnackBar.success(
+                    message: state.error,
+                    backgroundColor: Colors.white,
+                    textStyle: TextStyle(
+                        color: Colors.black, fontSize: size.height * 0.025),
+                  ),
+                ));
+          } else if (state is UseBalanceSuccess) {
+            showTopSnackBar(
+                context,
+                Card(
+                  child: CustomSnackBar.success(
+                    message:
+                    " ${LocaleKeys.your_balance.tr()}  ${state.balance} ${LocaleKeys.kwd.tr()}",
+                    backgroundColor: Colors.white,
+                    textStyle: TextStyle(
+                        color: Colors.black, fontSize: size.height * 0.025),
+                  ),
+                ));
+          } else if (state is AddCouponSuccess) {
+            showTopSnackBar(
+                context,
+                Card(
+                  child: CustomSnackBar.success(
+                    message:
+                    " ${LocaleKeys.your_discount.tr()}  ${state.coupon.data!.value} ${state.coupon.data!.type == 2 ? "%" : "${LocaleKeys.kwd.tr()}"}",
+                    backgroundColor: Colors.white,
+                    textStyle: TextStyle(
+                        color: Colors.black, fontSize: size.height * 0.025),
+                  ),
+                ));
+          }
       if (state is ConfirmLoading) {
         LoadingScreen.show(context);
         //    pushReplacement(context, OrderSuccess(orderNum:"" ));

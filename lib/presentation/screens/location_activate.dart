@@ -10,7 +10,6 @@ import 'package:loz/local_storage.dart';
 import 'package:loz/presentation/widgets/default_button.dart';
 
 import '../../bloc/auth_bloc/auth_cubit.dart';
-import '../../bloc/branches_bloc/branches_cubit.dart';
 import '../../data/repositories/auth_repo.dart';
 import '../../theme.dart';
 import '../../translations/locale_keys.g.dart';
@@ -108,9 +107,7 @@ class _LocationActivateState extends State<LocationActivate> {
         return Future.value(false);
       },
       child: Scaffold(
-        body:  BlocConsumer<BranchesCubit, BranchesState>(
-            listener: (context, state) {},
-            builder: (context, state) =>
+        body:
         Stack(
           children: [
             Column(
@@ -216,7 +213,7 @@ class _LocationActivateState extends State<LocationActivate> {
                     )
           ],
         ),
-        ) ),
+        )
     );
   }
 }

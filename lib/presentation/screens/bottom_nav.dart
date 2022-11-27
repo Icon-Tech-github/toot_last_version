@@ -29,9 +29,9 @@ import 'package:loz/local_storage.dart';
 import 'package:loz/presentation/screens/cart.dart';
 import 'package:loz/presentation/screens/fav.dart';
 import 'package:loz/presentation/screens/map.dart';
-import 'package:loz/presentation/screens/menu.dart';
 import 'package:loz/presentation/screens/more.dart';
 import 'package:loz/presentation/screens/rating.dart';
+import 'package:loz/presentation/screens/track_order.dart';
 
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -54,9 +54,8 @@ import 'orders.dart';
 
 class BottomNavBar extends StatefulWidget {
   int? index;
- final List<BranchModel> ?branches;
   bool? fromSplash = false;
-  BottomNavBar({this.index,this.branches,this.fromSplash});
+  BottomNavBar({this.index,this.fromSplash});
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
@@ -264,7 +263,7 @@ bool isClosed= false;
                   push(context,
                       BlocProvider(
                           create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),int.parse(message.data['order_id'].toString())),
-                          child: OrderTrackingScreen(orderMethodId: int.parse(message.data['order_method_id'].toString()))));
+                          child: TrackOrderScreen(orderMethodId: int.parse(message.data['order_method_id'].toString()))));
                 },
                 child: Container(
                   height: 70,
@@ -333,7 +332,7 @@ bool isClosed= false;
         push(context,
             BlocProvider(
                 create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),int.parse(message.data['order_id'].toString())),
-                child: OrderTrackingScreen(orderMethodId:int.parse( message.data['order_method_id'].toString()),)));
+                child: TrackOrderScreen(orderMethodId:int.parse( message.data['order_method_id'].toString()),)));
       } else if (message.data['order_id'] != null && message.data['type'].toString() == "2") {
         push(
           context,
@@ -377,7 +376,7 @@ bool isClosed= false;
     BlocProvider<OrdersBlocCubit>(
     create: (BuildContext context) => OrdersBlocCubit(OrdersRepo()),
     child: OrderScreen()),
-      HomeScreen(animationController: animationController,branches: widget.branches,fromSplash: widget.fromSplash,),
+      HomeScreen(animationController: animationController,fromSplash: widget.fromSplash,),
       CartScreen(fromHome: true,),
       FavoriteScreen(animationController: animationController)
     // MapScreen(branches: widget.branches,)

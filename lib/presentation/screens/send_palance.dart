@@ -6,6 +6,8 @@ import 'package:loz/bloc/contact_bloc/contact_cubit.dart';
 import 'package:loz/bloc/send_balance_bloc/balance_cubit.dart';
 
 import 'package:loz/data/ServerConstants.dart';
+import 'package:loz/presentation/screens/bottom_nav.dart';
+import 'package:loz/presentation/widgets/helper.dart';
 
 import 'package:loz/presentation/widgets/loading.dart';
 import 'package:loz/translations/locale_keys.g.dart';
@@ -38,7 +40,7 @@ class _RegisterScreenState extends State<SendBalanceScreen> {
               if (state is BalanceFailure) {
                 ServerConstants.showDialog1(context, state.error,false,'');
               } else if (state is BalanceSuccess) {
-                Navigator.pop(context);
+              //  Navigator.pop(context);
                 context.read<BalanceCubit>().balance.clear();
                 context.read<BalanceCubit>().phone.clear();
                 showTopSnackBar(
@@ -52,6 +54,7 @@ class _RegisterScreenState extends State<SendBalanceScreen> {
                             color: Colors.black, fontSize: size.height * 0.025),
                       ),
                     ));
+                push(context, BottomNavBar());
               } else if (state is ContactLoading) {
                 LoadingScreen.show(context);
               }

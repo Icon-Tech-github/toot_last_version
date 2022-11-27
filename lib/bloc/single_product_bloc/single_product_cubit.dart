@@ -97,7 +97,6 @@ class SingleProductCubit extends Cubit<SingleProductState> {
     emit(AttributesLoaded(product: product));
     isLoad = false;
     }else{
-      showDialogBranchClosed(context, lang== 'ar'?data['ar'].toString() : data['en'].toString(),true);
 
      // emit(AttributesLoaded(product: ""));
 
