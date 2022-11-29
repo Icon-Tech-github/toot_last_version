@@ -2,11 +2,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:loz/data/models/orders_model.dart';
 import 'package:loz/data/repositories/orders_repo.dart';
 import 'package:loz/local_storage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:intl/intl.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
+import '../../translations/locale_keys.g.dart';
 
 part 'orders_bloc_state.dart';
 
@@ -70,5 +75,33 @@ int page =1;
       //print(timee);
      return format.format(time);
 
+  }
+  void removeOrder(int id,context)async{
+    emit(OrdersLoading(orders));
+    Size size = MediaQuery.of(context).size;
+    ordersRepo.removeOrder(LocalStorage.getData(key: "token"),id).then((data) {
+      if( data != null) {
+        showTopSnackBar(
+            context,
+            Card(
+              child: CustomSnackBar.success(
+                message: LocaleKeys.remove_success.tr(),
+                backgroundColor: Colors.white,
+                textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: size.height * 0.04),
+              ),
+            ));
+        for(int n =0; n< orders.length; n++) {
+          if(orders[n].id == id){
+            orders.removeAt(n);
+            break;
+          }
+        }
+        emit(OrdersLoaded(orders: orders));
+      }else{
+        print("llllkkkkkkll");
+
+      }});
   }
 }

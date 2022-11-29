@@ -222,7 +222,7 @@ class SingleProductCubit extends Cubit<SingleProductState> {
       addonPrices[addonIndex] = 0.0;
       reCalculatePrices();
       /////removing/////
-      attributes.removeWhere((element) =>
+      addon.removeWhere((element) =>
       element.id == globalProduct!.addons![addonIndex].id);
     }
     ////////////selected size///////////
@@ -404,13 +404,14 @@ class SingleProductCubit extends Cubit<SingleProductState> {
               print("ggggllll");
               addonPrices[attributeIndex] = 0.0;
               reCalculatePrices();
-              addon.removeWhere((e) => e.id == addon[element].id);
-              break;
+              addon.removeWhere((e) => e.id ==  globalProduct!.addons![attributeIndex].id);
+
+    break;
             }
             break;
           }
         }
-
+print(addon.length);
     }
     ////selected/////
     else {
@@ -520,102 +521,149 @@ if(validWithCoupon == true){
         inFavourite: globalProduct!.inFavourite,
         addons: addon,
         newPrice: globalProduct!.newPrice);
+  print(addon.length.toString()+"mmmmmmm");
 
     List<ProductModel> products = [];
     int count = 0;
     int count2 = 0;
-    int ?productIndex;
+    int addonCount1 =0;
+  int addonCount2 =0;
+
+  int ?productIndex;
     bool isOld = false;
-    if (LocalStorage.getList(key: 'cart') != null) {
-      products = List<ProductModel>.from(json
-          .decode(LocalStorage.getList(key: 'cart').toString())
-          .map((e) => ProductModel.fromJson(e)));
+
+  if (LocalStorage.getList(key: 'cart') != null) {
+    products = List<ProductModel>.from(json
+        .decode(LocalStorage.getList(key: 'cart').toString())
+        .map((e) => ProductModel.fromJson(e)));
     //
     //
-       }
-    print(products.length.toString()+"kkk");
-    for (int i = 0; i < products.length; i++) {
-      if (newProduct.id == products[i].id) {
-        count=0;
-        count2=0;
-        print(i.toString() +"lll");
-
-          for (int k = 0; k < newProduct.attributes!.length; k++) {
-         //   for (int j = 0; j < products[i].attributes!.length; j++) {
-              count = count + newProduct.attributes![k].values!.length;
-              print(count.toString() + "vvvvvvvvvv");
-            }
-              if(products[i].attributes!.length ==  newProduct.attributes!.length){
-                for (int k = 0; k < newProduct.attributes!.length; k++) {
-                  for (int j = 0; j < products[i].attributes!.length; j++) {
-              if (products[i].attributes![j].id ==
-                  newProduct.attributes![k].id) {
-
-                if (products[i].attributes![j].values!.length == newProduct.attributes![k].values!.length) {
-                  print("nnnn");
-                  for (int m = 0;
-                  m < products[i].attributes![j].values!.length;
-                  m++) {
-                    for (int o = 0;
-                    o < newProduct.attributes![k].values!.length;
-                    o++) {
-                      print(products[i].attributes!.length);
+  }
+  print(products.length.toString()+"kkk");
+  for (int i = 0; i < products.length; i++) {
+    if (newProduct.id == products[i].id) {
+      count=0;
+      count2=0;
+      addonCount1=0;
+      addonCount2=0;
+      bool isEqual =true;
+      bool isEqualAttribute=true;
 
 
-                      if (products[i].attributes![j].values![m].id ==
-                          newProduct.attributes![k].values![o].id) {
-                        print("pppppp");
-                        print(products[i].attributes![j].id);
-                        print(newProduct.attributes![k].id);
-                        count2++;
-                      }
+      print(i.toString() +"lll");
+
+      for (int k = 0; k < newProduct.attributes!.length; k++) {
+        count = count + newProduct.attributes![k].values!.length;
+        print("lllllllll");
+
+      }
+      for (int n = 0; n < newProduct.addons!.length; n++) {
+        print("lllllllll");
+        addonCount1 = addonCount1 + newProduct.addons![n].values!.length;
+        print(addonCount1.toString() + "vvvvvvvvvv");
+      }
+      print(addonCount1.toString() + "vvvvvvvvvv");
+
+      if(products[i].attributes!.length ==  newProduct.attributes!.length){
+        for (int k = 0; k < newProduct.attributes!.length; k++) {
+          for (int j = 0; j < products[i].attributes!.length; j++) {
+            if (products[i].attributes![j].id ==
+                newProduct.attributes![k].id) {
+
+              if (products[i].attributes![j].values!.length == newProduct.attributes![k].values!.length) {
+                print("nnnn");
+                for (int m = 0;
+                m < products[i].attributes![j].values!.length;
+                m++) {
+                  for (int o = 0;
+                  o < newProduct.attributes![k].values!.length;
+                  o++) {
+                    print(products[i].attributes!.length);
+
+
+                    if (products[i].attributes![j].values![m].id ==
+                        newProduct.attributes![k].values![o].id) {
+                      print("pppppp");
+                      print(products[i].attributes![j].id);
+                      print(newProduct.attributes![k].id);
+                      isEqualAttribute = true;
+
+                      count2++;
                     }
-                  }}
-              }
+                  }
+                }}
             }
           }
-
         }
-          print(count);
-          print(count2.toString()+"cccccccccc");
-        if (count2 ==count ) {
-          print("3333");
-          isOld = true;
-          products[i].count = products[i].count! + newProduct.count!;
-          products[i].total =price + products[i].total!;
-          data = [];
-          for (int j = 0; j < products.length; j++) {
-            print(products[i].count);
-            data.add(jsonEncode(products[j].toJson()));
+
+      }
+      else{
+        isEqualAttribute = false;
+
+      }
+      if(products[i].addons!.length ==  newProduct.addons!.length){
+        print("ll");
+        for (int k = 0; k < newProduct.addons!.length; k++) {
+          for (int j = 0; j < products[i].addons!.length; j++) {
+            if (products[i].addons![j].id ==
+                newProduct.addons![k].id) {
+
+              if (products[i].addons![j].values!.length == newProduct.addons![k].values!.length) {
+                print("nnnn");
+                for (int m = 0;
+                m < products[i].addons![j].values!.length;
+                m++) {
+                  for (int o = 0;
+                  o < newProduct.addons![k].values!.length;
+                  o++) {
+                    print(products[i].addons!.length);
+
+
+                    if (products[i].addons![j].values![m].id ==
+                        newProduct.addons![k].values![o].id) {
+                      print("pppppp");
+                      print(products[i].addons![j].id);
+                      print(newProduct.addons![k].id);
+                      isEqual = true;
+                      addonCount2++;
+                    }
+                  }
+                }}
+            }
           }
-          break;
         }
+
+      }else{
+        isEqual = false;
+
       }
-print("kkkkkkk");
+      print(addonCount1);
+      print(addonCount2.toString()+"cccccccccc");
+      if (count2 ==count && addonCount1 == addonCount2 && isEqual == true&& isEqualAttribute == true) {
+        print("3333");
+        isOld = true;
+        products[i].count = products[i].count! + newProduct.count!;
+        products[i].total =price + products[i].total!;
+        data = [];
+        for (int j = 0; j < products.length; j++) {
+          print(products[i].count);
+          data.add(jsonEncode(products[j].toJson()));
+        }
+        break;
+      }
     }
+    print("kkkkkkk");
+  }
 
-      if (isOld == false) {
-        data.add(jsonEncode(newProduct.toJson()));
-      }
+  if (isOld == false) {
+    data.add(jsonEncode(newProduct.toJson()));
+  }
 
-    LocalStorage.saveList(key: 'cart', value: data);
-    getCartCount();
-    print(json.encode(newProduct));
-    emit(AttributesLoaded(product: globalProduct!));
-  }else{
-  showTopSnackBar(
-      context,
-      Card(
-        child: CustomSnackBar.success(
-          message: "kkkkk",
-          backgroundColor: Colors.white,
-          textStyle: TextStyle(
-              color: Colors.black, fontSize: MediaQuery.of(context).size.height * 0.025),
-        ),
-      ));
+  LocalStorage.saveList(key: 'cart', value: data);
+  getCartCount();
+  print(json.encode(newProduct));
   emit(AttributesLoaded(product: globalProduct!));
-  }
-  }
+  }}
 
   void countIncrementAdnDecrement(String function) {
     emit(SingleProductInitial());

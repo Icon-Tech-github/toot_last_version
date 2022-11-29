@@ -7,6 +7,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 abstract class OrdersRepository {
 
   Future fetchOrders(String token,int page);
+  Future removeOrder(String token,int id);
 
 }
 
@@ -55,7 +56,31 @@ class OrdersRepo implements OrdersRepository {
   }
 
 
+  @override
+  Future removeOrder(String token,int id) async{
+    try
+    {
+      var response = await dio.post(ServerConstants.API+'/order/$id/delete',
+          options: Options(
+            headers: {
+              ...apiHeaders,
+              'Authorization': '$token',
+            },
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ));
 
+      if (ServerConstants.isValidResponse(response.statusCode!)) {
+        return response.data;
+      } else {
+        return null;
+      }
+    }
+    catch (error){
+      return throw error;
+    }
+  }
 
 
 }

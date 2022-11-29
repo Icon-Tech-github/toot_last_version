@@ -784,30 +784,30 @@ class _CartListState extends State<CartList> {
                                       SizedBox(
                                         height: size.height * .01,
                                       ),
-                                      if (cartState.tax != 0.0)
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(
-                                              LocaleKeys.tax_expense.tr(),
-                                              style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 6.0, vertical: 2),
-                                              child: Text(
-                                                  '${context.read<CartCubit>().calculateTax().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()} ',
-                                                  style: TextStyle(
-                                                    fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,)),
-                                            ),
-                                          ],
-                                        ),
-                                      SizedBox(
-                                        height: size.height * .01,
-                                      ),
+                                      // if (cartState.tax != 0.0)
+                                      //   Row(
+                                      //     mainAxisSize: MainAxisSize.max,
+                                      //     crossAxisAlignment: CrossAxisAlignment.end,
+                                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //     children: <Widget>[
+                                      //       Text(
+                                      //         LocaleKeys.tax_expense.tr(),
+                                      //         style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
+                                      //         textAlign: TextAlign.center,
+                                      //       ),
+                                      //       Padding(
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: 6.0, vertical: 2),
+                                      //         child: Text(
+                                      //             '${context.read<CartCubit>().calculateTax().toStringAsFixed(2)} ${LocaleKeys.kwd.tr()} ',
+                                      //             style: TextStyle(
+                                      //               fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,)),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // SizedBox(
+                                      //   height: size.height * .01,
+                                      // ),
 
                                       if (cartState.discount != 0)
                                         Row(

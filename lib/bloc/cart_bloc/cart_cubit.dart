@@ -189,7 +189,7 @@ if(products.length ==0)
     products.forEach((element) {
       total = (total + element.total!);
     });
-     total = total + calculateTax();
+     //total = total + calculateTax();
     if(discount !=0){
       if(type == 1 || type == 3){
         print('osama');

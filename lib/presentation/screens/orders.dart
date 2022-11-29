@@ -322,10 +322,27 @@ class OrderScreen extends StatelessWidget {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                          children: [
-                                                          SizedBox(
-                                                            width:size.width *.7,
-                                                            child: Text(order.uuid.toString(),  overflow: TextOverflow.ellipsis, maxLines: 1,
-                                                              softWrap: false,style: TextStyle( fontSize: size.width * .044,fontWeight: FontWeight.bold, height:  size.height*0.003,),),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(order.uuid.toString(),  overflow: TextOverflow.ellipsis, maxLines: 1,
+                                                                softWrap: false,style: TextStyle( fontSize: size.width * .044,fontWeight: FontWeight.bold, height:  size.height*0.003,),),
+                                                              if(order.orderStatusId == 1)
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  ordersState.removeOrder(order.id, context);
+                                                               //   cartState.removeItem(index,context);
+                                                                },
+                                                                child: Container(
+                                                                  // color: Colors.orange,
+                                                                    padding:EdgeInsets.symmetric(horizontal:  size.width * .06,vertical:   size.width * .018),
+                                                                    child: Image.asset(
+                                                                      "assets/images/bin.png",
+                                                                      width: size.height * .03,
+                                                                      color: Colors.grey,
+                                                                    )),
+                                                              ),
+                                                            ],
                                                           ),
 
                                                           SizedBox(height: size.height * .005,),
