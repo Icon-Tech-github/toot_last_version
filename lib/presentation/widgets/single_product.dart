@@ -82,7 +82,7 @@ class SingleProductWidget extends StatelessWidget {
                        //   mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-
+                            SizedBox(height: size.height * .02,),
                             SizedBox(
                               width: size.width * .32,
                               child: Text(product!.title!.en!,

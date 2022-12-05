@@ -142,6 +142,7 @@ print(deliveryFee.toString()+"[[[kkkkk]]]");
             discountRest = discount - total;
             total=0;
           }else {
+            percentageDiscount = limit;
             total = total - limit;
           }
         }

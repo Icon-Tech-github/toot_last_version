@@ -72,7 +72,7 @@ dependencies:
   flutter_isolate: ^2.0.2
   callkeep: ^0.3.2
   flutter_offline: ^2.1.0
-  connectivity: ^3.0.6
+  connectivity_plus:
   flutter_countdown_timer: ^4.1.0
   simple_shadow: ^0.3.0
   dropdown_button2: ^1.8.1
@@ -85,7 +85,7 @@ dependencies:
   lottie:
   flashy_tab_bar2: ^0.0.4
   upgrader: ^4.11.0
-  flutter_app_version_checker: ^0.3.1
+#  flutter_app_version_checker: ^0.3.1
   open_store:
   skeletons: ^0.0.3
   share: ^2.0.4
@@ -93,12 +93,13 @@ dependencies:
   webview_flutter: ^2.0.13
   flutter_dialogs: ^2.1.1
   device_info_plus:
+  update_available: ^2.1.0
 
 
 
 
-dependency_overrides:
-  firebase_core_platform_interface: 4.5.1
+#dependency_overrides:
+#  firebase_core_platform_interface: 4.5.1
 
 #  firebase_messaging_platform_interface: 3.1.6
 #  firebase_crashlytics_platform_interface: 3.1.13

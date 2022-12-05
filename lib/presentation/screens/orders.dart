@@ -53,8 +53,7 @@ class OrderScreen extends StatelessWidget {
           connectivityBuilder: (BuildContext context,
           ConnectivityResult connectivity, Widget child) {
         final bool connected = connectivity != ConnectivityResult.none;
-        return connected
-            ?
+        return connected ?
           BlocBuilder<OrdersBlocCubit, OrdersBlocState>(
               builder: (context, state) {
                 if (state is OrdersLoading && state.isFirstFetch) {

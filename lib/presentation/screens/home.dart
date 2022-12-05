@@ -279,7 +279,7 @@ import 'dart:math';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -297,6 +297,7 @@ import 'package:loz/presentation/widgets/home_ad.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:open_store/open_store.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:update_available/update_available.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../../bloc/home/recomendation_bloc/recomend_cubit.dart';
@@ -400,117 +401,218 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
   double topBarOpacity = 0.0;
   AnimationController? productsAnimationController;
   TextEditingController search = TextEditingController();
-  final _checker = AppVersionChecker(
-    appId: "com.icontds.toot",
-  );
-  void checkVersion() async {
-    _checker.checkUpdate().then((value) {
-      print(value.canUpdate); //return true if update is available
-      print(value.currentVersion); //return current app version
-      print(value.newVersion); //return the new app version
-      print(value.appURL); //return the app url
-      print(value.errorMessage);
-      //return error message if found else it will return null
-      if(value.canUpdate){
-        showDialog(context: context,
-            builder: (context){
-              return AlertDialog(
-                contentPadding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),),
-                title: Center(
-                  child: Text(  LocaleKeys.Update.tr(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22
-                    ),),
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                 //   SizedBox(height: 10,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(  LocaleKeys.update_des.tr(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black38,
-                            fontSize: 14
-                        ),),
-                    ),
-                    SizedBox(height: 20,),
-                    Container(
-                      height: 1,
-                      width: double.infinity,
-                      color: Colors.black12,
-                    ),
-                    Container(
-                      height: 60,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
+
+  // void checkVersion() async {
+  //   _checker.checkUpdate().then((value) {
+  //     print(value.canUpdate); //return true if update is available
+  //     print(value.currentVersion); //return current app version
+  //     print(value.newVersion); //return the new app version
+  //     print(value.appURL); //return the app url
+  //     print(value.errorMessage);
+  //     //return error message if found else it will return null
+  //     if(value.canUpdate){
+  //       showDialog(context: context,
+  //           builder: (context){
+  //             return AlertDialog(
+  //               contentPadding: EdgeInsets.zero,
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(15),),
+  //               title: Center(
+  //                 child: Text(  LocaleKeys.Update.tr(),
+  //                   style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 22
+  //                   ),),
+  //               ),
+  //               content: Column(
+  //                 mainAxisSize: MainAxisSize.min,
+  //                 children: [
+  //                //   SizedBox(height: 10,),
+  //                   Padding(
+  //                     padding: const EdgeInsets.symmetric(horizontal: 20),
+  //                     child: Text(  LocaleKeys.update_des.tr(),
+  //                       textAlign: TextAlign.center,
+  //                       style: TextStyle(
+  //                           color: Colors.black38,
+  //                           fontSize: 14
+  //                       ),),
+  //                   ),
+  //                   SizedBox(height: 20,),
+  //                   Container(
+  //                     height: 1,
+  //                     width: double.infinity,
+  //                     color: Colors.black12,
+  //                   ),
+  //                   Container(
+  //                     height: 60,
+  //                     child: Row(
+  //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                       children: [
+  //                         Expanded(
+  //                           child: InkWell(
+  //                             onTap: (){
+  //                               Navigator.pop(context);
+  //                             },
+  //                             child: Center(
+  //                               child: Text(
+  //             LocaleKeys.Maybe_later.tr(),
+  //                                 style: TextStyle(
+  //                                     color: AppTheme.secondary
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                         Container(
+  //                           height: 60,
+  //                           width: 1,
+  //                           color: Colors.black12,
+  //                         ),
+  //                         Expanded(
+  //                           child: InkWell(
+  //                             onTap: (){
+  //                               OpenStore.instance.open(
+  //                                 appStoreId: 'com.icontds.toot', // AppStore id of your app for iOS
+  //                                 androidAppBundleId: 'com.icontds.toot', // Android app bundle package name
+  //                               );
+  //                             },
+  //                             child:  Container(
+  //                               decoration: BoxDecoration(
+  //                                   color: AppTheme.secondary,
+  //
+  //                                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(context.locale.toString() == 'ar'?0:15),
+  //                                       bottomLeft: Radius.circular(context.locale.toString() == 'en'?0:15)
+  //                                   )
+  //                               ),
+  //                               child: Center(
+  //                                 child: Text(
+  //                                   LocaleKeys.Update_Now.tr(),
+  //                                   style: TextStyle(
+  //                                       color: Colors.white
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
+  //
+  //                       ],
+  //                     ),
+  //                   )
+  //                 ],
+  //               ),
+  //             );
+  //           });
+  //     }
+  //   });
+  // }
+
+  void checkVersion(BuildContext context) async {
+    final updateAvailability = await getUpdateAvailability();
+
+
+    final text = updateAvailability.fold(
+      available: () => "true",
+      notAvailable: () => 'false',
+      unknown: () => "It was not possible to determine if there is or not "
+          "an update for your app.",
+    );
+
+    print(text);
+
+    if(text=='true'){
+      showDialog(context: context,
+          builder: (context){
+            return AlertDialog(
+              contentPadding: EdgeInsets.zero,
+              title: Center(
+                child: Text('تحديث توت ؟',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22
+                  ),),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 30,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text('نسخة حديثة من توت متوفرة في المتجر يفضل ان تقوم بالتحديث الان',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: 14
+                      ),),
+                  ),
+
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    color: Colors.black12,
+                  ),
+                  Container(
+                    height: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Center(
+                              child: Text(
+                                'لاحقا',
+                                style: TextStyle(
+                                    color: Colors.black38
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 60,
+                          width: 1,
+                          color: Colors.black12,
+                        ),
+                        Expanded(
+                          child: InkWell(
+                            onTap: (){
+                              OpenStore.instance.open(
+                                appStoreId: '6443826620', // AppStore id of your app for iOS
+                                androidAppBundleId: 'com.icontds.toot', // Android app bundle package name
+                              );
+                            },
+                            child:  Container(
+                              color: AppTheme.secondary,
                               child: Center(
                                 child: Text(
-              LocaleKeys.Maybe_later.tr(),
+                                  'تحديث',
                                   style: TextStyle(
-                                      color: AppTheme.secondary
+                                      color: Colors.white
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          Container(
-                            height: 60,
-                            width: 1,
-                            color: Colors.black12,
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: (){
-                                OpenStore.instance.open(
-                                  appStoreId: 'com.icontds.toot', // AppStore id of your app for iOS
-                                  androidAppBundleId: 'com.icontds.toot', // Android app bundle package name
-                                );
-                              },
-                              child:  Container(
-                                decoration: BoxDecoration(
-                                    color: AppTheme.secondary,
+                        ),
 
-                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(context.locale.toString() == 'ar'?0:15),
-                                        bottomLeft: Radius.circular(context.locale.toString() == 'en'?0:15)
-                                    )
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    LocaleKeys.Update_Now.tr(),
-                                    style: TextStyle(
-                                        color: Colors.white
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          });
+    }
 
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
-            });
-      }
-    });
   }
 
   @override
   void initState() {
-    checkVersion();
+    checkVersion(context);
     productsAnimationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -543,7 +645,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
     widget.animationController?.forward();
     super.initState();
   }
-
+bool connected = true;
   @override
   Widget build(BuildContext context) {
     var we = MediaQuery.of(context).size.width;
@@ -553,166 +655,166 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
     return OfflineBuilder(
       connectivityBuilder: (BuildContext context,
           ConnectivityResult connectivity, Widget child) {
-        final bool connected = connectivity != ConnectivityResult.none;
-        return connected
+         connected = connectivity != ConnectivityResult.none;
+        return  connected
             ? Stack(children: [
-                ListView(
-                  controller: scrollController,
-                  // padding: EdgeInsets.only(
-                  //    top: AppBar().preferredSize.height +
-                  //        MediaQuery.of(context).padding.top +
-                  //        24,
-                  //    bottom: 62 + MediaQuery.of(context).padding.bottom,
-                  //  ),
+          ListView(
+            controller: scrollController,
+            // padding: EdgeInsets.only(
+            //    top: AppBar().preferredSize.height +
+            //        MediaQuery.of(context).padding.top +
+            //        24,
+            //    bottom: 62 + MediaQuery.of(context).padding.bottom,
+            //  ),
 
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 0),
-                      child: Text(
-                      "${LocaleKeys.hello.tr()} , ${LocalStorage.getData(key: "userName")??LocaleKeys.Guest.tr()}",
-                        //textAlign: TextAlign.r,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: we * .055,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: SizedBox(
-                        width: we * 0.9,
-                        height: he * .07,
-                        child: TextFormField(
-                          cursorColor: AppTheme.secondary,
-                          enableSuggestions: true,
-                          controller: search,
-                          textAlign: TextAlign.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 0),
+                child: Text(
+                  "${LocaleKeys.hello.tr()} , ${LocalStorage.getData(key: "userName")??LocaleKeys.Guest.tr()}",
+                  //textAlign: TextAlign.r,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: we * .055,
+                  ),
+                ),
+              ),
+              Center(
+                child: SizedBox(
+                  width: we * 0.9,
+                  height: he * .07,
+                  child: TextFormField(
+                    cursorColor: AppTheme.secondary,
+                    enableSuggestions: true,
+                    controller: search,
+                    textAlign: TextAlign.start,
 //style:  TextStyle(fontSize: 15, color: AppTheme.grey,height: he * .002),
-                          onFieldSubmitted: (value){
+                    onFieldSubmitted: (value){
+                      SearchCubit.filterWord = search.text;
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) => SearchScreen(animationController: productsAnimationController,search: search.text,))).then((value) => search.text='');
+                    },
+                    decoration: InputDecoration(
+                        suffixIcon: GestureDetector(
+                          onTap: () {
                             SearchCubit.filterWord = search.text;
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) => SearchScreen(animationController: productsAnimationController,search: search.text,))).then((value) => search.text='');
                           },
-                          decoration: InputDecoration(
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  SearchCubit.filterWord = search.text;
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute(builder: (context) => SearchScreen(animationController: productsAnimationController,search: search.text,))).then((value) => search.text='');
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.secondary,
-                                    borderRadius: BorderRadius.only(
-                                        topRight:  Radius.circular(context.locale.toString() == 'ar'?0:15),
-                                        bottomRight:  Radius.circular(context.locale.toString() == 'ar'?0:15),
-        topLeft:  Radius.circular(context.locale.toString() == 'en'?0:15),
-        bottomLeft:  Radius.circular(context.locale.toString() == 'en'?0:15),
-                                    ),
-                                  ),
-                                  child: Text(LocaleKeys.search.tr(), style:
-                                    TextStyle(fontSize: 15, color: AppTheme.white,height: he * .004),
-                                  )
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                color: AppTheme.secondary,
+                                borderRadius: BorderRadius.only(
+                                  topRight:  Radius.circular(context.locale.toString() == 'ar'?0:15),
+                                  bottomRight:  Radius.circular(context.locale.toString() == 'ar'?0:15),
+                                  topLeft:  Radius.circular(context.locale.toString() == 'en'?0:15),
+                                  bottomLeft:  Radius.circular(context.locale.toString() == 'en'?0:15),
                                 ),
                               ),
-
-                              filled: true,
-                              alignLabelWithHint: true,
-                              fillColor: AppTheme.white,
-                              hintStyle: TextStyle(fontSize: 15, color: AppTheme.grey,height: he * .001),
-                              prefixIcon: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                                  child:Icon(Icons.search,size: we * .06,)
-                                ),
-                              ),
-
-                              hintText:  LocaleKeys.search_title.tr(),
-                              prefixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 50,),
-                              isDense: true,
-                              contentPadding:
-                              const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                              prefixStyle: TextStyle(color: AppTheme.nearlyBlack,),
-                              border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  borderSide: BorderSide.none)),
+                              child: Text(LocaleKeys.search.tr(), style:
+                              TextStyle(fontSize: 15, color: AppTheme.white,height: he * .004),
+                              )
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    HomeAds(
-                      animationController: widget.animationController,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    homeTitle(LocaleKeys.categories.tr(), () {
-                      push(context, AllDeptScreen());
-                    }, context),
-                    HomeDepartments(
-                      animationController: widget.animationController,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            LocaleKeys.recommend.tr(),
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: we * .055,
-                            ),
-                          ),
-                          SizedBox(
-                            width: we * .01,
-                          ),
-                          // Image.asset(
-                          //   "assets/images/ok.png",
-                          //   height: he * .03,
-                          // )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    HomeRecommend(
-                      animationController: widget.animationController,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .05,
-                    ),
-                  ],
-                ),
 
-              ])
-            : Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                        filled: true,
+                        alignLabelWithHint: true,
+                        fillColor: AppTheme.white,
+                        hintStyle: TextStyle(fontSize: 15, color: AppTheme.grey,height: he * .001),
+                        prefixIcon: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child:Icon(Icons.search,size: we * .06,)
+                          ),
+                        ),
+
+                        hintText:  LocaleKeys.search_title.tr(),
+                        prefixIconConstraints: const BoxConstraints(maxHeight: 20, maxWidth: 50,),
+                        isDense: true,
+                        contentPadding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                        prefixStyle: TextStyle(color: AppTheme.nearlyBlack,),
+                        border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderSide: BorderSide.none)),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              HomeAds(
+                animationController: widget.animationController,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              homeTitle(LocaleKeys.categories.tr(), () {
+                push(context, AllDeptScreen());
+              }, context),
+              HomeDepartments(
+                animationController: widget.animationController,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Row(
                   children: [
-                    Image.asset("assets/images/off.gif"),
                     Text(
-                      LocaleKeys.offline_translate.tr(),
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      LocaleKeys.recommend.tr(),
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: we * .055,
+                      ),
                     ),
+                    SizedBox(
+                      width: we * .01,
+                    ),
+                    // Image.asset(
+                    //   "assets/images/ok.png",
+                    //   height: he * .03,
+                    // )
                   ],
                 ),
-              );
+              ),
+              SizedBox(
+                height: 0,
+              ),
+              HomeRecommend(
+                animationController: widget.animationController,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .05,
+              ),
+            ],
+          ),
+
+        ])
+            : Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/off.gif"),
+              Text(
+                LocaleKeys.offline_translate.tr(),
+                style:
+                TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ],
+          ),
+        );
       },
       child: CircularProgressIndicator(),
     );

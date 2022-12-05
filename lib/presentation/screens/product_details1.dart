@@ -319,7 +319,7 @@ class ProductDetails1 extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 15,
-                              vertical: 50,
+                              vertical: 70,
                             ),
                             child: Row(
                               children: [
@@ -429,7 +429,7 @@ class ProductDetails1 extends StatelessWidget {
                     //    .toUpperCase(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: size.width * .08,
+                            fontSize: size.width * .07,
                             color: Colors.black,
                             height: size.width * .0002
                         )),
