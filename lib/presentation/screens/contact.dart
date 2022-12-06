@@ -3,13 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loz/bloc/contact_bloc/contact_cubit.dart';
-
+import 'package:whatsapp/whatsapp.dart';
 import 'package:loz/data/ServerConstants.dart';
 
 import 'package:loz/presentation/widgets/loading.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../theme.dart';
 
@@ -106,7 +107,7 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                               ],
                             )),
                         Container(
-                          height: size.height * 0.87,
+                          height: size.height * 0.9,
                           width: size.width,
                           decoration: BoxDecoration(
                               color: AppTheme.background,
@@ -115,8 +116,58 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                                 topLeft: Radius.circular(50),
                               )),
                           child: Column(
+
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Text(
+                                LocaleKeys.contact_us.tr(),
+                               // textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  height: size.height * 0.002,
+                                  fontSize: size.height * 0.032,
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.03,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                        onTap: (){
+                                          launch("https://twitter.com/?lang=ar");
+
+                                        },
+                                        child: Image.asset("assets/images/twitter.png",height: size.height * .06,)),
+                                    InkWell(
+                                        onTap: (){
+                                          launch("https://www.instagram.com/");
+
+                                        },
+                                        child: Image.asset("assets/images/instagram.png",height: size.height * .06,)),
+                                    InkWell(
+                                        onTap: (){
+                                          var whatsappUrl =
+                                              "whatsapp://send?phone=${966123456789}";
+                                          launch(whatsappUrl);
+                                        },
+                                        child: Image.asset("assets/images/whatsapp.png",height: size.height * .06,)),
+                                    InkWell(
+                                      onTap: (){
+                                        launch("tel://01222222222}");
+
+                                      },
+                                        child: Image.asset("assets/images/phone.png",height: size.height * .06,))
+
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.04,
+                              ),
                               Center(
                                 child: Text(
                                   LocaleKeys.suggestion.tr(),
@@ -128,9 +179,7 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
+
                               // Center(
                               //   child: Text(
                               //     LocaleKeys.welcome_we_are_excited_you_are_here.tr(),
@@ -188,7 +237,7 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                                   width: size.width,
                                   // alignment: Alignment.centerLeft,
                                   child: Text(
-                                    LocaleKeys.email.tr(),
+                                   ' ${LocaleKeys.email.tr()} (${LocaleKeys.optional.tr()})',
                                     style: TextStyle(
                                       color: Colors.grey,
                                       height: size.height * 0.002,

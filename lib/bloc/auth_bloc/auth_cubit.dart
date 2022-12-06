@@ -108,7 +108,7 @@ class AuthCubit extends Cubit<AuthState> {
     )
         .then((data) async {
       if(data == null){
-        emit(AuthFailure(error: "wrong otp"));
+        emit(AuthFailure(error: LocaleKeys.wrong_otp.tr()));
       }else {
         isResend =false;
         emit(AuthSuccess());
@@ -142,7 +142,7 @@ bool ? isResend = false;
     )
         .then((data) async {
       if(data == null){
-        emit(AuthFailure(error: "wrong otp"));
+        emit(AuthFailure(error:LocaleKeys.wrong_otp.tr()));
       }else {
         isResend =false;
         emit(AuthSuccess());

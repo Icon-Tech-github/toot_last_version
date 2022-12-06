@@ -94,6 +94,7 @@ dependencies:
   flutter_dialogs: ^2.1.1
   device_info_plus:
   update_available: ^2.1.0
+  whatsapp: ^2.0.0
 
 
 

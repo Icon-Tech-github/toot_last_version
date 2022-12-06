@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,7 +82,9 @@ class SingleFavWidget extends StatelessWidget {
                           //   mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            SizedBox(height: size.height * .02,),
+                            if(Platform.isIOS)
+
+                              SizedBox(height: size.height * .02,),
                             SizedBox(
                               width: size.width * .32,
                               child: Text( product?.product!.title!.en??'',
@@ -140,7 +144,7 @@ class SingleFavWidget extends StatelessWidget {
                                         style: TextStyle(
                                           height:  size.height*0.001,
                                           fontWeight: FontWeight.bold,
-                                          fontSize:   product!.product!.price!=0? size.width*0.037 : size.width*0.026,
+                                          fontSize:   product!.product!.price!=0? size.width*0.037 : size.width*0.025,
                                           letterSpacing: 0.2,
                                           color: AppTheme.nearlyBlack,
                                         ),

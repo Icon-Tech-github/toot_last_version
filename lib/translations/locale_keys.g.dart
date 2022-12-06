@@ -238,6 +238,15 @@ abstract class LocaleKeys {
   static const next = "next";
   static const send_order = "send_order";
   static const please_login = "please_login";
+  static const optional = "optional";
+  static const cancel_order="cancel_order";
+  static const accepted="accepted";
+  static const current="current";
+  static const wrong_otp = "wrong_otp";
+  static const payment = "payment";
+  static const payment_failed = "payment_failed";
+
+
 
 
 }

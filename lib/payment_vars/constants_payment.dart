@@ -18,7 +18,7 @@ class GlobalUtils{
   static String transclass='ecom'; // Transaction class only 'paypage' is allowed on mobile, which means 'use the hosted payment page to capture and process the card details'
   static String firstref='';// (Optinal) Previous user transaction detail reference : The previous transaction reference is required for any continuous authority transaction. It must contain the reference that was supplied in the response for the original transaction
   static String firstname='Basant'; // Forename : It is the minimum required details for a transaction to be processed
-  static String lastname='Hamada';// Surname : the minimum required details for a transaction to be processed
+  static String lastname='';// Surname : the minimum required details for a transaction to be processed
   static String addressline1='Saudi Arabia'; // Street address – line 1: the minimum required details for a transaction to be processed
   static String city='Jeddah'; //the minimum required details for a transaction to be processed
   static String region='Saudi Arabia'; //Optional

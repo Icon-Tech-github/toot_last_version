@@ -24,6 +24,7 @@ class OrdersBlocCubit extends Cubit<OrdersBlocState> {
   }
 int page =1;
   RefreshController controller = RefreshController();
+  int status=1;
 
 
   var currentTimeZone;
@@ -104,4 +105,9 @@ int page =1;
 
       }});
   }
+
+  void switchStatus(int statusId){
+    emit(OrdersInitial());
+    status = statusId;
+    emit(OrdersLoaded(orders: orders));  }
 }

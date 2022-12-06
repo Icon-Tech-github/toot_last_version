@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'package:http/http.dart' as http;
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
@@ -98,6 +100,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
     else{
       final doc = XmlDocument.parse(response);
       final message = doc.findAllElements('message').map((node) => node.text);
+      print(message.toString() +"kkk");
       if(message.toString().length>2){
         String msg = message.toString();
         msg =  msg.replaceAll('(', '');
@@ -111,7 +114,16 @@ class _WebViewScreenState extends State<WebViewScreen> {
           Navigator.pop(context);
           Navigator.pop(context);
 
-          displayToastMessage('');
+          showTopSnackBar(
+              context,
+              Card(
+                child: CustomSnackBar.success(
+                  message:   LocaleKeys.payment_failed.tr(),
+                  backgroundColor: Colors.white,
+                  textStyle: TextStyle(
+                      color: Colors.black, fontSize: MediaQuery.of(context).size.height * 0.02),
+                ),
+              ));
         }else{
           _showedOnce = true;
           confirmOrder(context);
@@ -211,7 +223,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
                   padding:
                   const EdgeInsets.symmetric(vertical: 5, horizontal: 9),
                   child: Text(
-                    LocaleKeys.confirm.tr(),
+                    LocaleKeys.payment.tr(),
                     style: TextStyle(
                       fontSize: size.width * .07,
                       fontWeight: FontWeight.bold,

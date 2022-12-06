@@ -41,7 +41,8 @@
   "balance": "Balance",
   "total_orders": "Total orders",
   "Current_Orders": "Current Orders",
-  "Previous_Orders": "Previous Orders",
+  "Previous_Orders": "History",
+  "wrong_otp": "Wrong activation code",
   "use_my_balance" : "Use my balance",
   "the_total_amount" : "The total amount",
   "total_price" : "Total Price",
@@ -234,6 +235,12 @@
   "time_of_delivery" : "Time of delivery",
   "next": "Next",
   "send_order": "Send Order",
+  "optional": "Optional",
+  "current": "Current",
+  "accepted": "Accepted",
+  "cancel_order": "Cancel order",
+  "payment": "Payment",
+  "payment_failed": "Payment failed",
   "please_login": "Login Please"
 
 }

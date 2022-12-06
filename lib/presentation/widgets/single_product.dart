@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +84,7 @@ class SingleProductWidget extends StatelessWidget {
                        //   mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            if(Platform.isIOS)
                             SizedBox(height: size.height * .02,),
                             SizedBox(
                               width: size.width * .32,

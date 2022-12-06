@@ -526,7 +526,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
             return AlertDialog(
               contentPadding: EdgeInsets.zero,
               title: Center(
-                child: Text('تحديث توت ؟',
+                child: Text(LocaleKeys.update.tr(),
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22
@@ -538,7 +538,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
                   SizedBox(height: 30,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text('نسخة حديثة من توت متوفرة في المتجر يفضل ان تقوم بالتحديث الان',
+                    child: Text(LocaleKeys.update_des.tr(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black38,
@@ -564,7 +564,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
                             },
                             child: Center(
                               child: Text(
-                                'لاحقا',
+                               LocaleKeys.Maybe_later.tr(),
                                 style: TextStyle(
                                     color: Colors.black38
                                 ),
@@ -589,7 +589,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
                               color: AppTheme.secondary,
                               child: Center(
                                 child: Text(
-                                  'تحديث',
+                                  LocaleKeys.Update_Now.tr(),
                                   style: TextStyle(
                                       color: Colors.white
                                   ),

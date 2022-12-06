@@ -1050,7 +1050,7 @@ class CartList extends StatelessWidget {
                                     builder.text('');
                                   });
                                   builder.element('first', nest: () {
-                                    builder.text(GlobalUtils.firstname);
+                                    builder.text(LocalStorage.getData(key: "userName"));
                                   });
                                   builder.element('last', nest: () {
                                     builder.text(GlobalUtils.lastname);
@@ -1074,7 +1074,7 @@ class CartList extends StatelessWidget {
                                 });
 
                                 builder.element('phone', nest: () {
-                                  builder.text(GlobalUtils.phone);
+                                  builder.text(LocalStorage.getData(key: "phone"));
                                 });
                                 builder.element('email', nest: () {
                                   builder.text(GlobalUtils.emailId);

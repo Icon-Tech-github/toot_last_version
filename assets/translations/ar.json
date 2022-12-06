@@ -41,7 +41,8 @@
   "enter_discount_code" : "ادخل كود الخصم ",
   "use_my_balance" : "استخدم رصيدي",
   "Current_Orders": "الطلبات الحالية",
-  "Previous_Orders": "الطلبات السابقة",
+  "Previous_Orders": "السابقة",
+  "wrong_otp": "كود التفعيل خطأ",
   "balance": "الرصيد",
   "total_orders": "إجمالي الطلبات",
   "the_total_amount" : "ملخص الطلب",
@@ -235,5 +236,11 @@
   "time_of_delivery" : "وقت التوصيل",
   "next": "التالي",
   "send_order": "ارسال الطلب",
+  "optional": "اختياري",
+  "current": "الحالية",
+  "accepted": "قيد التحويل",
+  "cancel_order": "إلغاء الطلب",
+  "payment": "الدفع",
+  "payment_failed": "فشل عملية الدفع",
   "please_login": "قم بتسجيل الدخول من فضلك "
 }
