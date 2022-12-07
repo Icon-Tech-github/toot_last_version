@@ -22,8 +22,9 @@ class AuthCubit extends Cubit<AuthState> {
   FirebaseMessaging.instance.getToken().then((value) {
 
   tokenFCM = value!;
+
   });
-  // print(tokenFCM);
+
 }
   String tokenFCM = '';
   bool ?status = true;
@@ -55,6 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
      lang: LocalStorage.getData(key: "lang")
     )
         .then((data) async {
+     print(tokenFCM.toString()+'xkxksksk');
       if(data == null){
         emit(AuthFailure(error: LocaleKeys.not_found.tr()));
       }else  if (data ==  "307"){

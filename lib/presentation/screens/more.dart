@@ -229,27 +229,13 @@ class MoreScreen extends StatelessWidget {
                   text: LocaleKeys.my_points.tr(),
                   image: "assets/images/purse.png",
                   press: () {
-                    print(context.read<AuthCubit>().status == true);
-                    context.read<AuthCubit>().status == true
-                        ? push(
+                   push(
                       context,
                       BlocProvider<PointsCubit>(
                           create: (BuildContext context) =>
                               PointsCubit(PointsRepo()),
                           child: PointsScreen()),
-                    )
-                        : showTopSnackBar(
-                        context,
-                        Card(
-                          child: CustomSnackBar.success(
-                            message:
-                            " ${LocaleKeys.offline_translate.tr()}",
-                            backgroundColor: Colors.white,
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: size.height * 0.025),
-                          ),
-                        ));
+                    );
                   },
                 ),
               if (LocalStorage.getData(key: 'token') != null)
@@ -257,27 +243,14 @@ class MoreScreen extends StatelessWidget {
                 text: LocaleKeys.notifications.tr(),
                 image: "assets/images/bell.png",
                 press: () {
-                  print(context.read<AuthCubit>().status == true);
-                  context.read<AuthCubit>().status == true
-                      ? push(
+               push(
                     context,
                     BlocProvider<NotificationCubit>(
                         create: (BuildContext context) =>
                             NotificationCubit(NotificationRepo()),
                         child: NotifyScreen()),
-                  )
-                      : showTopSnackBar(
-                      context,
-                      Card(
-                        child: CustomSnackBar.success(
-                          message:
-                          " ${LocaleKeys.offline_translate.tr()}",
-                          backgroundColor: Colors.white,
-                          textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: size.height * 0.025),
-                        ),
-                      ));
+                  );
+
                 },
               ),
 
@@ -285,26 +258,13 @@ class MoreScreen extends StatelessWidget {
                 text: LocaleKeys.contact_us.tr(),
                 image: "assets/images/email.png",
                 press: () {
-                  context.read<AuthCubit>().status == true
-                      ? push(
+              push(
                     context,
                     BlocProvider<ContactCubit>(
                         create: (BuildContext context) =>
                             ContactCubit(ContactRepo()),
                         child: ContactUsScreen()),
-                  )
-                      : showTopSnackBar(
-                      context,
-                      Card(
-                        child: CustomSnackBar.success(
-                          message:
-                          " ${LocaleKeys.offline_translate.tr()}",
-                          backgroundColor: Colors.white,
-                          textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: size.height * 0.025),
-                        ),
-                      ));
+                  );
                 },
               ),
               if (LocalStorage.getData(key: 'token') != null)
@@ -312,25 +272,12 @@ class MoreScreen extends StatelessWidget {
                   text: LocaleKeys.send_balance.tr(),
                   image: "assets/images/money.png",
                   press: () {
-                    context.read<AuthCubit>().status == true
-                        ? Navigator.push(context, MaterialPageRoute(builder: (_)=>  BlocProvider<TransactionCubit>(
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>  BlocProvider<TransactionCubit>(
                         create: (BuildContext context) =>
                             TransactionCubit(TransactionRepo()),
                         child: TransactionScreen()))).then((value) {
                       context.read<AuthCubit>().statics();
-                    })
-                        : showTopSnackBar(
-                        context,
-                        Card(
-                          child: CustomSnackBar.success(
-                            message:
-                            " ${LocaleKeys.offline_translate.tr()}",
-                            backgroundColor: Colors.white,
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: size.height * 0.025),
-                          ),
-                        ));
+                    });
                   },
                 ),
               MenuWidget(
@@ -349,7 +296,7 @@ class MoreScreen extends StatelessWidget {
                 image: "assets/images/language.png",
                 press: () async {
                   //   await  context.read<AuthCubit>().swichLag(context);
-                  if (context.read<AuthCubit>().status == true) {
+
                     if (context.locale.toString() == 'ar') {
                       LocalStorage.saveData(key: "lang", value: 'en');
                       // SharedPreferences prefs =
@@ -369,20 +316,7 @@ class MoreScreen extends StatelessWidget {
                       );
                     }
                     context.read<AuthCubit>().changeLang();
-                  } else {
-                    showTopSnackBar(
-                        context,
-                        Card(
-                          child: CustomSnackBar.success(
-                            message:
-                            " ${LocaleKeys.offline_translate.tr()}",
-                            backgroundColor: Colors.white,
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: size.height * 0.025),
-                          ),
-                        ));
-                  }
+
                 },
               ),
               //
@@ -391,26 +325,13 @@ class MoreScreen extends StatelessWidget {
                 text: LocaleKeys.about.tr(),
                 image: "assets/images/information.png",
                 press: () {
-                  context.read<AuthCubit>().status == true
-                      ? push(
+                 push(
                     context,
                     BlocProvider<AboutCubit>(
                         create: (BuildContext context) =>
                             AboutCubit(AboutRepo()),
                         child: AboutScreen()),
-                  )
-                      : showTopSnackBar(
-                      context,
-                      Card(
-                        child: CustomSnackBar.success(
-                          message:
-                          " ${LocaleKeys.offline_translate.tr()}",
-                          backgroundColor: Colors.white,
-                          textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: size.height * 0.025),
-                        ),
-                      ));
+                  );
                 },
               ),
               MenuWidget(
@@ -421,7 +342,6 @@ class MoreScreen extends StatelessWidget {
                 "assets/images/logout.png":
     "assets/images/login2.png",
                 press: () async {
-                  if (context.read<AuthCubit>().status == true) {
                     if (LocalStorage.getData(key: 'token') != null)
                       context.read<AuthCubit>().logout();
                     else
@@ -431,20 +351,7 @@ class MoreScreen extends StatelessWidget {
                               create: (BuildContext context) =>
                                   AuthCubit(AuthRepo()),
                               child: Login()));
-                  } else {
-                    showTopSnackBar(
-                        context,
-                        Card(
-                          child: CustomSnackBar.success(
-                            message:
-                                " ${LocaleKeys.offline_translate.tr()}",
-                            backgroundColor: Colors.white,
-                            textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: size.height * 0.025),
-                          ),
-                        ));
-                  }
+
                 },
               ),
               if (LocalStorage.getData(key: 'token') != null)
@@ -452,7 +359,6 @@ class MoreScreen extends StatelessWidget {
                   text: LocaleKeys.delete_account.tr(),
                   image: "assets/images/delete-document.png",
                   press: () async {
-                    if (context.read<AuthCubit>().status == true) {
                       showDialog<void>(
                         context: context,
                         builder: (modal) {
@@ -543,20 +449,7 @@ class MoreScreen extends StatelessWidget {
                         },
                       );
                       //
-                    } else {
-                      showTopSnackBar(
-                          context,
-                          Card(
-                            child: CustomSnackBar.success(
-                              message:
-                              " ${LocaleKeys.offline_translate.tr()}",
-                              backgroundColor: Colors.white,
-                              textStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: size.height * 0.025),
-                            ),
-                          ));
-                    }
+
                   },
                 ),
             ],

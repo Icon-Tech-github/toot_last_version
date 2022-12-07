@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,11 +29,35 @@ import '../../data/models/orders_model.dart';
 import 'Auth_screens/login.dart';
 import 'order_tracking.dart';
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
    OrderScreen({Key? key}) : super(key: key);
 
+   @override
+   _OrderState createState() => _OrderState();
+}
+class _OrderState extends State<OrderScreen> {
+  bool ActiveConnection = true;
+  @override
+  void initState() {
+    CheckUserConnection();
 
+    super.initState();
+  }
+  Future CheckUserConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          ActiveConnection = true;
 
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        ActiveConnection = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -49,11 +75,8 @@ class OrderScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child:  OfflineBuilder(
-          connectivityBuilder: (BuildContext context,
-          ConnectivityResult connectivity, Widget child) {
-        final bool connected = connectivity != ConnectivityResult.none;
-        return connected ?
+          child:
+         ActiveConnection ?
           BlocBuilder<OrdersBlocCubit, OrdersBlocState>(
               builder: (context, state) {
                 if (state is OrdersLoading && state.isFirstFetch) {
@@ -200,7 +223,7 @@ class OrderScreen extends StatelessWidget {
                                 children: [
                                   SizedBox(height: size.height *.11,),
                                   lottie.Lottie.asset(
-                                      'assets/images/cart.json',
+                                      'assets/images/cartt.json',
                                       height: size.height *.3,
                                       width: 400),
                                   SizedBox(height: size.height *.02,),
@@ -209,7 +232,7 @@ class OrderScreen extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: size.height *.03,
-                                        color: Colors.black),
+                                        color: Colors.white),
                                   )
                                 ],
                               ),
@@ -941,10 +964,8 @@ class OrderScreen extends StatelessWidget {
               ),
             ],
           ),
-        );
-          },
-            child: CircularProgressIndicator(),
-          )
+        )
+
         ),
       ),
     );

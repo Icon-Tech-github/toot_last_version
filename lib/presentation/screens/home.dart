@@ -274,6 +274,7 @@
 //   }
 // }
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -401,111 +402,22 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
   double topBarOpacity = 0.0;
   AnimationController? productsAnimationController;
   TextEditingController search = TextEditingController();
+  bool ActiveConnection = true;
+  Future CheckUserConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          ActiveConnection = true;
 
-  // void checkVersion() async {
-  //   _checker.checkUpdate().then((value) {
-  //     print(value.canUpdate); //return true if update is available
-  //     print(value.currentVersion); //return current app version
-  //     print(value.newVersion); //return the new app version
-  //     print(value.appURL); //return the app url
-  //     print(value.errorMessage);
-  //     //return error message if found else it will return null
-  //     if(value.canUpdate){
-  //       showDialog(context: context,
-  //           builder: (context){
-  //             return AlertDialog(
-  //               contentPadding: EdgeInsets.zero,
-  //               shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(15),),
-  //               title: Center(
-  //                 child: Text(  LocaleKeys.Update.tr(),
-  //                   style: TextStyle(
-  //                       fontWeight: FontWeight.bold,
-  //                       fontSize: 22
-  //                   ),),
-  //               ),
-  //               content: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: [
-  //                //   SizedBox(height: 10,),
-  //                   Padding(
-  //                     padding: const EdgeInsets.symmetric(horizontal: 20),
-  //                     child: Text(  LocaleKeys.update_des.tr(),
-  //                       textAlign: TextAlign.center,
-  //                       style: TextStyle(
-  //                           color: Colors.black38,
-  //                           fontSize: 14
-  //                       ),),
-  //                   ),
-  //                   SizedBox(height: 20,),
-  //                   Container(
-  //                     height: 1,
-  //                     width: double.infinity,
-  //                     color: Colors.black12,
-  //                   ),
-  //                   Container(
-  //                     height: 60,
-  //                     child: Row(
-  //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                       children: [
-  //                         Expanded(
-  //                           child: InkWell(
-  //                             onTap: (){
-  //                               Navigator.pop(context);
-  //                             },
-  //                             child: Center(
-  //                               child: Text(
-  //             LocaleKeys.Maybe_later.tr(),
-  //                                 style: TextStyle(
-  //                                     color: AppTheme.secondary
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                         Container(
-  //                           height: 60,
-  //                           width: 1,
-  //                           color: Colors.black12,
-  //                         ),
-  //                         Expanded(
-  //                           child: InkWell(
-  //                             onTap: (){
-  //                               OpenStore.instance.open(
-  //                                 appStoreId: 'com.icontds.toot', // AppStore id of your app for iOS
-  //                                 androidAppBundleId: 'com.icontds.toot', // Android app bundle package name
-  //                               );
-  //                             },
-  //                             child:  Container(
-  //                               decoration: BoxDecoration(
-  //                                   color: AppTheme.secondary,
-  //
-  //                                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(context.locale.toString() == 'ar'?0:15),
-  //                                       bottomLeft: Radius.circular(context.locale.toString() == 'en'?0:15)
-  //                                   )
-  //                               ),
-  //                               child: Center(
-  //                                 child: Text(
-  //                                   LocaleKeys.Update_Now.tr(),
-  //                                   style: TextStyle(
-  //                                       color: Colors.white
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //
-  //                       ],
-  //                     ),
-  //                   )
-  //                 ],
-  //               ),
-  //             );
-  //           });
-  //     }
-  //   });
-  // }
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        ActiveConnection = false;
+      });
+    }
+  }
 
   void checkVersion(BuildContext context) async {
     final updateAvailability = await getUpdateAvailability();
@@ -560,6 +472,9 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
                         Expanded(
                           child: InkWell(
                             onTap: (){
+                              setState(() {
+                                widget.fromSplash = false;
+                              });
                               Navigator.pop(context);
                             },
                             child: Center(
@@ -580,6 +495,9 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
                         Expanded(
                           child: InkWell(
                             onTap: (){
+                              setState(() {
+                                widget.fromSplash = false;
+                              });
                               OpenStore.instance.open(
                                 appStoreId: '6443826620', // AppStore id of your app for iOS
                                 androidAppBundleId: 'com.icontds.toot', // Android app bundle package name
@@ -610,8 +528,10 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
 
   }
 
+
   @override
   void initState() {
+    CheckUserConnection();
     checkVersion(context);
     productsAnimationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
@@ -652,11 +572,7 @@ bool connected = true;
     var he = MediaQuery.of(context).size.height;
     var lang = context.locale.toString();
 
-    return OfflineBuilder(
-      connectivityBuilder: (BuildContext context,
-          ConnectivityResult connectivity, Widget child) {
-         connected = connectivity != ConnectivityResult.none;
-        return  connected
+        return  ActiveConnection
             ? Stack(children: [
           ListView(
             controller: scrollController,
@@ -815,9 +731,7 @@ bool connected = true;
             ],
           ),
         );
-      },
-      child: CircularProgressIndicator(),
-    );
+
   }
 }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,17 +70,37 @@ class _CartListState extends State<CartList> {
   bool checkedNote = false;
 
   bool apply = false;
+  bool ActiveConnection = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    CheckUserConnection();
+    super.initState();
+  }
+
+  Future CheckUserConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          ActiveConnection = true;
+
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        ActiveConnection = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     var lang = context.locale.toString();
 
-    return   OfflineBuilder(
-        connectivityBuilder: (BuildContext context,
-        ConnectivityResult connectivity, Widget child) {
-      final bool connected = connectivity != ConnectivityResult.none;
-      return connected
+
+      return ActiveConnection
           ?
       BlocConsumer<CartCubit, CartState>(listener: (context, state) {
       if (state is AddCouponFailure) {
@@ -1189,9 +1211,7 @@ class _CartListState extends State<CartList> {
           ],
         ),
       );
-        },
-      child: CircularProgressIndicator(),
-    );
+
   }
 }
 

@@ -1,3 +1,4 @@
+
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _LoginScreenState extends State<Login> {
                               DepartmentsCubit(GetHomeRepository(),false,context,context.locale.toString()),
                         ),
                       ],
-                      child: BottomNavBar(),
+                      child: BottomNavBar(fromSplash: true,),
                     ),
               ),
             );

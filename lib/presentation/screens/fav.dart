@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,10 +74,25 @@ class _GetAppBarUiState extends State<GetAppBarUi> {
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
+  bool ActiveConnection = true;
+  Future CheckUserConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          ActiveConnection = true;
 
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        ActiveConnection = false;
+      });
+    }
+  }
   @override
   void initState() {
-
+CheckUserConnection();
     widget.animationController?.forward();
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
@@ -108,12 +125,29 @@ class _GetAppBarUiState extends State<GetAppBarUi> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return  ActiveConnection?
+      Stack(
       children: [
         BlocProvider<FavoriteCubit>(
             create: (BuildContext context) => FavoriteCubit(FavoriteRepo()),
             child: FavoriteList(animationController:widget.animationController ,startColor: widget.startColor,endColor: widget.endColor,id: widget.id,depName: widget.depName,))
       ],
+    )
+        : Container(
+      height: MediaQuery.of(context).size.height,
+      width:  MediaQuery.of(context).size.width,
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/off.gif"),
+          Text(
+            LocaleKeys.offline_translate.tr(),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -129,12 +163,7 @@ class FavoriteList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return   OfflineBuilder(
-        connectivityBuilder: (BuildContext context,
-        ConnectivityResult connectivity, Widget child) {
-      final bool connected = connectivity != ConnectivityResult.none;
-      return connected
-          ?
+    return
       BlocBuilder<FavoriteCubit, FavoriteState>(
 
         builder: (context, state) {
@@ -232,27 +261,8 @@ class FavoriteList extends StatelessWidget {
 
           return SizedBox();
         }
-    )
-          : Container(
-        height: MediaQuery.of(context).size.height,
-        width:  MediaQuery.of(context).size.width,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("assets/images/off.gif"),
-            Text(
-              LocaleKeys.offline_translate.tr(),
-              style: TextStyle(
-                color: Colors.white,
-                  fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-          ],
-        ),
-      );
-        },
-      child: CircularProgressIndicator(),
     );
+
   }
 }
 

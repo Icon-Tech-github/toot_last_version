@@ -153,7 +153,7 @@ bool isClosed= false;
 
 
 
-   // NotificationSettings settings =
+    NotificationSettings settings =
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
       announcement: false,
@@ -170,15 +170,16 @@ bool isClosed= false;
       badge: true,
       sound: true,
     );
+
 //   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
       print("33333");
 
       RemoteNotification notification = message.notification!;
-      AndroidNotification android = message.notification!.android!;
+  //    AndroidNotification android = message.notification!.android!;
 
-      if (notification != null && android != null) {
+      if (notification != null ) {
         LocalStorage.getData(key: 'lang') == 'en'?
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
@@ -188,7 +189,7 @@ bool isClosed= false;
               android: AndroidNotificationDetails(
                 message.data['title_en'],
                 message.data['description_en'],
-                icon: '@mipmap/launcher_icon',
+                icon: 'resource://mipmap/launcher_icon',
               ),
             )):
         flutterLocalNotificationsPlugin.show(
@@ -317,6 +318,7 @@ bool isClosed= false;
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('33333ss');
       if (message.data['order_id'] == null) {
         push(
           context,

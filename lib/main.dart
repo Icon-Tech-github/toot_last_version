@@ -28,6 +28,8 @@ void main()async {
   if(LocalStorage.getData(key: "lang") == null)
   LocalStorage.saveData(key: "lang", value:  ui.window.locale.languageCode);
 
+
+
   BlocOverrides.runZoned(
         () => runApp(
             EasyLocalization(
@@ -109,7 +111,7 @@ class _MyAppState extends State<MyApp>
       //       child: Login()):
         home:LocalStorage.getData(
           key: 'token',
-        ) == null? LocationActivate():BottomNavBar(),
+        ) == null? LocationActivate():BottomNavBar(fromSplash: true,),
  // home:     MultiBlocProvider(
  //          providers: [
  //            BlocProvider<HomeAdCubit>(

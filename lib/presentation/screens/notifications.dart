@@ -218,6 +218,11 @@ class _NotifyScreenState extends State<NotifyScreen> {
                         itemCount: notificationState.allNotifications.length,
                         itemBuilder: (ctx, index) => GestureDetector(
                               onTap: () {
+                                push(
+                                    context,
+                                    NotificationDetails(
+                                        notification: notificationState
+                                            .allNotifications[index]));
                                 if(notificationState.allNotifications[index].readAt == null){
                                   notificationState.reed([
                                     notificationState.allNotifications[index].id!
@@ -225,11 +230,7 @@ class _NotifyScreenState extends State<NotifyScreen> {
                                   LocalStorage.saveData(key: "unReadCount",value: (int.parse(LocalStorage.getData(key: "unReadCount").toString()) -1).toString());
                                 }
 
-                                push(
-                                    context,
-                                    NotificationDetails(
-                                        notification: notificationState
-                                            .allNotifications[index]));
+
                               },
                               child: Container(
                                 height: size.height *.291,
