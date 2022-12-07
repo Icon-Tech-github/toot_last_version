@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<SendBalanceScreen> {
                       ),
                     ));
                 push(context, BottomNavBar());
-              } else if (state is ContactLoading) {
+              } else if (state is BalanceLoading) {
                 LoadingScreen.show(context);
               }
             },

@@ -27,9 +27,11 @@ class ErrorPopUp extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(32.0))),
       title: Text(
         LocaleKeys.sorry_translate.tr(),
+        textAlign: TextAlign.center,
         style: TextStyle(height: 2),
       ),
       content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox(height: 2.0),
