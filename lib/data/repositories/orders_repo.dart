@@ -33,7 +33,7 @@ class OrdersRepo implements OrdersRepository {
   Future fetchOrders(String token,int page) async{
     try
     {
-      var response = await dio.get(ServerConstants.orders+'?page=$page&paginate=5',
+      var response = await dio.get(ServerConstants.orders+'?page=$page&paginate=10',
           options: Options(
             headers: {
               ...apiHeaders,

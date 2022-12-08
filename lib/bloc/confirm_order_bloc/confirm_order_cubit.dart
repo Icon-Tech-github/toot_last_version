@@ -112,7 +112,7 @@ class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
     print(total.toString()+"[[[kkkk");
 
     total = total + calculateTax();
-    deliveryFee = LocalStorage.getData(key: "deliveryFee") +(double.parse(LocalStorage.getData(key: "fast_amount")??"0"));
+    deliveryFee = LocalStorage.getData(key: "deliveryFee")??0 +(double.parse(LocalStorage.getData(key: "fast_amount")??"0"));
 total = total + deliveryFee;
 
 print(deliveryFee.toString()+"[[[kkkkk]]]");

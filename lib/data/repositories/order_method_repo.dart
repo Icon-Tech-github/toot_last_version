@@ -189,6 +189,7 @@ class OrderMethodRepo implements OrderMethodRepository {
     String ? notes,
     String? long,
     String ?lat,
+    int ?defaultAddress,
   }) async {
     String token =LocalStorage.getData(key: "token");
     // Json Data
@@ -196,7 +197,8 @@ class OrderMethodRepo implements OrderMethodRepository {
       "long": "$long",
       "lat": "$lat",
       "title": "$title",
-      "notes":"$notes"
+      "notes":"$notes",
+      "default":"$defaultAddress"
     };
     // Http Request
 
@@ -226,6 +228,7 @@ class OrderMethodRepo implements OrderMethodRepository {
     String ? notes,
     String? long,
     String ?lat,
+    int ?defaultAddress,
   }) async {
     String token =LocalStorage.getData(key: "token");
     // Json Data
@@ -233,7 +236,8 @@ class OrderMethodRepo implements OrderMethodRepository {
       "long": "$long",
       "lat": "$lat",
       "title": "$title",
-      "notes":"$notes"
+      "notes":"$notes",
+      "default":"$defaultAddress"
     };
     // Http Request
 

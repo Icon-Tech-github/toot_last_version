@@ -225,7 +225,7 @@
   "share": "Share app",
   "date": "Delivery date",
   "time": "Delivery time",
-  "cart_warning": "Delivery fee will be calculated later",
+  "cart_warning": "Delivery fee and tax will be calculated later",
   "update_des": "A new version of Toot is available now. We recommend that you upgrade to the latest version",
   "branch_txt": "Select a branch so we can help you to find whatever you want and deliver it",
   "must_be_member": "Must be a current user in Toot",
@@ -241,6 +241,10 @@
   "cancel_order": "Cancel order",
   "payment": "Payment",
   "payment_failed": "Payment failed",
+  "enter_pass_title": "Enter your registered phone number",
+  "your_order_failed": "Your order has been failed",
+  "default_address": "Default address",
+  "default_word": "Default",
   "please_login": "Login Please"
 
 }

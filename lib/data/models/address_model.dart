@@ -6,6 +6,7 @@ class AddressModel{
   String ?long;
   String ?notes;
   bool ? chosen;
+  int ? defaultAddress;
   bool ? freeToday;
   double ?deliveryFee;
 
@@ -13,6 +14,7 @@ class AddressModel{
   AddressModel({  this.id,
     this.clientId,
     this.title,
+    this.defaultAddress,
     this.lat,
     this.long,
     this.notes,
@@ -23,6 +25,7 @@ class AddressModel{
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
     id: json["id"],
     clientId: json["client_id"],
+    defaultAddress: json["default"],
     title: json["title"],
     lat: json["lat"].toString(),
     long: json["long"].toString(),
@@ -34,6 +37,7 @@ class AddressModel{
   );
   Map<String, dynamic> toJson() => {
     "id": id,
+    "default":defaultAddress,
     "chosen": chosen,
     "title": title,
     "lat": lat,

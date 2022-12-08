@@ -84,7 +84,7 @@ class _LoginScreenState extends State<ForgotPassword> {
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                                       child: Text(
-                                        LocaleKeys.forgot_pass.tr(),
+                                        LocaleKeys.forget_password.tr(),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           height: size.height *.002,
@@ -138,14 +138,15 @@ class _LoginScreenState extends State<ForgotPassword> {
                               SizedBox(
                                 height: 10,
                               ),
-                              // Center(
-                              //   child: Text(
-                              //     'Welcome back',
-                              //     style: TextStyle(
-                              //         fontSize: size.height * 0.018,
-                              //         ),
-                              //   ),
-                              // ),
+                              Center(
+                                child: Text(
+                                  LocaleKeys.enter_pass_title.tr(),
+                                  style: TextStyle(
+                                      fontSize: size.height * 0.018,
+                                    color: Colors.grey
+                                      ),
+                                ),
+                              ),
                               SizedBox(
                                 height: size.height * 0.07,
                               ),

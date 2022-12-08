@@ -28,6 +28,7 @@ import '../../local_storage.dart';
 import '../../payment_vars/constants_payment.dart';
 import '../../translations/locale_keys.g.dart';
 import '../widgets/helper.dart';
+import 'faild_order.dart';
 import 'order_success.dart';
 
 
@@ -111,19 +112,20 @@ class _WebViewScreenState extends State<WebViewScreen> {
         });
 
         if(msg != "Authorised"){
-          Navigator.pop(context);
-          Navigator.pop(context);
-
-          showTopSnackBar(
-              context,
-              Card(
-                child: CustomSnackBar.success(
-                  message:   LocaleKeys.payment_failed.tr(),
-                  backgroundColor: Colors.white,
-                  textStyle: TextStyle(
-                      color: Colors.black, fontSize: MediaQuery.of(context).size.height * 0.02),
-                ),
-              ));
+          push(context, OrderFailed());
+          // Navigator.pop(context);
+          // Navigator.pop(context);
+          //
+          // showTopSnackBar(
+          //     context,
+          //     Card(
+          //       child: CustomSnackBar.success(
+          //         message:   LocaleKeys.payment_failed.tr(),
+          //         backgroundColor: Colors.white,
+          //         textStyle: TextStyle(
+          //             color: Colors.black, fontSize: MediaQuery.of(context).size.height * 0.02),
+          //       ),
+          //     ));
         }else{
           _showedOnce = true;
           confirmOrder(context);

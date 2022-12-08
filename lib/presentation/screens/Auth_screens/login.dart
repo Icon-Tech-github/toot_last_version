@@ -226,7 +226,7 @@ class _LoginScreenState extends State<Login> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
                         child: Row(
                           children: [
                             Text(

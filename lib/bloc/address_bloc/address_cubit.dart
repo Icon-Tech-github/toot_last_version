@@ -23,7 +23,7 @@ class AddressCubit extends Cubit<AddressState> {
   final formKey = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
 
-
+  bool radioSelected = false;
   TextEditingController addressTitle = TextEditingController();
   TextEditingController addressDis = TextEditingController();
 
@@ -42,13 +42,19 @@ class AddressCubit extends Cubit<AddressState> {
     final addresses = List<AddressModel>.from(
         data.map((address) => AddressModel.fromJson(address)));
     allAddresses = addresses;
-    if(LocalStorage.getData(key: "addressId") !=null){
+
+    //if(LocalStorage.getData(key: "addressId") !=null){
       for(int i =0; i< addresses.length; i++){
-        if(LocalStorage.getData(key: "addressId") == addresses[i].id)
-        {
+        if(addresses[i].defaultAddress ==1){
           addresses[i].chosen=true;
+          LocalStorage.saveData(key: "addressId", value: addresses[i].id);
         }
-      }}
+        // if(LocalStorage.getData(key: "addressId") == addresses[i].id)
+        // {
+        //   addresses[i].chosen=true;
+        // }
+      }
+ //   }
     emit(AddressesLoaded(address: addresses));
   }
 
@@ -64,7 +70,8 @@ class AddressCubit extends Cubit<AddressState> {
         title: addressTitle.text,
         notes: addressDis.text,
         long: lng.toString(),
-        lat: lat.toString()
+        lat: lat.toString(),
+      defaultAddress: radioSelected? 1 : 0
     )
         .then((data) async {
       if(data == null){

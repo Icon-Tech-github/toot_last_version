@@ -279,7 +279,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                 margin: EdgeInsets.symmetric(horizontal: 5),
                 padding: EdgeInsets.symmetric(horizontal: 10),
 
-                width: size.width * .27,
+                width: size.width * .25,
                 height: size.height *.1,
                 decoration: BoxDecoration(
                   color: state.timeData[index].chosen == true?AppTheme.orange:AppTheme.white,
@@ -295,7 +295,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                       state.timeData[index].date.toString().substring(5,state.timeData[index].date!.length).replaceAll("-", "/"),
                       style: TextStyle(
                           color:state.timeData[index].chosen == true? Colors.white:Colors.black,
-                          fontSize: size.height * 0.023,
+                          fontSize: size.height * 0.02,
                           height: size.height * 0.002,
                           fontWeight: FontWeight.bold),
                     ),
@@ -303,7 +303,7 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                     LocalStorage.getData(key: "lang") == 'en'? state.timeData[index].title.toString(): state.timeData[index].display.toString(),
                       style: TextStyle(
                           color:state.timeData[index].chosen == true?Colors.white: Colors.black,
-                          fontSize: size.height * 0.016,
+                          fontSize: size.height * 0.015,
                           height: size.height * 0.0015,
                           fontWeight: FontWeight.bold),
                     ),

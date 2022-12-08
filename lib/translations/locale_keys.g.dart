@@ -245,6 +245,10 @@ abstract class LocaleKeys {
   static const wrong_otp = "wrong_otp";
   static const payment = "payment";
   static const payment_failed = "payment_failed";
+  static const enter_pass_title = "enter_pass_title";
+  static const your_order_failed = "your_order_failed";
+  static const default_address = "default_address";
+  static const default_word = "default_word";
 
 
 

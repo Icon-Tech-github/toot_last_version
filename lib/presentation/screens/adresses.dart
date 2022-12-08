@@ -187,14 +187,35 @@ class _AddressScreenState extends State<AddressScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  state.address[index].title.toString(),
-                                                  maxLines: 1,
-                                                  softWrap: false,
-                                                  style: TextStyle(
-                                                      fontSize: size.height * 0.022,
-                                                      height: size.height * 0.002,
-                                                      fontWeight: FontWeight.bold),
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.end ,
+                                                  children: [
+                                                    Text(
+                                                      state.address[index].title.toString(),
+                                                      maxLines: 1,
+                                                      softWrap: false,
+                                                      style: TextStyle(
+                                                          fontSize: size.height * 0.022,
+                                                          height: size.height * 0.002,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width * .03,
+                                                    ),
+                                                    if( state.address[index].defaultAddress == 1)
+                                                    Container(
+                                                        padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.grey.withOpacity(.2),
+                                                          //  border: Border.all(width: 4,color: Colors.white),
+                                                          borderRadius:  BorderRadius.circular(5),
+                                                        ),
+                                                        child: Center(child: Text( LocaleKeys.default_word.tr() ,
+                                                          style: TextStyle( fontSize: size.width * .03,color: AppTheme.secondary, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * .01,
                                                 ),
                                                 SizedBox(
                                                   width: size.width * .4,
@@ -351,7 +372,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                       },
                                       child: Container(
                                         height: size.height *
-                                            0.83,
+                                            0.88,
                                         decoration: const BoxDecoration(
                                             color:
                                             Colors.white,
@@ -501,6 +522,30 @@ class _AddressScreenState extends State<AddressScreen> {
                                                   ),
                                                 ),
                                               ),
+                                              SizedBox(
+                                                height: size.height * .01,
+                                              ),
+                                              SizedBox(
+                                            //    height: size.height * .1,
+                                                child: CheckboxListTile(
+                                                  activeColor: AppTheme.secondary,
+                                                  title: GestureDetector(
+                                                      onTap: () {},
+                                                      child: Text(
+                                                        LocaleKeys.default_address.tr(),
+                                                        style: TextStyle(fontSize: size.height * .02,height: size.height * .002),
+                                                      )),
+                                                  value: context.read<AddressCubit>().radioSelected,
+                                                  onChanged: (newValue) {
+                                                    setState(() {
+                                                      context.read<AddressCubit>().radioSelected = newValue!;
+                                                      print( context.read<AddressCubit>().radioSelected);
+                                                    });
+                                                  },
+                                                  controlAffinity: ListTileControlAffinity
+                                                      .leading, //  <-- leading Checkbox
+                                                ),
+                                              ),
                                               if (context.read<AddressCubit>().markerTapped == false)
                                                 Center(
                                                   child: Padding(
@@ -513,7 +558,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 )
                                               else
                                                 Container(
-                                                  height: size.height * .38,
+                                                  height: size.height * .35,
                                                   padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(20.0),
@@ -547,7 +592,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                   ),
                                                 ),
                                               SizedBox(
-                                                height: size.height * .07,
+                                                height: size.height * .06,
                                               ),
                                             ],
                                           ),

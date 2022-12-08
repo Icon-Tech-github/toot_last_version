@@ -146,7 +146,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                           child: Container(
                                             height: size.height * .1,
                                             margin: EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
+                                                horizontal: 10, vertical: 10),
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 20, vertical: 10),
                                             decoration: BoxDecoration(
@@ -186,14 +186,32 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                   crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      state.address[index].title.toString(),
-                                                      maxLines: 1,
-                                                      softWrap: false,
-                                                      style: TextStyle(
-                                                          fontSize: size.height * 0.022,
-                                                          height: size.height * 0.002,
-                                                          fontWeight: FontWeight.bold),
+                                                    Row(
+                                                      children: [
+
+                                                        Text(
+                                                          state.address[index].title.toString(),
+                                                          maxLines: 1,
+                                                          softWrap: false,
+                                                          style: TextStyle(
+                                                              fontSize: size.height * 0.022,
+                                                              height: size.height * 0.002,
+                                                              fontWeight: FontWeight.bold),
+                                                        ),
+                                                        SizedBox(
+                                                          width: size.width * .03,
+                                                        ),
+                                                        if( state.address[index].defaultAddress == 1)
+                                                          Container(
+                                                              padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                              decoration: BoxDecoration(
+                                                                color: Colors.grey.withOpacity(.2),
+                                                                //  border: Border.all(width: 4,color: Colors.white),
+                                                                borderRadius:  BorderRadius.circular(5),
+                                                              ),
+                                                              child: Center(child: Text( LocaleKeys.default_word.tr() ,
+                                                                style: TextStyle( fontSize: size.width * .03,color: AppTheme.secondary, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                      ],
                                                     ),
                                                     SizedBox(
                                                       width: size.width * .4,
@@ -350,7 +368,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                       },
                                       child: Container(
                                         height: size.height *
-                                            0.83,
+                                            0.9,
                                         decoration: const BoxDecoration(
                                             color:
                                             Colors.white,
@@ -501,6 +519,30 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                   ),
                                                 ),
                                               ),
+                                              SizedBox(
+                                                height: size.height * .01,
+                                              ),
+                                              SizedBox(
+                                                //    height: size.height * .1,
+                                                child: CheckboxListTile(
+                                                  activeColor: AppTheme.secondary,
+                                                  title: GestureDetector(
+                                                      onTap: () {},
+                                                      child: Text(
+                                                        LocaleKeys.default_address.tr(),
+                                                        style: TextStyle(fontSize: size.height * .02,height: size.height * .002),
+                                                      )),
+                                                  value: context.read<AddressGiftCubit>().radioSelected,
+                                                  onChanged: (newValue) {
+                                                    setState(() {
+                                                      context.read<AddressGiftCubit>().radioSelected = newValue!;
+                                                      print( context.read<AddressGiftCubit>().radioSelected);
+                                                    });
+                                                  },
+                                                  controlAffinity: ListTileControlAffinity
+                                                      .leading, //  <-- leading Checkbox
+                                                ),
+                                              ),
                                               if (context.read<AddressGiftCubit>().markerTapped == false)
                                                 Center(
                                                   child: Padding(
@@ -513,7 +555,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                 )
                                               else
                                                 Container(
-                                                  height: size.height * .38,
+                                                  height: size.height * .36,
                                                   padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(20.0),
