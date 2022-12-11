@@ -130,6 +130,46 @@ class AddressGiftCubit extends Cubit<AddressGiftState> {
 
   }
 
+  void makeDefault(int id,context){
+    emit(AddressGiftInitial());
+    Size size = MediaQuery.of(context).size;
+    var data =    repo.makeDefault(id);
+
+    if( data != null) {
+      showTopSnackBar(
+          context,
+          Card(
+            child: CustomSnackBar.success(
+              message: LocaleKeys.successfully.tr(),
+              backgroundColor: Colors.white,
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: size.height * 0.04),
+            ),
+          ));
+      for(int n =0; n< allAddresses.length; n++) {
+
+        allAddresses[n].defaultAddress =0;
+        allAddresses[n].chosen=false;
+
+
+      }
+      for(int n =0; n< allAddresses.length; n++) {
+        if(allAddresses[n].id == id){
+          allAddresses[n].defaultAddress =1;
+          allAddresses[n].chosen=true;
+          LocalStorage.saveData(key: "addressId", value: allAddresses[n].id);
+          break;
+        }
+      }
+      emit(AddressesGiftLoaded(address: allAddresses));
+
+    }else{
+      print("llllkkkkkkll");
+
+    }
+  }
+
   GoogleMapController? mapController;
   bool markerTapped = false;
   Marker? marker;

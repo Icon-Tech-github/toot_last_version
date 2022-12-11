@@ -10,6 +10,7 @@ abstract class OrderMethodRepository {
   Future fetchPaymentMethod();
   Future fetchCars();
   Future fetchAddress();
+  makeDefault (int id);
   fetchAddressGift();
   Future addCar({
     String? color,
@@ -256,6 +257,25 @@ class OrderMethodRepo implements OrderMethodRepository {
 
     if (ServerConstants.isValidResponse(_response.statusCode!)) {
       return _response.data;
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future makeDefault (int id) async{
+    String token = LocalStorage.getData(key: "token");
+    var response = await dio.post(ServerConstants.makeDefault+"/$id",
+        options: Options(
+          headers:{...apiHeaders,
+            'Authorization': '$token',
+          },
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ));
+    if (ServerConstants.isValidResponse(response.statusCode!)) {
+      return response.data['status'];
     } else {
       return null;
     }

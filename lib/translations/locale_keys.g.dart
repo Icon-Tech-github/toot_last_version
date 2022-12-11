@@ -249,8 +249,8 @@ abstract class LocaleKeys {
   static const your_order_failed = "your_order_failed";
   static const default_address = "default_address";
   static const default_word = "default_word";
-
-
+  static const set_default = "set_default";
+  static const successfully = "successfully";
 
 
 }

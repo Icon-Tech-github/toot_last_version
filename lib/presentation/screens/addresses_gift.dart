@@ -210,7 +210,23 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                                 borderRadius:  BorderRadius.circular(5),
                                                               ),
                                                               child: Center(child: Text( LocaleKeys.default_word.tr() ,
-                                                                style: TextStyle( fontSize: size.width * .03,color: AppTheme.secondary, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                                style: TextStyle( fontSize: size.width * .03,color: Colors.green, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+
+                                                        if( state.address[index].defaultAddress == 0)
+                                                          InkWell(
+                                                            onTap: (){
+                                                              context.read<AddressGiftCubit>().makeDefault(state.address[index].id!, context);
+                                                            },
+                                                            child: Container(
+                                                                padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.grey.withOpacity(.2),
+                                                                  //  border: Border.all(width: 4,color: Colors.white),
+                                                                  borderRadius:  BorderRadius.circular(5),
+                                                                ),
+                                                                child: Center(child: Text( LocaleKeys.set_default.tr() ,
+                                                                  style: TextStyle( fontSize: size.width * .03,color: AppTheme.secondary, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                          ),
                                                       ],
                                                     ),
                                                     SizedBox(

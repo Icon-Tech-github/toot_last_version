@@ -246,5 +246,7 @@
   "payment": "الدفع",
   "payment_failed": "فشل عملية الدفع",
   "enter_pass_title": "قم بإدخال رقم جوالك المسجل لدينا",
+  "successfully": "تمت بنجاح",
+  "set_default": "اجعله رئيسي",
   "please_login": "قم بتسجيل الدخول من فضلك "
 }

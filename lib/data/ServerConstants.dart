@@ -89,6 +89,8 @@ class ServerConstants {
   static const String transactions = "${API}/balance/transactions";
 
   static const String statics = "${API}/client/statics";
+  static const String makeDefault = "${API}/address/default";
+
 
 
 

@@ -127,7 +127,45 @@ class AddressCubit extends Cubit<AddressState> {
     }
 
   }
+  void makeDefault(int id,context,int index){
+    emit(AddressInitial());
+    Size size = MediaQuery.of(context).size;
+var data =    repo.makeDefault(id);
 
+      if( data != null) {
+        showTopSnackBar(
+            context,
+            Card(
+              child: CustomSnackBar.success(
+                message: LocaleKeys.successfully.tr(),
+                backgroundColor: Colors.white,
+                textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: size.height * 0.04),
+              ),
+            ));
+        for(int n =0; n< allAddresses.length; n++) {
+
+            allAddresses[n].defaultAddress =0;
+            allAddresses[n].chosen=false;
+
+
+        }
+
+            allAddresses[index].defaultAddress
+            =1;
+            allAddresses[index].chosen=true;
+            LocalStorage.saveData(key: "addressId", value: allAddresses[index].id);
+
+
+        emit(AddressesLoaded(address: allAddresses));
+
+      }else{
+        print("llllkkkkkkll");
+
+      }
+      print(allAddresses[index].defaultAddress);
+  }
   GoogleMapController? mapController;
   bool markerTapped = false;
   Marker? marker;
@@ -147,18 +185,6 @@ class AddressCubit extends Cubit<AddressState> {
       // });
     }
   }
-  // setActiveLocation() async {
-  //   var platform = Theme.of(context).platform;
-  //
-  //   if (platform == TargetPlatform.iOS) {
-  //     AppSettings.openAppSettings();
-  //   } else {
-  //     final AndroidIntent intent = new AndroidIntent(
-  //       action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-  //     );
-  //     await intent.launch().then((value) => getUserLocation);
-  //   }
-  // }
   getUserLocation() async {
     // Position position = await Geolocator.getCurrentPosition();
     currentLocation = await locateUser();
