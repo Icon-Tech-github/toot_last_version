@@ -272,7 +272,7 @@ class _LoginScreenState extends State<Login> {
 
                       ),
                       SizedBox(
-                        height: size.height * 0.05,
+                        height: size.height * 0.03,
                       ),
 
 
@@ -294,7 +294,7 @@ class _LoginScreenState extends State<Login> {
                           )
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 15,
                       ),
                       InkWell(
                         onTap: () async{
@@ -328,7 +328,7 @@ class _LoginScreenState extends State<Login> {
                       ),
 
                       SizedBox(
-                        height: 30,
+                        height: 15,
                       ),
                       InkWell(
                         onTap: (){

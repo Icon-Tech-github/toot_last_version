@@ -74,7 +74,7 @@
   "quantity" : "الكمية",
   "your_order_placed" : "تم إنشاء طلبك",
   "your_order_failed" : "فشل إنشاء طلبك",
-  "default_address": "اضافة كعنوان رئيسي",
+  "default_address": "تفعيل ليكون عنوانك الرئيسي",
   "default_word": "رئيسي",
   "your_order_number_is" : "رقم طلبك ",
   "Excellent_Request": "طلب امتياز",
@@ -113,8 +113,8 @@
   "depends_on": "السعر حسب اختيارك",
   "empty_fav" : "المفضلة فارغة",
   "empty_cart" : "سلة التسوق فارغة",
-  "sign_in_to_make": "سجل دخولك لتتمكن من الطلب",
-  "sign_in_to_show" : "سجل دخولك لتري منتجاتك المفضلة",
+  "sign_in_to_make": "سجل الدخول لعرض طلباتك",
+  "sign_in_to_show" : "سجل الدخول لعرض منتجاتك المفضلة",
   "empty_orders" : "الطلبات فارغة",
   "apply": "ارسال",
   "please_add_order_method": "أضف طريقة طلب",
@@ -248,5 +248,7 @@
   "enter_pass_title": "قم بإدخال رقم جوالك المسجل لدينا",
   "successfully": "تمت بنجاح",
   "set_default": "اجعله رئيسي",
+  "edit_address": "تعديل العنوان",
+  "not_possible_balance": "لا يمكن إرسال رصيد لرقم جوالك",
   "please_login": "قم بتسجيل الدخول من فضلك "
 }

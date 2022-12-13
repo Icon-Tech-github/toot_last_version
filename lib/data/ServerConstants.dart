@@ -51,6 +51,8 @@ class ServerConstants {
 
   static const String addCar ='${API}/car/store';
   static const String addAddress ='${API}/address/store-home-address';
+  static const String editAddress ='${API}/address/update';
+
   static const String addAddressGift ='${API}/address/store-gift-address';
 
 

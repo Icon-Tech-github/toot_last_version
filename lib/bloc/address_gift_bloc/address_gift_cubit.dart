@@ -22,12 +22,14 @@ class AddressGiftCubit extends Cubit<AddressGiftState> {
   List<AddressModel> allAddresses =[];
   final formKey = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
+  final editForm = GlobalKey<FormState>();
   bool radioSelected = false;
 
 
   TextEditingController addressTitle = TextEditingController();
   TextEditingController addressDis = TextEditingController();
-
+  String editAddressDis="";
+  String editAddressTitle = "";
 
 
   AddressGiftCubit(this.repo) : super(AddressGiftInitial()){
@@ -45,6 +47,7 @@ class AddressGiftCubit extends Cubit<AddressGiftState> {
     final addresses = List<AddressModel>.from(
         data.map((address) => AddressModel.fromJson(address)));
     allAddresses = addresses;
+    LocalStorage.removeData(key: "addressId");
     for(int i =0; i< addresses.length; i++){
       if(addresses[i].defaultAddress ==1){
         addresses[i].chosen=true;
@@ -95,7 +98,43 @@ class AddressGiftCubit extends Cubit<AddressGiftState> {
       }
     });
   }
+  editAddress( context,int id) async {
+    // emit(AuthLoading());
+    if (!editForm.currentState!.validate()) {
+      return;
+    }
+    editForm.currentState!.save();
+    LoadingScreen.show(context!);
 
+    await repo
+        .editAddress(
+        id: id,
+        title: editAddressTitle,
+        notes:editAddressDis,
+        long: lng.toString(),
+        lat: lat.toString(),
+        defaultAddress: radioSelected? 1 : 0
+    )
+        .then((data) async {
+      if(data == null){
+        emit(AddAddressGiftFailure(error: LocaleKeys.not_valid.tr(),));
+      }else {
+        // Random random = new Random();
+        //
+        // int randomNumber = random.nextInt(10000) + 1000;
+        // allAddresses.add(AddressModel(
+        //     id: randomNumber,
+        //     lat: lat.toString(),
+        //     long: lng.toString(),
+        //     title: address.text
+        // ));
+        await getAddresses();
+        Navigator.pop(context);
+        Navigator.pop(context);
+        //   emit(AddAddressLoaded());
+      }
+    });
+  }
 
   chooseAddress(List<AddressModel> address, int i,context) {
     emit(AddressGiftInitial());

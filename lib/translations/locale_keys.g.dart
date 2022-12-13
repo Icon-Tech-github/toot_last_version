@@ -251,6 +251,8 @@ abstract class LocaleKeys {
   static const default_word = "default_word";
   static const set_default = "set_default";
   static const successfully = "successfully";
+  static const edit_address = "edit_address";
+  static const not_possible_balance = "not_possible_balance";
 
 
 }

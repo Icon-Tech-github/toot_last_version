@@ -102,6 +102,8 @@ class PointsRepo implements PointsRepository {
         return "406";
       }else if (response.statusCode == 404) {
         return "404";
+      }else if (response.statusCode == 412) {
+        return "412";
       }
       else {
         return null;

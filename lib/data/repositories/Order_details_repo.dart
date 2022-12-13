@@ -1,8 +1,5 @@
-import 'dart:convert';
 
 import 'package:loz/data/ServerConstants.dart';
-import 'package:loz/data/models/department_model.dart';
-import 'package:loz/data/models/home_ad_model.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

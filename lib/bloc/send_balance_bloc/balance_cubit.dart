@@ -31,6 +31,8 @@ class BalanceCubit extends Cubit<BalanceState> {
         emit(BalanceFailure(error: LocaleKeys.not_enough.tr()));
       }else  if (data ==  "404"){
         emit(BalanceFailure(error: LocaleKeys.phone_not_found.tr()));
+      }else  if (data ==  "412"){
+        emit(BalanceFailure(error: LocaleKeys.not_possible_balance.tr()));
       }
       else {
         emit(BalanceSuccess());

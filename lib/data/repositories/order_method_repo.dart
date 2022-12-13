@@ -27,6 +27,14 @@ abstract class OrderMethodRepository {
     String? long,
     String ?lat,
   });
+  Future editAddress({
+    int?id,
+    String? title,
+    String ? notes,
+    String? long,
+    String ?lat,
+    int ?defaultAddress,
+  });
 }
 
 class OrderMethodRepo implements OrderMethodRepository {
@@ -222,7 +230,45 @@ class OrderMethodRepo implements OrderMethodRepository {
       return null;
     }
   }
+  @override
+  Future editAddress({
+    int?id,
+    String? title,
+    String ? notes,
+    String? long,
+    String ?lat,
+    int ?defaultAddress,
+  }) async {
+    String token =LocalStorage.getData(key: "token");
+    // Json Data
+    var _data = {
+      "long": "$long",
+      "lat": "$lat",
+      "title": "$title",
+      "notes":"$notes",
+      "default":"$defaultAddress"
+    };
+    // Http Request
 
+    var _response = await dio.post(ServerConstants.editAddress+"/$id",
+        data: _data,
+        options: Options(
+          headers: {...apiHeaders,
+            'Authorization': '$token',
+          },
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ));
+
+    print("${_response.data}");
+
+    if (ServerConstants.isValidResponse(_response.statusCode!)) {
+      return _response.data;
+    } else {
+      return null;
+    }
+  }
   @override
   Future addAddressGift({
     String? title,

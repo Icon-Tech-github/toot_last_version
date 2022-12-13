@@ -147,7 +147,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                       child: Container(
                                         height: size.height * .1,
                                         margin: EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 10),
+                                            horizontal: 12, vertical: 10),
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20, vertical: 10),
                                         decoration: BoxDecoration(
@@ -161,12 +161,13 @@ class _AddressScreenState extends State<AddressScreen> {
                                           borderRadius: BorderRadius.circular(20),
                                         ),
                                         child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 20, vertical: 10),
+                                                  horizontal: 10, vertical: 10),
                                               //  width: size.width *.6,
                                               decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
@@ -181,6 +182,9 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 color: Colors.white,
                                               ),
                                             ),
+                                            SizedBox(
+                                              width: size.width * .01,
+                                            ),
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -190,21 +194,25 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.end ,
                                                   children: [
-                                                    Text(
-                                                      state.address[index].title.toString(),
-                                                      maxLines: 1,
-                                                      softWrap: false,
-                                                      style: TextStyle(
-                                                          fontSize: size.height * 0.022,
-                                                          height: size.height * 0.002,
-                                                          fontWeight: FontWeight.bold),
+                                                    SizedBox(
+                                                      width: size.width * .18 ,
+                                                      child: Text(
+                                                        state.address[index].title.toString(),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        softWrap: false,
+                                                        style: TextStyle(
+                                                            fontSize: size.height * 0.022,
+                                                            height: size.height * 0.002,
+                                                            fontWeight: FontWeight.bold),
+                                                      ),
                                                     ),
                                                     SizedBox(
-                                                      width: size.width * .03,
+                                                      width: size.width * .01,
                                                     ),
                                                     state.address[index].defaultAddress == 1?
                                                     Container(
-                                                        padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                        padding: EdgeInsets.symmetric(vertical: 5,horizontal: 7),
                                                         decoration: BoxDecoration(
                                                           color: Colors.grey.withOpacity(.2),
                                                           //  border: Border.all(width: 4,color: Colors.white),
@@ -220,7 +228,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                           context.read<AddressCubit>().makeDefault(state.address[index].id!, context,index);
                                                         },
                                                         child: Container(
-                                                            padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                            padding: EdgeInsets.symmetric(vertical: 5,horizontal: 7),
                                                             decoration: BoxDecoration(
                                                               color: Colors.grey.withOpacity(.2),
                                                               //  border: Border.all(width: 4,color: Colors.white),
@@ -252,7 +260,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                               ],
                                             ),
                                             SizedBox(
-                                              width: size.width * .05,
+                                              width: size.width * .01,
                                             ),
                                             Container(
                                               //   width: 23,
@@ -284,6 +292,314 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 ),
                                               ),
                                             ),
+
+                                            VerticalDivider(thickness: 1.5,),
+                                            GestureDetector(
+                                              onTap: ()async{
+                                                context.read<AddressCubit>().radioSelected=state.address[index].defaultAddress ==0?false:true;
+                                                context.read<AddressCubit>().markerTapped =
+                                                false;
+                                                if (context.read<AddressCubit>()
+                                                    .markerTapped ==
+                                                    false)
+                                                  LoadingScreen.show(
+                                                      context);
+                                                // method.currentLocation =
+
+                                                  setState(() {
+                                                    print(state.address[index].lat
+                                                        );
+
+                                                    context.read<AddressCubit>().markerTapped =
+                                                    true;
+                                                    context.read<AddressCubit>().marker = context.read<AddressCubit>()
+                                                        .createMarker(
+                                                      double.parse(state.address[index].lat.toString()),
+                                                        double.parse(state.address[index].long.toString())
+                                                    );
+                                                    context.read<AddressCubit>().lat =
+                                                        double.parse(state.address[index].lat.toString());
+                                                    context.read<AddressCubit>().lng =
+                                                        double.parse(state.address[index].long.toString());
+                                                  });
+
+                                                if (context.read<AddressCubit>()
+                                                    .markerTapped ==
+                                                    false)
+                                                  LoadingScreen.show(
+                                                      context);
+                                                else {
+                                                  Navigator.pop(
+                                                      context);
+                                                  showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                      Colors
+                                                          .transparent,
+                                                      context: context,
+                                                      builder: (modal) {
+                                                        return BlocProvider
+                                                            .value(
+                                                          value: BlocProvider.of<
+                                                              AddressCubit>(
+                                                              context),
+                                                          child:
+                                                          StatefulBuilder(
+                                                            builder:
+                                                                (BuildContext context, setState) =>
+                                                                GestureDetector(
+                                                                  onTap: (){
+                                                                    FocusScope.of(context).requestFocus(FocusNode());
+
+                                                                  },
+                                                                  child: Container(
+                                                                    height: size.height *
+                                                                        0.88,
+                                                                    decoration: const BoxDecoration(
+                                                                        color:
+                                                                        Colors.white,
+                                                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                                                                    child:
+                                                                    Form(
+                                                                      key: context.read<AddressCubit>()
+                                                                          .editForm,
+                                                                      child:
+                                                                      Column(
+                                                                        mainAxisAlignment:
+                                                                        MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                        CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height: 30,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                                                                            child: Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                Text(
+                                                                                  LocaleKeys.edit_address.tr(),
+                                                                                  style: TextStyle(fontSize: size.height * 0.02),
+                                                                                ),
+                                                                                Align(
+                                                                                  alignment: Alignment.bottomRight,
+                                                                                  child: InkWell(
+                                                                                    onTap: () {
+                                                                                      FocusScope.of(context).requestFocus(FocusNode());
+                                                                                      context.read<AddressCubit>().editAddress(context, state.address[index].id!);
+                                                                                    },
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.only(right: 20.0, bottom: 10),
+                                                                                      child: CircleAvatar(
+                                                                                        backgroundColor: AppTheme.orange,
+                                                                                        radius: size.height * .03,
+                                                                                        // Image radius
+                                                                                        child: Icon(
+                                                                                          Icons.done,
+                                                                                          size: size.height * .04,
+                                                                                          color: Colors.white,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: size.height * .03,
+                                                                          ),
+                                                                          Center(
+                                                                            child: SizedBox(
+                                                                              width: size.width * .8,
+                                                                              height: size.height * .08,
+                                                                              child: TextFormField(
+                                                                                initialValue: state.address[index].title??"",
+                                                                             //   controller: context.read<AddressCubit>().addressTitle,
+                                                                                cursorColor: AppTheme.orange,
+                                                                                decoration: InputDecoration(
+                                                                                  focusedBorder: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.circular(25.0),
+                                                                                    borderSide: BorderSide(
+                                                                                      color: AppTheme.orange,
+                                                                                    ),
+                                                                                  ),
+                                                                                  enabledBorder: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.circular(25.0),
+                                                                                    borderSide: BorderSide(
+                                                                                      color: AppTheme.orange,
+                                                                                      width: 2.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                  label: Text(
+                                                                                    LocaleKeys.title.tr(),
+                                                                                    style: TextStyle(color: AppTheme.orange, fontSize: size.height * 0.017),
+                                                                                  ),
+                                                                                  //     border:
+                                                                                  //     OutlineInputBorder(
+                                                                                  //   borderSide: BorderSide(color:  AppTheme
+                                                                                  //       .orange, width: 5.0),
+                                                                                  // ),
+                                                                                ),
+                                                                                onSaved: (value){
+                                                                                  context.read<AddressCubit>().editAddressTitle=value!;
+                                                                                },
+                                                                                validator: (value) {
+                                                                                  if (value == null || value.isEmpty) {
+                                                                                    return LocaleKeys.Required.tr();
+                                                                                  }
+                                                                                  return null;
+                                                                                },
+                                                                                onEditingComplete: () {
+                                                                                  FocusScope.of(context).requestFocus(FocusNode());
+
+                                                                                  //  Navigator.pop(context);
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: size.height * .03,
+                                                                          ),
+                                                                          Center(
+                                                                            child: SizedBox(
+                                                                              width: size.width * .8,
+                                                                              height: size.height * .12,
+                                                                              child: TextFormField(
+                                                                                initialValue: state.address[index].notes,
+                                                                               // controller: context.read<AddressCubit>().addressDis,
+                                                                                cursorColor: AppTheme.orange,
+                                                                                maxLines: 4,
+                                                                                decoration: InputDecoration(
+                                                                                  focusedBorder: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.circular(25.0),
+                                                                                    borderSide: BorderSide(
+                                                                                      color: AppTheme.orange,
+                                                                                    ),
+                                                                                  ),
+                                                                                  enabledBorder: OutlineInputBorder(
+                                                                                    borderRadius: BorderRadius.circular(25.0),
+                                                                                    borderSide: BorderSide(
+                                                                                      color: AppTheme.orange,
+                                                                                      width: 2.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                  label: Text(
+                                                                                    LocaleKeys.address_des.tr(),
+                                                                                    style: TextStyle(color: AppTheme.orange, fontSize: size.height * 0.017),
+                                                                                  ),
+                                                                                  //     border:
+                                                                                  //     OutlineInputBorder(
+                                                                                  //   borderSide: BorderSide(color:  AppTheme
+                                                                                  //       .orange, width: 5.0),
+                                                                                  // ),
+                                                                                ),
+                                                                                onSaved: (value){
+                                                                                  context.read<AddressCubit>().editAddressDis=value!;
+                                                                                },
+                                                                                validator: (value) {
+                                                                                  if (value == null || value.isEmpty) {
+                                                                                    return LocaleKeys.Required.tr();
+                                                                                  }
+                                                                                  return null;
+                                                                                },
+                                                                                onEditingComplete: () {
+                                                                                  FocusScope.of(context).requestFocus(FocusNode());
+
+                                                                                  //  Navigator.pop(context);
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: size.height * .01,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            //    height: size.height * .1,
+                                                                            child: CheckboxListTile(
+                                                                              activeColor: AppTheme.secondary,
+                                                                              title: GestureDetector(
+                                                                                  onTap: () {},
+                                                                                  child: Text(
+                                                                                    LocaleKeys.default_address.tr(),
+                                                                                    style: TextStyle(fontSize: size.height * .02,height: size.height * .002),
+                                                                                  )),
+                                                                              value: context.read<AddressCubit>().radioSelected,
+                                                                              onChanged: (newValue) {
+                                                                                setState(() {
+                                                                                  context.read<AddressCubit>().radioSelected = newValue!;
+                                                                                  print( context.read<AddressCubit>().radioSelected);
+                                                                                });
+                                                                              },
+                                                                              controlAffinity: ListTileControlAffinity
+                                                                                  .leading, //  <-- leading Checkbox
+                                                                            ),
+                                                                          ),
+                                                                          if (context.read<AddressCubit>().markerTapped == false)
+                                                                            Center(
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.only(top: 8.0),
+                                                                                child: Text(
+                                                                                  'Your Location loading ...',
+                                                                                  style: TextStyle(color: AppTheme.orange, fontSize: 16),
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          else
+                                                                            Container(
+                                                                              height: size.height * .35,
+                                                                              padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
+                                                                              child: ClipRRect(
+                                                                                borderRadius: BorderRadius.circular(20.0),
+                                                                                child: GoogleMap(
+                                                                                  mapType: MapType.normal,
+                                                                                  myLocationEnabled: true,
+                                                                                  zoomControlsEnabled: false,
+                                                                                  gestureRecognizers: Set()..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
+                                                                                  onTap: (location) {
+                                                                                    FocusScope.of(context).requestFocus(new FocusNode());
+                                                                                    setState(() {
+                                                                                      context.read<AddressCubit>().marker = context.read<AddressCubit>().createMarker(location.latitude, location.longitude);
+                                                                                      context.read<AddressCubit>().lat = location.latitude;
+                                                                                      context.read<AddressCubit>().lng = location.longitude;
+                                                                                      print(location.latitude);
+                                                                                    });
+                                                                                  },
+                                                                                  initialCameraPosition: CameraPosition(
+                                                                                    target: LatLng(double.parse(state.address[index].lat.toString()), double.parse(state.address[index].long.toString())),
+                                                                                    zoom: 14.0,
+                                                                                  ),
+                                                                                  markers: Set<Marker>.of(
+                                                                                    <Marker>[
+                                                                                      context.read<AddressCubit>().marker!
+                                                                                    ],
+                                                                                  ),
+                                                                                  onMapCreated: (GoogleMapController controller) {
+                                                                                    context.read<AddressCubit>().mapController = controller;
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          SizedBox(
+                                                                            height: size.height * .06,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                          ),
+                                                        );
+                                                      })
+                                                      .then((value) => {
+                                                    setState(
+                                                            () {})
+                                                  });
+                                                }
+                                              },
+                                                child: Image.asset("assets/images/writing.png",height:  size.height * .03,color: AppTheme.secondary,))
+                                           // Icon(Icons.edit,color: AppTheme.secondary,size: size.height * .03)
                                           ],
                                         ),
                                       ),
