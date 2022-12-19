@@ -253,6 +253,12 @@ abstract class LocaleKeys {
   static const successfully = "successfully";
   static const edit_address = "edit_address";
   static const not_possible_balance = "not_possible_balance";
-
+  static const Coupon_Not_Found = "Coupon_Not_Found";
+  static const Coupon_Has_been_ended = "Coupon_Has_been_ended";
+  static const Coupon_Not_Available_to_this_branch = "Coupon_Not_Available_to_this_branch";
+  static const Coupon_is_no_longer_used = "Coupon_is_no_longer_used";
+  static const Coupon_Not_Available_in_this_time = "Coupon_Not_Available_in_this_time";
+  static const Coupon_Not_Available_in_this_date = "Coupon_Not_Available_in_this_date";
+  static const discount_error = "discount_error";
 
 }

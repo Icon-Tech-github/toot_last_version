@@ -531,6 +531,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
 
   @override
   void initState() {
+
     CheckUserConnection();
     checkVersion(context);
     productsAnimationController = AnimationController(

@@ -82,15 +82,9 @@ class AddressGiftCubit extends Cubit<AddressGiftState> {
       if(data == null){
         emit(AddAddressGiftFailure(error: LocaleKeys.not_valid.tr(),));
       }else {
-        // Random random = new Random();
-        //
-        // int randomNumber = random.nextInt(10000) + 1000;
-        // allAddresses.add(AddressModel(
-        //     id: randomNumber,
-        //     lat: lat.toString(),
-        //     long: lng.toString(),
-        //     title: address.text
-        // ));
+        addressTitle.clear();
+        addressDis.clear();
+
         await getAddresses();
         Navigator.pop(context);
         Navigator.pop(context);
@@ -119,6 +113,7 @@ class AddressGiftCubit extends Cubit<AddressGiftState> {
       if(data == null){
         emit(AddAddressGiftFailure(error: LocaleKeys.not_valid.tr(),));
       }else {
+
         // Random random = new Random();
         //
         // int randomNumber = random.nextInt(10000) + 1000;

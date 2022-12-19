@@ -375,10 +375,26 @@ getCartCount();
       var data =  await repo
           .addCoupon(promoCode);
       final  coupon = CouponModel.fromJson(data);
-      if(coupon.data == null){
+      if(coupon.msg == "Coupon Not Found"){
 
-        emit(AddCouponFailure(error: LocaleKeys.not_valid.tr()));
-      }else {
+        emit(AddCouponFailure(error: LocaleKeys.Coupon_Not_Found.tr()));
+      }else if(coupon.msg == "Coupon Has been ended"){
+
+        emit(AddCouponFailure(error: LocaleKeys.Coupon_Has_been_ended.tr()));
+      }else if(coupon.msg == "Coupon Not Available to this branch"){
+
+        emit(AddCouponFailure(error: LocaleKeys.Coupon_Not_Available_to_this_branch.tr()));
+      }else if(coupon.msg == "Coupon is no longer used for this client"){
+
+        emit(AddCouponFailure(error: LocaleKeys.Coupon_is_no_longer_used.tr()));
+      }else if(coupon.msg == "Coupon Not Available in this date"){
+
+        emit(AddCouponFailure(error: LocaleKeys.Coupon_Not_Available_in_this_time.tr()));
+      }else if(coupon.msg == "Coupon Not Available in this time"){
+
+        emit(AddCouponFailure(error: LocaleKeys.Coupon_Not_Available_in_this_date.tr()));
+      }
+      else if(coupon.data != null) {
         discount = coupon.data!.value;
         limit = coupon.data!.limit;
         type = coupon.data!.type;
@@ -389,7 +405,7 @@ getCartCount();
         LocalStorage.saveData(key: "type", value: type);
         emit(AddCouponSuccess(coupon: coupon));
       }}else{
-      emit(AddCouponFailure(error: LocaleKeys.empty_fav.tr()));
+      emit(AddCouponFailure(error: LocaleKeys.discount_error.tr()));
 
     }
 
@@ -418,7 +434,8 @@ getCartCount();
   }
   showApply(bool check){
     apply = check;
-    emit(AddCouponLoading());
+    emit(ConfirmOrderLoaded(products: products));
+  //  emit(AddCouponLoading());
   }
 
 

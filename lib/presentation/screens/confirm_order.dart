@@ -81,7 +81,7 @@ class CartList extends StatelessWidget {
                     message: state.error,
                     backgroundColor: Colors.white,
                     textStyle: TextStyle(
-                        color: Colors.black, fontSize: size.height * 0.04),
+                        color: Colors.black, fontSize: size.height * 0.03),
                   ),
                 ));
           } else if (state is UseBalanceFailure) {
@@ -500,11 +500,18 @@ class CartList extends StatelessWidget {
                                                       decoration: BoxDecoration(
                                                         color: AppTheme.secondary,
                                                         borderRadius: BorderRadius.only(
-                                                          topLeft: Radius.circular(10),
-                                                          bottomLeft: Radius.circular(10),
+                                                          topLeft: Radius.circular(LocalStorage.getData(key: "lang") == "en"?0: 10),
+                                                          bottomLeft: Radius.circular(LocalStorage.getData(key: "lang") == "en"?0: 10),
+                                                          topRight: Radius.circular(LocalStorage.getData(key: "lang") == "en"?10: 0),
+                                                          bottomRight: Radius.circular(LocalStorage.getData(key: "lang") == "en"?10: 0),
                                                         )
                                                       ),
-                                                      child:  Center(
+                                                      child: state is AddCouponLoading?
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: CircularProgressIndicator(color: Colors.white,strokeWidth: 3,),
+                                                      ):
+                                                      Center(
                                                         child: Text(
                                                           LocaleKeys.apply.tr(),
                                                           style: TextStyle(
@@ -961,12 +968,9 @@ class CartList extends StatelessWidget {
                         title: LocaleKeys.send_order.tr(),
                         radius: 15,
                         function: () {
-                          String total =  delivery_fee !=0 ?
-                          '${((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)- confirmOrderState.discountRest) > 0 ?((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)- confirmOrderState.discountRest).toStringAsFixed(2) : 0.000}':
-                          '${((context.read<ConfirmOrderCubit>().calculateTotal() + delivery_fee!)).toStringAsFixed(2)} ';
-                          print(total);
 
-                          if(LocalStorage.getData(key: "payment_method_id")==2) {
+
+                          if(LocalStorage.getData(key: "payment_method_id")==2 && confirmOrderState.calculateTotal() !=0 ) {
                             final builder = XmlBuilder();
                             builder.processing('xml', 'version="1.0"');
                             builder.element('mobile', nest: () {
@@ -1029,7 +1033,7 @@ class CartList extends StatelessWidget {
                                   builder.text('SAR');
                                 });
                                 builder.element('amount', nest: () {
-                                  builder.text(total.toString());
+                                  builder.text(confirmOrderState.calculateTotal().toStringAsFixed(2));
                                 });
                                 builder.element('language', nest: () {
                                   builder.text("en");

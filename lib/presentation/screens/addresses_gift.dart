@@ -144,11 +144,11 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                             //  Navigator.pop(context);
                                           },
                                           child: Container(
-                                            height: size.height * .1,
+                                            height: size.height * .14,
                                             margin: EdgeInsets.symmetric(
                                                 horizontal: 12, vertical: 10),
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10),
+                                                horizontal: 15, vertical: 10),
                                             decoration: BoxDecoration(
                                               boxShadow: <BoxShadow>[
                                                 BoxShadow(
@@ -190,52 +190,18 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                   crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                                   children: [
-                                                    Row(
-                                                      children: [
-
-                                                        SizedBox(
-                                                          width: size.width * .2,
-                                                          child: Text(
-                                                            state.address[index].title.toString(),
-                                                            maxLines: 1,
-                                                            overflow: TextOverflow.ellipsis,
-                                                            softWrap: false,
-                                                            style: TextStyle(
-                                                                fontSize: size.height * 0.022,
-                                                                height: size.height * 0.002,
-                                                                fontWeight: FontWeight.bold),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: size.width * .02,
-                                                        ),
-                                                        if( state.address[index].defaultAddress == 1)
-                                                          Container(
-                                                              padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
-                                                              decoration: BoxDecoration(
-                                                                color: Colors.grey.withOpacity(.2),
-                                                                //  border: Border.all(width: 4,color: Colors.white),
-                                                                borderRadius:  BorderRadius.circular(5),
-                                                              ),
-                                                              child: Center(child: Text( LocaleKeys.default_word.tr() ,
-                                                                style: TextStyle( fontSize: size.width * .03,color: Colors.green, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
-
-                                                        if( state.address[index].defaultAddress == 0)
-                                                          InkWell(
-                                                            onTap: (){
-                                                              context.read<AddressGiftCubit>().makeDefault(state.address[index].id!, context);
-                                                            },
-                                                            child: Container(
-                                                                padding: EdgeInsets.symmetric(vertical: 5,horizontal: 2),
-                                                                decoration: BoxDecoration(
-                                                                  color: Colors.grey.withOpacity(.2),
-                                                                  //  border: Border.all(width: 4,color: Colors.white),
-                                                                  borderRadius:  BorderRadius.circular(5),
-                                                                ),
-                                                                child: Center(child: Text( LocaleKeys.set_default.tr() ,
-                                                                  style: TextStyle( fontSize: size.width * .03,color: AppTheme.secondary, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
-                                                          ),
-                                                      ],
+                                                    SizedBox(
+                                                      width: size.width * .25,
+                                                      child: Text(
+                                                        state.address[index].title.toString(),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        softWrap: false,
+                                                        style: TextStyle(
+                                                            fontSize: size.height * 0.022,
+                                                            height: size.height * 0.002,
+                                                            fontWeight: FontWeight.bold),
+                                                      ),
                                                     ),
                                                     SizedBox(
                                                       width: size.width * .4,
@@ -252,10 +218,23 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                         ),
                                                       ),
                                                     ),
+                                                    SizedBox(
+                                                      height: size.height * .01,
+                                                    ),
+                                                    if( state.address[index].defaultAddress == 1)
+                                                      Container(
+                                                          padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.grey.withOpacity(.2),
+                                                            //  border: Border.all(width: 4,color: Colors.white),
+                                                            borderRadius:  BorderRadius.circular(5),
+                                                          ),
+                                                          child: Center(child: Text( LocaleKeys.default_word.tr() ,
+                                                            style: TextStyle( fontSize: size.width * .03,color: Colors.green, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
                                                   ],
                                                 ),
                                                 SizedBox(
-                                                  width: size.width * .05,
+                                                  width: size.width * .03,
                                                 ),
                                                 Container(
                                                   //   width: 23,
@@ -287,7 +266,10 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                VerticalDivider(thickness: 1.5,),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                  child: VerticalDivider(thickness: 1.5,),
+                                                ),
                                                 GestureDetector(
                                                     onTap: ()async{
                                                       context.read<AddressGiftCubit>().radioSelected=state.address[index].defaultAddress ==0?false:true;
@@ -407,8 +389,9 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                                                 Center(
                                                                                   child: SizedBox(
                                                                                     width: size.width * .8,
-                                                                                    height: size.height * .08,
+                                                                                    height: size.height * .1,
                                                                                     child: TextFormField(
+                                                                                      maxLength: 20,
                                                                                       initialValue: state.address[index].title??"",
                                                                                       cursorColor: AppTheme.orange,
                                                                                       keyboardType: TextInputType.number,
@@ -541,7 +524,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                                                   )
                                                                                 else
                                                                                   Container(
-                                                                                    height: size.height * .35,
+                                                                                    height: size.height * .33,
                                                                                     padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                                                     child: ClipRRect(
                                                                                       borderRadius: BorderRadius.circular(20.0),
@@ -591,7 +574,10 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                         });
                                                       }
                                                     },
-                                                    child: Image.asset("assets/images/writing.png",height:  size.height * .03,color: AppTheme.secondary,))
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Image.asset("assets/images/writing.png",height:  size.height * .03,color: AppTheme.secondary,),
+                                                    ))
                                               ],
                                             ),
                                           ),
@@ -756,10 +742,11 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                               Center(
                                                 child: SizedBox(
                                                   width: size.width * .8,
-                                                  height: size.height * .08,
+                                                  height: size.height * .1,
                                                   child: TextFormField(
                                                     controller: context.read<AddressGiftCubit>().addressTitle,
                                                     cursorColor: AppTheme.orange,
+                                                    maxLength: 20,
                                                     keyboardType: TextInputType.number,
                                                     decoration: InputDecoration(
                                                       focusedBorder: OutlineInputBorder(
@@ -884,7 +871,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                                                 )
                                               else
                                                 Container(
-                                                  height: size.height * .36,
+                                                  height: size.height * .33,
                                                   padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(20.0),

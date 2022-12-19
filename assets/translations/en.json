@@ -243,11 +243,19 @@
   "payment_failed": "Payment failed",
   "enter_pass_title": "Enter your registered phone number",
   "your_order_failed": "Your order has been failed",
-  "default_address": "Default address",
+  "default_address": "Activate to be your default address",
   "default_word": "Default",
   "successfully": "Successfully",
   "set_default": "Set default",
   "edit_address": "Edit address",
   "not_possible_balance": "It's not possible to send balance to your mobile number",
-  "please_login": "Login Please"
+  "Coupon_Not_Found": "Coupon not found",
+  "Coupon_Has_been_ended": "Coupon has expired",
+  "Coupon_Not_Available_to_this_branch": "Coupon Not available to this branch",
+  "Coupon_is_no_longer_used": "Coupon is no longer used",
+  "Coupon_Not_Available_in_this_time": "Coupon not available in this time",
+  "Coupon_Not_Available_in_this_date": "Coupon not available in this date",
+  "please_login": "Login Please",
+  "discount_error": "The discount cannot be applied on this order"
+
 }

@@ -145,11 +145,11 @@ class _AddressScreenState extends State<AddressScreen> {
                                         //  Navigator.pop(context);
                                       },
                                       child: Container(
-                                        height: size.height * .1,
+                                        height: size.height * .15,
                                         margin: EdgeInsets.symmetric(
                                             horizontal: 12, vertical: 10),
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 10),
+                                            horizontal: 15, vertical: 10),
                                         decoration: BoxDecoration(
                                           boxShadow: <BoxShadow>[
                                             BoxShadow(
@@ -183,7 +183,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: size.width * .01,
+                                              width: size.width * .02,
                                             ),
                                             Column(
                                               mainAxisAlignment:
@@ -191,53 +191,18 @@ class _AddressScreenState extends State<AddressScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.end ,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: size.width * .18 ,
-                                                      child: Text(
-                                                        state.address[index].title.toString(),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        softWrap: false,
-                                                        style: TextStyle(
-                                                            fontSize: size.height * 0.022,
-                                                            height: size.height * 0.002,
-                                                            fontWeight: FontWeight.bold),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: size.width * .01,
-                                                    ),
-                                                    state.address[index].defaultAddress == 1?
-                                                    Container(
-                                                        padding: EdgeInsets.symmetric(vertical: 5,horizontal: 7),
-                                                        decoration: BoxDecoration(
-                                                          color: Colors.grey.withOpacity(.2),
-                                                          //  border: Border.all(width: 4,color: Colors.white),
-                                                          borderRadius:  BorderRadius.circular(5),
-                                                        ),
-                                                        child: Center(child: Text( LocaleKeys.default_word.tr() ,
-                                                          style: TextStyle( fontSize: size.width * .03,color: Colors.green, height:  size.height*0.002,fontWeight: FontWeight.bold),)))
-                                                        :
-
-                                                 //   if( state.address[index].defaultAddress == 0)
-                                                      InkWell(
-                                                        onTap: (){
-                                                          context.read<AddressCubit>().makeDefault(state.address[index].id!, context,index);
-                                                        },
-                                                        child: Container(
-                                                            padding: EdgeInsets.symmetric(vertical: 5,horizontal: 7),
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.grey.withOpacity(.2),
-                                                              //  border: Border.all(width: 4,color: Colors.white),
-                                                              borderRadius:  BorderRadius.circular(5),
-                                                            ),
-                                                            child: Center(child: Text( LocaleKeys.set_default.tr() ,
-                                                              style: TextStyle( fontSize: size.width * .03,color: AppTheme.secondary, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
-                                                      ),
-                                                  ],
+                                                SizedBox(
+                                                  width: size.width * .18 ,
+                                                  child: Text(
+                                                    state.address[index].title.toString(),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    softWrap: false,
+                                                    style: TextStyle(
+                                                        fontSize: size.height * 0.022,
+                                                        height: size.height * 0.002,
+                                                        fontWeight: FontWeight.bold),
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   height: size.height * .01,
@@ -257,6 +222,19 @@ class _AddressScreenState extends State<AddressScreen> {
                                                     ),
                                                   ),
                                                 ),
+                                                SizedBox(
+                                                  height: size.height * .01,
+                                                ),
+                                                if(state.address[index].defaultAddress == 1)
+                                                  Container(
+                                                      padding: EdgeInsets.symmetric(vertical: 5,horizontal: 7),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.grey.withOpacity(.2),
+                                                        //  border: Border.all(width: 4,color: Colors.white),
+                                                        borderRadius:  BorderRadius.circular(5),
+                                                      ),
+                                                      child: Center(child: Text( LocaleKeys.default_word.tr() ,
+                                                        style: TextStyle( fontSize: size.width * .03,color: Colors.green, height:  size.height*0.002,fontWeight: FontWeight.bold),)))
                                               ],
                                             ),
                                             SizedBox(
@@ -292,8 +270,13 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 ),
                                               ),
                                             ),
-
-                                            VerticalDivider(thickness: 1.5,),
+                                            SizedBox(
+                                              width: size.width * .01,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                              child: VerticalDivider(thickness: 1.5,),
+                                            ),
                                             GestureDetector(
                                               onTap: ()async{
                                                 context.read<AddressCubit>().radioSelected=state.address[index].defaultAddress ==0?false:true;
@@ -413,10 +396,12 @@ class _AddressScreenState extends State<AddressScreen> {
                                                                           Center(
                                                                             child: SizedBox(
                                                                               width: size.width * .8,
-                                                                              height: size.height * .08,
+                                                                              height: size.height * .1,
                                                                               child: TextFormField(
                                                                                 initialValue: state.address[index].title??"",
-                                                                             //   controller: context.read<AddressCubit>().addressTitle,
+                                                                                maxLength: 20,
+
+                                                                                //   controller: context.read<AddressCubit>().addressTitle,
                                                                                 cursorColor: AppTheme.orange,
                                                                                 decoration: InputDecoration(
                                                                                   focusedBorder: OutlineInputBorder(
@@ -548,7 +533,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                                             )
                                                                           else
                                                                             Container(
-                                                                              height: size.height * .35,
+                                                                              height: size.height * .33,
                                                                               padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                                               child: ClipRRect(
                                                                                 borderRadius: BorderRadius.circular(20.0),
@@ -598,7 +583,10 @@ class _AddressScreenState extends State<AddressScreen> {
                                                   });
                                                 }
                                               },
-                                                child: Image.asset("assets/images/writing.png",height:  size.height * .03,color: AppTheme.secondary,))
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Image.asset("assets/images/writing.png",height:  size.height * .03,color: AppTheme.secondary,),
+                                                ))
                                            // Icon(Icons.edit,color: AppTheme.secondary,size: size.height * .03)
                                           ],
                                         ),
@@ -764,8 +752,9 @@ class _AddressScreenState extends State<AddressScreen> {
                                               Center(
                                                 child: SizedBox(
                                                   width: size.width * .8,
-                                                  height: size.height * .08,
+                                                  height: size.height * .1,
                                                   child: TextFormField(
+                                                    maxLength: 20,
                                                     controller: context.read<AddressCubit>().addressTitle,
                                                     cursorColor: AppTheme.orange,
                                                     decoration: InputDecoration(
@@ -891,7 +880,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 )
                                               else
                                                 Container(
-                                                  height: size.height * .35,
+                                                  height: size.height * .33,
                                                   padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(20.0),
