@@ -223,7 +223,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: size.height * .01,
+                                                  height: size.height * .02,
                                                 ),
                                                 if(state.address[index].defaultAddress == 1)
                                                   Container(
