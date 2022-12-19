@@ -251,11 +251,11 @@
   "edit_address": "تعديل العنوان",
   "discount_error": "لا يمكن تطبيق الخصم علي هذا الطلب",
   "not_possible_balance": "لا يمكن إرسال رصيد لرقم جوالك",
-  "Coupon_Not_Found": "كوبون الخصم غير موجود",
-  "Coupon_Has_been_ended": "كوون الخصم منتهي الصلاحية",
+  "Coupon_Not_Found": "الكوبون المدخل غير صحيح",
+  "Coupon_Has_been_ended": "قام عملاء اخرون باستخدام العدد المخصص لهذا الكوبون",
   "Coupon_Not_Available_to_this_branch": "كوبون الخصم غير متاح لهذا الفرع",
   "Coupon_is_no_longer_used": "تجاوزت الحد المسموح لاستخدام الكوبون",
-  "Coupon_Not_Available_in_this_time": "كوبون الخصم غير متاح في هذا الوقت",
-  "Coupon_Not_Available_in_this_date": "كوبون الخصم منتهي الصلاحية",
+  "Coupon_Not_Available_in_this_time": "انت خارج الوقت المخصص لاستخدام هذا الكوبون",
+  "Coupon_Not_Available_in_this_date": "تم انتهاء صلاحية كوبون الخصم",
   "please_login": "قم بتسجيل الدخول من فضلك "
 }

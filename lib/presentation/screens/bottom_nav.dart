@@ -177,9 +177,9 @@ bool isClosed= false;
       print("33333");
 
       RemoteNotification notification = message.notification!;
-  //    AndroidNotification android = message.notification!.android!;
+     AndroidNotification android = message.notification!.android!;
 
-      if (notification != null ) {
+      if (notification != null && android != null) {
         LocalStorage.getData(key: 'lang') == 'en'?
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,

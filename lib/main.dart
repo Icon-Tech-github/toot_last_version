@@ -14,9 +14,6 @@ import 'package:loz/presentation/screens/location_activate.dart';
 import 'package:loz/theme.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'dart:ui' as ui;
-import 'bloc/home/departments_bloc/departments_cubit.dart';
-import 'bloc/home/home_ad_bloc/home_ad_cubit.dart';
-import 'data/repositories/notification_repo.dart';
 import 'local_storage.dart';
 
 void main()async {

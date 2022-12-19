@@ -183,7 +183,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: size.width * .02,
+                                              width: size.width * .01,
                                             ),
                                             Column(
                                               mainAxisAlignment:
@@ -205,7 +205,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: size.height * .01,
+                                                  height: size.height * .0,
                                                 ),
                                                 SizedBox(
                                                   width: size.width * .4,
@@ -223,7 +223,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: size.height * .02,
+                                                  height: size.height * .01,
                                                 ),
                                                 if(state.address[index].defaultAddress == 1)
                                                   Container(
@@ -270,13 +270,8 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: size.width * .01,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                              child: VerticalDivider(thickness: 1.5,),
-                                            ),
+
+                                            VerticalDivider(thickness: 1.5,),
                                             GestureDetector(
                                               onTap: ()async{
                                                 context.read<AddressCubit>().radioSelected=state.address[index].defaultAddress ==0?false:true;
@@ -398,10 +393,9 @@ class _AddressScreenState extends State<AddressScreen> {
                                                                               width: size.width * .8,
                                                                               height: size.height * .1,
                                                                               child: TextFormField(
-                                                                                initialValue: state.address[index].title??"",
                                                                                 maxLength: 20,
-
-                                                                                //   controller: context.read<AddressCubit>().addressTitle,
+                                                                                initialValue: state.address[index].title??"",
+                                                                             //   controller: context.read<AddressCubit>().addressTitle,
                                                                                 cursorColor: AppTheme.orange,
                                                                                 decoration: InputDecoration(
                                                                                   focusedBorder: OutlineInputBorder(
@@ -533,7 +527,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                                             )
                                                                           else
                                                                             Container(
-                                                                              height: size.height * .33,
+                                                                              height: size.height * .35,
                                                                               padding: const EdgeInsets.only(top: 16.0, right: 28.0, left: 28.0),
                                                                               child: ClipRRect(
                                                                                 borderRadius: BorderRadius.circular(20.0),

@@ -275,19 +275,15 @@
 // }
 
 import 'dart:io';
-import 'dart:math';
 
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:loz/bloc/home/departments_bloc/departments_cubit.dart';
 import 'package:loz/bloc/home/home_ad_bloc/home_ad_cubit.dart';
 import 'package:loz/bloc/search_bloc/search_cubit.dart';
-import 'package:loz/data/repositories/branch_repo.dart';
 import 'package:loz/data/repositories/home_repo.dart';
 import 'package:loz/local_storage.dart';
 
@@ -299,23 +295,16 @@ import 'package:loz/translations/locale_keys.g.dart';
 import 'package:open_store/open_store.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:update_available/update_available.dart';
-import 'package:upgrader/upgrader.dart';
 
 import '../../bloc/home/recomendation_bloc/recomend_cubit.dart';
-import '../../bloc/notification_bloc/notification_cubit.dart';
-import '../../bloc/products_bloc/products_cubit.dart';
-import '../../bloc/single_product_bloc/single_product_cubit.dart';
+
 import '../../data/models/branch_model.dart';
-import '../../data/repositories/notification_repo.dart';
-import '../../data/repositories/products_repo.dart';
-import '../../data/repositories/search.dart';
-import '../../data/repositories/single_product_repo.dart';
+
 import '../../theme.dart';
 import '../widgets/helper.dart';
 import '../widgets/recommend_view.dart';
 import 'all_dep.dart';
-import 'bottom_nav.dart';
-import 'notifications.dart';
+
 
 class HomeScreen extends StatelessWidget {
   final AnimationController? animationController;
@@ -334,10 +323,8 @@ class HomeScreen extends StatelessWidget {
     var lang = context.locale.toString();
     return Scaffold(
           // backgroundColor:AppTheme.secondary,
-        body: UpgradeAlert(
-          child: UpgradeAlert(
-            upgrader: Upgrader(dialogStyle: UpgradeDialogStyle.cupertino),
-            child: Container(
+        body:
+        Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -375,8 +362,7 @@ class HomeScreen extends StatelessWidget {
                     fromSplash: fromSplash,
                   )),
             ),
-          ),
-        )
+
         //   ),
 
         );
@@ -432,7 +418,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
 
     print(text);
 
-    if(text=='true'){
+    if(text=='true' && widget.fromSplash == true){
       showDialog(context: context,
           builder: (context){
             return AlertDialog(
@@ -499,7 +485,7 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
                                 widget.fromSplash = false;
                               });
                               OpenStore.instance.open(
-                                appStoreId: '6443826620', // AppStore id of your app for iOS
+                                appStoreId: '1603425900', // AppStore id of your app for iOS
                                 androidAppBundleId: 'com.icontds.toot', // Android app bundle package name
                               );
                             },

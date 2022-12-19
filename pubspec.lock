@@ -791,13 +791,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.1"
-  os_detect:
-    dependency: transitive
-    description:
-      name: os_detect
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   overlay_support:
     dependency: "direct main"
     description:
@@ -1230,13 +1223,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  upgrader:
-    dependency: "direct main"
-    description:
-      name: upgrader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.11.0"
   url_launcher:
     dependency: "direct main"
     description:
@@ -1307,13 +1293,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
-  version:
-    dependency: transitive
-    description:
-      name: version
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
   video_player:
     dependency: "direct main"
     description:

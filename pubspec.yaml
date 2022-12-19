@@ -84,7 +84,6 @@ dependencies:
   countup: ^0.1.4
   lottie:
   flashy_tab_bar2: ^0.0.4
-  upgrader: ^4.11.0
 #  flutter_app_version_checker: ^0.3.1
   open_store:
   skeletons: ^0.0.3

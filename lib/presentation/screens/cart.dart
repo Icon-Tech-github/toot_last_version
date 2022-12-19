@@ -1177,7 +1177,7 @@ class _CartListState extends State<CartList> {
                               ],
                             ),
                             SizedBox(
-                              height: widget.fromHome? size.height * .12:size.height * .04,
+                              height: widget.fromHome? size.height * .1:size.height * .03,
                             ),
                           ],
                         ),
