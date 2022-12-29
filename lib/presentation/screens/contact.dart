@@ -138,26 +138,31 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                                   children: [
                                     InkWell(
                                         onTap: (){
-                                          launch("https://twitter.com/?lang=ar");
+                                          if(contactState.data?.twitter != null)
+                                          launch(contactState.data!.twitter.toString());
 
                                         },
                                         child: Image.asset("assets/images/twitter.png",height: size.height * .06,)),
                                     InkWell(
                                         onTap: (){
-                                          launch("https://www.instagram.com/");
+                                          if(contactState.data?.instagram != null)
+                                          launch(contactState.data!.instagram.toString());
 
                                         },
                                         child: Image.asset("assets/images/instagram.png",height: size.height * .06,)),
                                     InkWell(
                                         onTap: (){
+
                                           var whatsappUrl =
-                                              "whatsapp://send?phone=${966123456789}";
+                                              "whatsapp://send?phone=${contactState.data!.whatsapp.toString()}";
+                                          if(contactState.data?.whatsapp != null)
                                           launch(whatsappUrl);
                                         },
                                         child: Image.asset("assets/images/whatsapp.png",height: size.height * .06,)),
                                     InkWell(
                                       onTap: (){
-                                        launch("tel://01222222222}");
+                                        if(contactState.data?.phone != null)
+                                        launch("tel://${contactState.data!.phone.toString()}");
 
                                       },
                                         child: Image.asset("assets/images/phone.png",height: size.height * .06,))

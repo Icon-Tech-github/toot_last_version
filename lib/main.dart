@@ -97,7 +97,7 @@ class _MyAppState extends State<MyApp>
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: ThemeData(
-          fontFamily: context.locale.toString() == 'ar'? 'aref':'aref'
+          fontFamily: context.locale.toString() == 'ar'? ' ':'aref'
         ),
       //   home:  LocalStorage.getData(
       //   key: 'token',

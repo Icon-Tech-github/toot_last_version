@@ -5,6 +5,7 @@ import '../ServerConstants.dart';
 
 abstract class ContactRepository {
   Future contactUs({String ?phone, String ?email,String ?message});
+  Future fetchContacts();
 }
 
 class ContactRepo implements ContactRepository {
@@ -48,6 +49,30 @@ class ContactRepo implements ContactRepository {
     return _response.data;
     } else {
       return null;
+    }
+  }
+
+  @override
+  Future fetchContacts() async{
+    try
+    {
+      var response = await dio.get('${ServerConstants.contactData}',
+          options: Options(
+            headers: {
+              ...apiHeaders,
+            },
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ));
+      if (ServerConstants.isValidResponse(response.statusCode!)) {
+        return response.data['data'];
+      } else {
+        return null;
+      }
+    }
+    catch (error){
+      return throw error;
     }
   }
 

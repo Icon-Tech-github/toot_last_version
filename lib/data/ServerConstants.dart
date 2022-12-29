@@ -69,6 +69,8 @@ class ServerConstants {
   static const String contactUs ='${API}/contactUs';
   static const String branches = "${API}/branches";
   static const String about ='${API}/about';
+  static const String contactData ='${API}/contactData';
+
   static const String notification ='${API}/notification/all';
   static const String unReadCount ='${API}/notification/unReadNotificationsCount';
 
