@@ -108,7 +108,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                   SizedBox(width: 10,),
                                   Text(
                                     order.orderStatus!.title!.en!,
-                                    style: TextStyle(fontSize: 22,color:  AppTheme.white,),
+                                    style: TextStyle(fontSize: 16,color:  AppTheme.white,),
                                   ),
                                 ],
                               ),

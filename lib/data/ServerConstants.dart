@@ -85,6 +85,8 @@ class ServerConstants {
 
   static const String orders = "${API}/orders";
   static const String track = "${API}/order";
+  static const String availableOrderStatus = "${API}/availableOrderStatus";
+
   static const String points = "${API}/points/all";
   static const String days = "${API}/days";
 

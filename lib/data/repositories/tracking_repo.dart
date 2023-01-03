@@ -7,6 +7,7 @@ abstract class TrackingRepository {
 
   Future trackOrder(String token, int id);
   Future frontBranch(String token, int id);
+  Future getStatus( int orderMethod);
 }
 
 class TrackingOrderRepo implements TrackingRepository {
@@ -68,6 +69,29 @@ class TrackingOrderRepo implements TrackingRepository {
           ));
       if (ServerConstants.isValidResponse(response.statusCode!)) {
         return response.data;
+      } else {
+        return null;
+      }
+    }
+    catch (error){
+      return throw error;
+    }
+  }
+  @override
+  Future getStatus( int orderMethod) async{
+    try
+    {
+      var response = await dio.get(ServerConstants.availableOrderStatus+"/$orderMethod",
+          options: Options(
+            headers: {
+              ...apiHeaders,
+            },
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ));
+      if (ServerConstants.isValidResponse(response.statusCode!)) {
+        return response.data['data'];
       } else {
         return null;
       }

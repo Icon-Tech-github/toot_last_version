@@ -75,7 +75,7 @@ class OrderSuccess extends StatelessWidget {
                     function: () {
                       push(context,
                           BlocProvider(
-                              create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),orderId),
+                              create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),orderId,methodId),
                               child: TrackOrderScreen(orderMethodId: methodId,)));
                     },
                     font: 18,

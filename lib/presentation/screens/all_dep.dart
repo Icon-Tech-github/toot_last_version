@@ -411,6 +411,7 @@ class _ProductsListState extends State<ProductsList>
 
                                 return Center(
                                   child: SingleDepAllWidget(
+                                    depIndex: index,
                                     productsAnimationController: productsAnimationController,
                                     animation: animation,
                                     categories: departments,

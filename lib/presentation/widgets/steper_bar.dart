@@ -1,13 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loz/data/models/status.dart';
 import 'package:loz/theme.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 
 
 class StepsNavBar extends StatelessWidget {
-  int? index;
+  List<StatusDataModel> statusData;
   List<int> status;
-  StepsNavBar({this.index,required this.status});
+  StepsNavBar({required this.statusData,required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,14 @@ class StepsNavBar extends StatelessWidget {
                 )),
               ),
               SizedBox(width: size.width * .04,),
-              Text(
-                LocaleKeys.order_sent.tr(),
-                style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              SizedBox(
+                width: size.width * .6,
+
+                child: Text(
+                 statusData[0].title!.en.toString(),
+                  style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
@@ -62,10 +67,13 @@ class StepsNavBar extends StatelessWidget {
 
     )) ),
               SizedBox(width: size.width * .04,),
-              Text(
-                LocaleKeys.order_accept.tr(),
-                style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              SizedBox(
+                width: size.width * .6,
+                child: Text(
+                  statusData[1].title!.en.toString(),
+                  style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold,height: size.height * .002),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
@@ -74,7 +82,7 @@ class StepsNavBar extends StatelessWidget {
 
             height:  size.width * 0.09,
             width:2,
-            color: status.contains(3)? AppTheme.secondary : Colors.black12,
+            color: status.contains(3) ||  status.contains(5)? AppTheme.secondary : Colors.black12,
           ),
           ///////////////////////////////////////
           Row(
@@ -83,21 +91,23 @@ class StepsNavBar extends StatelessWidget {
                 height: size.height * .06,
                 width: size.height * .06,
                 decoration: BoxDecoration(
-                  color: status.contains(3) ? AppTheme.secondary : Colors.grey.shade300,
+                  color: status.contains(3) ||  status.contains(5)? AppTheme.secondary : Colors.grey.shade300,
                   shape: BoxShape.circle,
                   border: Border.all(width: 0.5, color: Colors.white),
                 ),
                   child: Center(
-                    child: Image.asset("assets/images/bagg.png",height: size.height * .034,color:status.contains(3) ?Colors.white:AppTheme.secondary,
-
-                      ),
+                    child:statusData[2].id == 5? Image.asset("assets/images/way.png",height: size.height * .034,color:status.contains(3) ||  status.contains(5)?Colors.white:AppTheme.secondary,)
+                        :Image.asset("assets/images/bagg.png",height: size.height * .034,color:status.contains(3) ||  status.contains(5)?Colors.white:AppTheme.secondary,)
                   ),
               ),
               SizedBox(width: size.width * .04,),
-              Text(
-                LocaleKeys.on_the_way.tr(),
-                style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              SizedBox(
+                width: size.width * .6,
+                child: Text(
+                  statusData[2].title!.en.toString(),
+                  style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
@@ -123,10 +133,14 @@ class StepsNavBar extends StatelessWidget {
                     )),
               ),
               SizedBox(width: size.width * .04,),
-              Text(
-                LocaleKeys.Done.tr(),
-                style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              SizedBox(
+                width: size.width * .6,
+
+                child: Text(
+                  statusData[3].title!.en.toString(),
+                  style: TextStyle(fontSize: size.width * .05, color: Colors.black,fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

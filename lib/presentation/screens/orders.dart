@@ -511,7 +511,7 @@ class _OrderState extends State<OrderScreen> {
                                                     function: (){
                                                       push(context,
                                                           BlocProvider(
-                                                              create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id),
+                                                              create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
                                                               child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
 
                                                     },
@@ -636,7 +636,7 @@ class _OrderState extends State<OrderScreen> {
                                                                     borderRadius:  BorderRadius.circular(5),
                                                                   ),
                                                                   child: Center(child: Text(order.orderStatus!.title!.en.toString() ,
-                                                                    style: TextStyle( fontSize: size.width * .03,color: Colors.black, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                                    style: TextStyle( fontSize: size.width * .025,color: Colors.black, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
                                                             ],
                                                           ),
                                                           SizedBox(height: size.height * .012,),
@@ -714,7 +714,7 @@ class _OrderState extends State<OrderScreen> {
                                                       function: (){
                                                         push(context,
                                                             BlocProvider(
-                                                                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id),
+                                                                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
                                                                 child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
 
                                                       },
@@ -917,7 +917,7 @@ class _OrderState extends State<OrderScreen> {
                                                       function: (){
                                                         push(context,
                                                             BlocProvider(
-                                                                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id),
+                                                                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
                                                                 child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
 
                                                       },

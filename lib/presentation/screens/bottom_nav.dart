@@ -263,7 +263,7 @@ bool isClosed= false;
                 onTap: () {
                   push(context,
                       BlocProvider(
-                          create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),int.parse(message.data['order_id'].toString())),
+                          create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),int.parse(message.data['order_id'].toString()),int.parse(message.data['order_method_id'].toString())),
                           child: TrackOrderScreen(orderMethodId: int.parse(message.data['order_method_id'].toString()))));
                 },
                 child: Container(
@@ -333,7 +333,7 @@ bool isClosed= false;
       }else if (message.data['order_id'] != null && message.data['type'].toString() == "1") {
         push(context,
             BlocProvider(
-                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),int.parse(message.data['order_id'].toString())),
+                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),int.parse(message.data['order_id'].toString(),),int.parse(message.data['order_method_id'].toString())),
                 child: TrackOrderScreen(orderMethodId:int.parse( message.data['order_method_id'].toString()),)));
       } else if (message.data['order_id'] != null && message.data['type'].toString() == "2") {
         push(

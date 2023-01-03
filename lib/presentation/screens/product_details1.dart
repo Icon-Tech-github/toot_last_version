@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -86,16 +85,17 @@ class ProductDetails1 extends StatelessWidget {
                                         ));
                                   }
                                 },
-                                child: Padding(
+                                child: Container(
+                                  height:  size.height * 0.07,
                                   padding: EdgeInsets.symmetric(
-                                      vertical: size.height * .016),
+                                      vertical: size.height * .0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         LocaleKeys.add_to_cart.tr(),
                                         style: TextStyle(
-                                            height: size.height * 0.0023,
+                                            height: size.height * 0.002,
                                             fontSize: size.height * 0.024,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -182,9 +182,9 @@ class ProductDetails1 extends StatelessWidget {
                               onPressed: () {
                                 // context.read<SingleProductCubit>().addToCard();
                               },
-                              child: Padding(
-                                padding:
-                                EdgeInsets.symmetric(vertical: size.height * .02),
+                              child: SizedBox(
+                                height:  size.height * 0.07,
+
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [

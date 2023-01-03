@@ -8,13 +8,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:loz/data/models/order_track_model.dart';
 import 'package:loz/data/repositories/tracking_repo.dart';
 import 'package:equatable/equatable.dart';
-import 'package:loz/data/models/order_status.dart';
 import 'package:loz/local_storage.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'dart:ui' as ui;
 
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
+import '../../data/models/status.dart';
 part 'status_state.dart';
 
 
@@ -24,20 +25,40 @@ part 'status_state.dart';
 class StatusCubit extends Cubit<StatusState> {
   final TrackingOrderRepo trackingOrderRepo;
 
-  StatusCubit(this.trackingOrderRepo, int id) : super(StatusInitial()) {
+  StatusCubit(this.trackingOrderRepo, int id,int methodId) : super(StatusInitial()) {
    // setCustomMarker();
     print( LocalStorage.getData(key: "order_method_id").toString()+"jkjj");
-    trackOrder(id);
+    trackOrder(id,methodId);
+   // getStatus(methodId);
   }
 
   TrackData? trackData ;
- bool isFront = false;
-  Future trackOrder(int id)async{
+  List<StatusDataModel> status=[] ;
+  bool isStatusLoad = true;
+
+  bool isFront = false;
+  Future trackOrder(int id,int methodId)async{
     emit(StatusLoading());
-    setCustomMarker();
     trackingOrderRepo.trackOrder(LocalStorage.getData(key: 'token'), id).then((value) {
       trackData = TrackData.fromJson(value);
-      emit(StatusLoaded(status: trackData!));
+      trackingOrderRepo.getStatus( methodId).then((value) {
+        status =  List<StatusDataModel>.from(
+            value.map((value) => StatusDataModel.fromJson(value)));
+        isStatusLoad = false;
+          emit(StatusLoaded(status: trackData!));
+      });
+
+    });
+  }
+
+  Future getStatus(int methodId)async{
+  //  emit(StatusLoading());
+    //setCustomMarker();
+    trackingOrderRepo.getStatus( methodId).then((value) {
+      status =  List<StatusDataModel>.from(
+          value.map((value) => StatusDataModel.fromJson(value)));
+      isStatusLoad = false;
+   //   emit(StatusLoaded(status: trackData!));
     });
   }
 

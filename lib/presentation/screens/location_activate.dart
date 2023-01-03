@@ -168,29 +168,14 @@ class _LocationActivateState extends State<LocationActivate> {
                                 ),
                               ),
                               SizedBox(
-                                height: 10,
-                              ),
-                              DefaultButton(
-                                title:  LocaleKeys.home.tr(),
-                                isLoad:  isLoad??false,
-                                radius: 15,
-                                color: AppTheme.secondary,
-                                function: ()async {
-                                  pushReplacement(context, BottomNavBar());
-                                },
-                                textColor: Colors.white,
-                                font: size.width * .045,
-                                height: size.height * .07,
-                              ),
-                              SizedBox(
-                                height: size.height * 0.04,
+                                height: 20,
                               ),
                               DefaultButton(
                                 title:  LocaleKeys.login.tr(),
                                 isLoad:  isLoad??false,
                                 radius: 15,
                                 borderColor: AppTheme.secondary,
-                                color: Colors.transparent,
+                                color: AppTheme.secondary,
                                 function: ()async {
                                   push(
                                       context,
@@ -198,11 +183,29 @@ class _LocationActivateState extends State<LocationActivate> {
                                           create: (BuildContext context) =>
                                               AuthCubit(AuthRepo()),
                                           child: Login()));
-                                  },
-                                textColor:  AppTheme.secondary,
+                                },
+                                textColor:  AppTheme.white,
                                 font: size.width * .045,
                                 height: size.height * .07,
                               ),
+                              SizedBox(
+                                height: size.height * 0.04,
+                              ),
+                              DefaultButton(
+                                title:  LocaleKeys.no_share.tr(),
+                                isLoad:  isLoad??false,
+                                radius: 15,
+                                borderColor: AppTheme.secondary,
+                                color: Colors.transparent,
+                                function: ()async {
+                                  pushReplacement(context, BottomNavBar());
+                                },
+                                textColor: AppTheme.secondary,
+                                font: size.width * .045,
+                                height: size.height * .07,
+                              ),
+
+
                               SizedBox(
                                 height: 40,
                               ),

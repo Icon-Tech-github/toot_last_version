@@ -19,14 +19,14 @@ import 'helper.dart';
 
 class SingleDepAllWidget extends StatelessWidget {
   const SingleDepAllWidget(
-      {Key? key,this.category, this.animationController, this.animation,this.favScreen,this.startColor,this.endColor,this.categories,this.productsAnimationController})
+      {Key? key,this.category, this.animationController, this.animation,this.favScreen,this.startColor,this.endColor,this.categories,this.productsAnimationController,required this.depIndex})
       : super(key: key);
 
   final CategoryModel ?category;
   final List<CategoryModel> ?categories;
   final AnimationController? animationController;
   final AnimationController ?productsAnimationController;
-
+  final int depIndex;
   final Animation<double>? animation;
 
   final String? startColor;
@@ -54,7 +54,7 @@ class SingleDepAllWidget extends StatelessWidget {
                     BlocProvider(
                         create: (BuildContext context) =>
                             ProductsCubit(ProductsRepo(),category!.id!,context,lang),
-                        child: ProductScreen(animationController: productsAnimationController,id: category!.id,depName: category!.title!.en,departments: categories,)));
+                        child: ProductScreen(animationController: productsAnimationController,id: category!.id,depName: category!.title!.en,departments: categories,keyIndex: DepartmentsCubit.formKeyList[depIndex!],)));
               },
               child: Stack(
                 alignment: Alignment.center,

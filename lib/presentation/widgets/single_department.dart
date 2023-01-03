@@ -48,7 +48,7 @@ class SingleDepartmentWidget extends StatelessWidget {
                     BlocProvider(
                         create: (BuildContext context) =>
                             ProductsCubit(ProductsRepo(),department!.id!,context,lang),
-                        child: ProductScreen(animationController: productsAnimationController,id: department!.id,startColor: colors![depIndex!][0],endColor: colors![depIndex!][1],depName: department!.title!.en,departments: departments,)));
+                        child: ProductScreen(animationController: productsAnimationController,id: department!.id,startColor: colors![depIndex!][0],endColor: colors![depIndex!][1],depName: department!.title!.en,departments: departments,keyIndex: DepartmentsCubit.formKeyList[depIndex!],)));
               },
               child: Column(
                 children: [

@@ -141,6 +141,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: StepsNavBar(
+                              statusData: context.read<StatusCubit>().status,
                               //  index: state.status.length,
                               status: state.status.statusIds!,
                             ),
@@ -278,7 +279,7 @@ class _TrackOrderScreenState extends State<TrackOrderScreen> {
                                                   .read<StatusCubit>()
                                                   .trackOrder(int.parse(state
                                                   .status.orderId
-                                                  .toString()));
+                                                  .toString()),widget.orderMethodId);
                                             },
                                             child: Container(
                                               height: size.height * .07,

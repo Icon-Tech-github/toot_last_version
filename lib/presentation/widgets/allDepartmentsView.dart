@@ -128,6 +128,7 @@ class _AllDepViewState extends State<AllDepView>
 
                           return Center(
                             child: SingleDepAllWidget(
+                              depIndex: index,
                               animation: animation,
                               startColor: widget.startColor,
                               endColor: widget.endColor,
