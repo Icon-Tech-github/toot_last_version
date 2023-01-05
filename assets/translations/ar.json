@@ -116,6 +116,10 @@
   "sign_in_to_make": "سجل الدخول لعرض طلباتك",
   "sign_in_to_show" : "سجل الدخول لعرض منتجاتك المفضلة",
   "empty_orders" : "الطلبات فارغة",
+  "empty_orders_current" : "الطلبات الحالية فارغة",
+  "empty_orders_accepted" : "الطلبات قيد التحويل فارغة",
+  "empty_orders_history" : "الطلبات المنتهية  فارغة",
+
   "apply": "ارسال",
   "please_add_order_method": "أضف طريقة طلب",
   "please_add_payment_method": "أضف طريقة دفع",
@@ -134,6 +138,8 @@
   "sent_success": "تم الارسال بنجاح",
   "tracking": "تتبع",
   "phone_valid": "رقم الجوال غير صالح!",
+  "email_valid": "الايميل غير صالح!",
+
   "pass_valid": "كلمة المرور قصيرة",
   "not_found": "غير موجود",
   "not_valid_number": "عضوية غير مفعل",

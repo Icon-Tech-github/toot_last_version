@@ -18,6 +18,9 @@ part 'orders_bloc_state.dart';
 class OrdersBlocCubit extends Cubit<OrdersBlocState> {
   final OrdersRepository ordersRepo ;
   List<Orders> orders = [];
+  List<Orders> currentOrders = [];
+  List<Orders> acceptedOrders = [];
+  List<Orders> historyOrders = [];
   OrdersBlocCubit(this.ordersRepo) : super(OrdersInitial()){
 
     onLoad();
@@ -25,26 +28,40 @@ class OrdersBlocCubit extends Cubit<OrdersBlocState> {
 int page =1;
   RefreshController controller = RefreshController();
   int status=1;
+  bool emptyCurrent = false;
+  bool emptyAccepted = false;
+  bool emptyHistory = false;
+
+
+
 
 
   var currentTimeZone;
 
   void onLoad()async{
-    for (int i = 3; i > -1; i--) {
-      print(i);
-    }
+    // currentOrders = [];
+    // acceptedOrders = [];
+    // historyOrders = [];
     if (state is OrdersLoading) return;
 
     final currentState = state;
 
     var oldOrders = <Orders>[];
+    var oldCurrentOrders = <Orders>[];
+    var oldAcceptedOrders = <Orders>[];
+    var oldHistoryOrders = <Orders>[];
+
     if (currentState is OrdersLoaded) {
       oldOrders = currentState.orders;
+      oldCurrentOrders = currentState.currentOrders;
+      oldAcceptedOrders = currentState.acceptedOrders;
+      oldHistoryOrders = currentState.historyOrders;
+
     }
-    emit(OrdersLoading(oldOrders, isFirstFetch: page == 1));
+    emit(OrdersLoading(oldOrders,oldCurrentOrders,oldAcceptedOrders,oldHistoryOrders, isFirstFetch: page == 1));
     if(LocalStorage.getData(key: 'token') == null) {
       orders = [];
-      emit(OrdersLoaded(orders: orders));
+      emit(OrdersLoaded(orders: orders,currentOrders: currentOrders,historyOrders: historyOrders,acceptedOrders: acceptedOrders));
     }else {
       var data = await ordersRepo.fetchOrders(LocalStorage.getData(key: 'token'),page);
       List<Orders> orders2 = List<Orders>.from(
@@ -52,10 +69,33 @@ int page =1;
       page++;
 
       final products = (state as OrdersLoading).OldOrders;
+      final currentProducts = (state as OrdersLoading).oldCurrentOrders;
+      final acceptProducts = (state as OrdersLoading).oldAcceptedOrders;
+      final historyProducts = (state as OrdersLoading).oldHistoryOrders;
+
+
       products.addAll(orders2);
       orders = products;
+      currentOrders = currentProducts;
+      acceptedOrders = acceptProducts;
+      historyOrders = historyProducts;
+      for(int i =0; i< orders2.length ; i++){
+        if(orders2[i].orderStatusId ==1)
+          currentProducts.add(orders2[i]);
+        else if(orders2[i].orderStatusId !=1 && orders2[i].orderStatusId !=7)
+          acceptProducts.add(orders2[i]);
+        else  if(orders2[i].orderStatusId ==7)
+          historyProducts.add(orders2[i]);
+      }
+      // if(currentOrders.length ==0)
+      //   emptyCurrent = true;
+      // else if(acceptedOrders.length ==0)
+      //   emptyAccepted =true;
+      // else if(historyOrders.length ==0)
+      //   emptyHistory = true;
+      print(currentOrders.length);
       controller.loadComplete();
-      emit(OrdersLoaded(orders: products));
+      emit(OrdersLoaded(orders: products,currentOrders: currentProducts,historyOrders: historyProducts,acceptedOrders: acceptProducts));
     }
 
   }
@@ -78,7 +118,7 @@ int page =1;
 
   }
   void removeOrder(int id,context)async{
-    emit(OrdersLoading(orders));
+    emit(OrdersLoading(orders,currentOrders,acceptedOrders,historyOrders));
     Size size = MediaQuery.of(context).size;
     ordersRepo.removeOrder(LocalStorage.getData(key: "token"),id).then((data) {
       if( data != null) {
@@ -99,7 +139,7 @@ int page =1;
             break;
           }
         }
-        emit(OrdersLoaded(orders: orders));
+        emit(OrdersLoaded(orders: orders,currentOrders: currentOrders,acceptedOrders: acceptedOrders,historyOrders: historyOrders));
       }else{
         print("llllkkkkkkll");
 
@@ -109,5 +149,6 @@ int page =1;
   void switchStatus(int statusId){
     emit(OrdersInitial());
     status = statusId;
-    emit(OrdersLoaded(orders: orders));  }
+    emit(OrdersLoaded(orders: orders,currentOrders: currentOrders,acceptedOrders: acceptedOrders,historyOrders: historyOrders));
+  }
 }

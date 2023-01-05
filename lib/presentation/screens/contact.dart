@@ -263,6 +263,13 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                                     ),
 
                                   ),
+                                  validator: (val){
+      if(val != "" && val != null)
+      if( RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(val) == false){
+        return LocaleKeys.phone_valid.tr();
+      }
+                                  },
                                   // onSaved: (val) {
                                   //   name = val!;
                                   // },

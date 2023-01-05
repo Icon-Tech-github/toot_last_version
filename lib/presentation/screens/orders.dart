@@ -128,12 +128,22 @@ class _OrderState extends State<OrderScreen> {
                   );
                 }
                 List<Orders> orders = [];
+                List<Orders> currentOrders = [];
+                List<Orders> acceptedOrders = [];
+                List<Orders> historyOrders = [];
                 bool isLoading = false;
                 if (state is OrdersLoading) {
                   orders = state.OldOrders;
+                 currentOrders= state.oldCurrentOrders;
+                 acceptedOrders = state.oldAcceptedOrders;
+                 historyOrders = state.oldHistoryOrders;
                   isLoading = true;
                 } else if (state is OrdersLoaded) {
                   orders = state.orders;
+                  currentOrders = state.currentOrders;
+                  acceptedOrders = state.acceptedOrders;
+                  historyOrders =  state.historyOrders;
+
                 }
                 OrdersBlocCubit ordersState = context.read<OrdersBlocCubit>();
 
@@ -216,27 +226,27 @@ class _OrderState extends State<OrderScreen> {
                                 ],
                               ),
                             ):
-                            ordersState.orders.length ==0?
-                            Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(height: size.height *.11,),
-                                  lottie.Lottie.asset(
-                                      'assets/images/cartt.json',
-                                      height: size.height *.3,
-                                      width: 400),
-                                  SizedBox(height: size.height *.02,),
-                                  Text(
-                                    LocaleKeys.empty_orders.tr(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: size.height *.03,
-                                        color: Colors.white),
-                                  )
-                                ],
-                              ),
-                            ):
+                            // ordersState.orders.length ==0?
+                            // Container(
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       SizedBox(height: size.height *.11,),
+                            //       lottie.Lottie.asset(
+                            //           'assets/images/cartt.json',
+                            //           height: size.height *.3,
+                            //           width: 400),
+                            //       SizedBox(height: size.height *.02,),
+                            //       Text(
+                            //         LocaleKeys.empty_orders.tr(),
+                            //         style: TextStyle(
+                            //             fontWeight: FontWeight.bold,
+                            //             fontSize: size.height *.03,
+                            //             color: Colors.white),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ):
                             Column(
                               children: [
                                 Container(
@@ -319,16 +329,37 @@ class _OrderState extends State<OrderScreen> {
                                 SizedBox(
                                   height: size.height * .02,
                                 ),
+                                ordersState.status ==1?
+                                currentOrders.length ==0?
+                                Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height: size.height *.11,),
+                                      lottie.Lottie.asset(
+                                          'assets/images/cartt.json',
+                                          height: size.height *.3,
+                                          width: 400),
+                                      SizedBox(height: size.height *.02,),
+                                      Text(
+                                        LocaleKeys.empty_orders_current.tr(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: size.height *.03,
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ):
                                 ListView.builder(
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount:ordersState.orders.length,
+                                  itemCount: currentOrders.length,
                                   itemBuilder: (ctx, index) {
-                                    Orders order = ordersState.orders[index];
-                                    return  ordersState.status ==1?
+                                    Orders order = currentOrders[index];
+                                    return
 
-                                      order.orderStatusId ==1?
                                       Container(
                                       margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
                                    //   width: size.width * .5,
@@ -445,15 +476,17 @@ class _OrderState extends State<OrderScreen> {
                                                                  //   cartState.removeItem(index,context);
                                                                },
                                                                child: Container(
-                                                                 // color: Colors.orange,
+                                                                   width: size.width * .4,
                                                                    padding:EdgeInsets.symmetric(horizontal:  size.width * .02,vertical:   size.width * .0),
                                                                    decoration: BoxDecoration(
                                                                      // color: Colors.red,
                                                                      border: Border.all(width: 1,color: Colors.red),
                                                                      borderRadius:  BorderRadius.circular(5),
                                                                    ),
-                                                                   child: Text(LocaleKeys.cancel_order.tr(),
-                                                                     style: TextStyle( fontSize: size.width * .035,color: Colors.red,fontWeight: FontWeight.bold,height:  size.height*0.003),
+                                                                   child: Center(
+                                                                     child: Text(LocaleKeys.cancel_order.tr(),
+                                                                       style: TextStyle( fontSize: size.width * .035,color: Colors.red,fontWeight: FontWeight.bold,height:  size.height*0.003),
+                                                                     ),
                                                                    )
                                                                ),
                                                              ),
@@ -527,418 +560,477 @@ class _OrderState extends State<OrderScreen> {
                                           ],
                                         ),
                                       ),
-                                    ):
-                                        Container():
-                                    ordersState.status ==2?
+                                    );
 
-                                    order.orderStatusId !=1 && order.orderStatusId != 7?
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
-                                      //   width: size.width * .5,
-                                      //height: price != null ? 200: 130,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: Colors.grey
-                                                  .withOpacity(0.3),
-                                              offset: const Offset(1.1, 4.0),
-                                              blurRadius: 8.0),
-                                        ],
-
-                                        borderRadius:  BorderRadius.circular(20),
-                                      ),
-                                      child: Padding(
-                                        padding:  EdgeInsets.only(
-                                            top: 10, left: 5, right: 5, bottom: 8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: Stack(
-                                                    children: [
-                                                      Container(
-                                                        height: size.height * .14,
-                                                        width:order.details!.length>1? size.width * .28:size.width * .34,
-
-                                                        padding: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
-                                                        decoration: BoxDecoration(
-                                                          color: AppTheme.secondary.withOpacity(1),
-                                                          border: Border.all(width: 4,color: Colors.white),
-                                                          borderRadius:  BorderRadius.circular(20),
-                                                        ),
-                                                        child: ClipRRect(
-                                                          borderRadius: BorderRadius.circular(7),
-                                                          child: CachedNetworkImage(
-                                                              imageUrl: order.details![0].product!.images!.image.toString()),
-                                                        ),
-                                                      ),
-                                                      if(order.details!.length >1)
-                                                        Container(
-                                                          height: size.height * .14,
-                                                          margin: EdgeInsets.only(left: context.locale.toString() == 'ar'?0:35,right: context.locale.toString() == 'ar'? 35:0,top: 10),
-                                                          child: Container(
-                                                            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                                                            decoration: BoxDecoration(
-                                                              color: AppTheme.yellow,
-                                                              border: Border.all(width: 4,color: Colors.white),
-                                                              borderRadius:  BorderRadius.circular(20),
-                                                            ),
-                                                            child: Center(
-                                                              child: ClipRRect(
-                                                                borderRadius: BorderRadius.circular(7),
-                                                                child: CachedNetworkImage(
-                                                                    imageUrl: order.details![1].product!.images!.image.toString()),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(width: size.width *.04,),
-                                                Expanded(
-                                                  flex: 4,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(order.uuid.toString(),  overflow: TextOverflow.ellipsis, maxLines: 1,
-                                                            softWrap: false,style: TextStyle( fontSize: size.width * .044,fontWeight: FontWeight.bold, height:  size.height*0.003,),),
-
-                                                          SizedBox(height: size.height * .005,),
-                                                          Row(
-                                                            children: [
-
-                                                              Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
-                                                              SizedBox(width: size.width * .01,),
-                                                              Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
-                                                              SizedBox(width: size.width * .05,),
-
-
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: size.height * .007,),
-                                                          Text("${order.total.toString()} ${LocaleKeys.kwd.tr()}" ,style: TextStyle( fontSize: size.width * .04,color: AppTheme.secondary, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
-                                                          SizedBox(height: size.height * .007,),
-                                                          Row(
-                                                            children: [
-                                                              Container(
-                                                                  padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
-                                                                  decoration: BoxDecoration(
-                                                                    color: AppTheme.secondary.withOpacity(.3),
-                                                                    //  border: Border.all(width: 4,color: Colors.white),
-                                                                    borderRadius:  BorderRadius.circular(5),
-                                                                  ),
-                                                                  child: Center(child: Text(order.orderStatus!.title!.en.toString() ,
-                                                                    style: TextStyle( fontSize: size.width * .025,color: Colors.black, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: size.height * .012,),
-
-                                                          if(order.orderStatusId == 1)
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                ordersState.removeOrder(order.id, context);
-                                                                //   cartState.removeItem(index,context);
-                                                              },
-                                                              child: Container(
-                                                                // color: Colors.orange,
-                                                                  padding:EdgeInsets.symmetric(horizontal:  size.width * .02,vertical:   size.width * .0),
-                                                                  decoration: BoxDecoration(
-                                                                    // color: Colors.red,
-                                                                    border: Border.all(width: 1,color: Colors.red),
-                                                                    borderRadius:  BorderRadius.circular(5),
-                                                                  ),
-                                                                  child: Text(LocaleKeys.cancel_order.tr(),
-                                                                    style: TextStyle( fontSize: size.width * .035,color: Colors.red,fontWeight: FontWeight.bold,height:  size.height*0.003),
-                                                                  )
-                                                              ),
-                                                            ),
-                                                          //  SizedBox(height: size.height * .009,),
-
-
-
-                                                        ],
-                                                      ),
-
-
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(height: size.height * .007,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 27.0),
-                                              child: Divider(
-                                                thickness: .8,
-                                              ),
-                                            ),
-                                            SizedBox(height: size.height * .007,),
-                                            Center(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  DefaultButton(
-                                                    textColor: AppTheme.secondary,
-                                                    color: AppTheme.white,
-                                                    borderColor: AppTheme.secondary,
-                                                    title: LocaleKeys.details.tr(),
-                                                    radius: 15,
-                                                    function: (){
-                                                      push(context,
-                                                        BlocProvider<OrderDetailsCubit>(
-                                                            create: (BuildContext context) => OrderDetailsCubit(OrderDetailsRepo(), order.id!),
-                                                            child: OrderDetailsScreen()),
-                                                      );
-                                                    },
-                                                    font: size.width * .042,
-                                                    width: size.width * .33,
-                                                    height: size.height *.046,
-
-                                                  ),
-                                                  if(order.orderStatusId != 7)
-                                                    SizedBox(width: size.width * .07,),
-                                                  if(order.orderStatusId != 7)
-                                                    DefaultButton(
-                                                      textColor: Colors.white,
-                                                      color: AppTheme.secondary,
-                                                      title: LocaleKeys.tracking.tr(),
-                                                      radius: 15,
-                                                      function: (){
-                                                        push(context,
-                                                            BlocProvider(
-                                                                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
-                                                                child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
-
-                                                      },
-                                                      font: size.width * .04,
-                                                      width: size.width * .33,
-                                                      height: size.height *.046,
-
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(height: size.height * .007,),
-                                          ],
-                                        ),
-                                      ),
-                                    ):
-                                    Container():
-                                    ordersState.status ==3?
-
-                                    order.orderStatusId == 7?
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
-                                      //   width: size.width * .5,
-                                      //height: price != null ? 200: 130,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: Colors.grey
-                                                  .withOpacity(0.3),
-                                              offset: const Offset(1.1, 4.0),
-                                              blurRadius: 8.0),
-                                        ],
-
-                                        borderRadius:  BorderRadius.circular(20),
-                                      ),
-                                      child: Padding(
-                                        padding:  EdgeInsets.only(
-                                            top: 10, left: 5, right: 5, bottom: 8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: Stack(
-                                                    children: [
-                                                      Container(
-                                                        height: size.height * .14,
-                                                        width:order.details!.length>1? size.width * .28:size.width * .34,
-
-                                                        padding: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
-                                                        decoration: BoxDecoration(
-                                                          color: AppTheme.secondary.withOpacity(1),
-                                                          border: Border.all(width: 4,color: Colors.white),
-                                                          borderRadius:  BorderRadius.circular(20),
-                                                        ),
-                                                        child: ClipRRect(
-                                                          borderRadius: BorderRadius.circular(7),
-                                                          child: CachedNetworkImage(
-                                                              imageUrl: order.details![0].product!.images!.image.toString()),
-                                                        ),
-                                                      ),
-                                                      if(order.details!.length >1)
-                                                        Container(
-                                                          height: size.height * .14,
-                                                          margin: EdgeInsets.only(left: context.locale.toString() == 'ar'?0:35,right: context.locale.toString() == 'ar'? 35:0,top: 10),
-                                                          child: Container(
-                                                            padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                                                            decoration: BoxDecoration(
-                                                              color: AppTheme.yellow,
-                                                              border: Border.all(width: 4,color: Colors.white),
-                                                              borderRadius:  BorderRadius.circular(20),
-                                                            ),
-                                                            child: Center(
-                                                              child: ClipRRect(
-                                                                borderRadius: BorderRadius.circular(7),
-                                                                child: CachedNetworkImage(
-                                                                    imageUrl: order.details![1].product!.images!.image.toString()),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(width: size.width *.04,),
-                                                Expanded(
-                                                  flex: 4,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(order.uuid.toString(),  overflow: TextOverflow.ellipsis, maxLines: 1,
-                                                            softWrap: false,style: TextStyle( fontSize: size.width * .044,fontWeight: FontWeight.bold, height:  size.height*0.003,),),
-
-                                                          SizedBox(height: size.height * .005,),
-                                                          Row(
-                                                            children: [
-
-                                                              Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
-                                                              SizedBox(width: size.width * .01,),
-                                                              Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
-                                                              SizedBox(width: size.width * .05,),
-
-
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: size.height * .007,),
-                                                          Text("${order.total.toString()} ${LocaleKeys.kwd.tr()}" ,style: TextStyle( fontSize: size.width * .04,color: AppTheme.secondary, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
-                                                          SizedBox(height: size.height * .007,),
-                                                          Row(
-                                                            children: [
-                                                              Container(
-                                                                  padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
-                                                                  decoration: BoxDecoration(
-                                                                    color: AppTheme.secondary.withOpacity(.3),
-                                                                    //  border: Border.all(width: 4,color: Colors.white),
-                                                                    borderRadius:  BorderRadius.circular(5),
-                                                                  ),
-                                                                  child: Center(child: Text(order.orderStatus!.title!.en.toString() ,
-                                                                    style: TextStyle( fontSize: size.width * .03,color: Colors.black, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: size.height * .012,),
-
-                                                          if(order.orderStatusId == 1)
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                ordersState.removeOrder(order.id, context);
-                                                                //   cartState.removeItem(index,context);
-                                                              },
-                                                              child: Container(
-                                                                // color: Colors.orange,
-                                                                  padding:EdgeInsets.symmetric(horizontal:  size.width * .02,vertical:   size.width * .0),
-                                                                  decoration: BoxDecoration(
-                                                                    // color: Colors.red,
-                                                                    border: Border.all(width: 1,color: Colors.red),
-                                                                    borderRadius:  BorderRadius.circular(5),
-                                                                  ),
-                                                                  child: Text(LocaleKeys.cancel_order.tr(),
-                                                                    style: TextStyle( fontSize: size.width * .035,color: Colors.red,fontWeight: FontWeight.bold,height:  size.height*0.003),
-                                                                  )
-                                                              ),
-                                                            ),
-                                                          //  SizedBox(height: size.height * .009,),
-
-
-
-                                                        ],
-                                                      ),
-
-
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(height: size.height * .007,),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 27.0),
-                                              child: Divider(
-                                                thickness: .8,
-                                              ),
-                                            ),
-                                            SizedBox(height: size.height * .007,),
-                                            Center(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  DefaultButton(
-                                                    textColor: AppTheme.secondary,
-                                                    color: AppTheme.white,
-                                                    borderColor: AppTheme.secondary,
-                                                    title: LocaleKeys.details.tr(),
-                                                    radius: 15,
-                                                    function: (){
-                                                      push(context,
-                                                        BlocProvider<OrderDetailsCubit>(
-                                                            create: (BuildContext context) => OrderDetailsCubit(OrderDetailsRepo(), order.id!),
-                                                            child: OrderDetailsScreen()),
-                                                      );
-                                                    },
-                                                    font: size.width * .042,
-                                                    width: size.width * .33,
-                                                    height: size.height *.046,
-
-                                                  ),
-                                                  if(order.orderStatusId != 7)
-                                                    SizedBox(width: size.width * .07,),
-                                                  if(order.orderStatusId != 7)
-                                                    DefaultButton(
-                                                      textColor: Colors.white,
-                                                      color: AppTheme.secondary,
-                                                      title: LocaleKeys.tracking.tr(),
-                                                      radius: 15,
-                                                      function: (){
-                                                        push(context,
-                                                            BlocProvider(
-                                                                create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
-                                                                child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
-
-                                                      },
-                                                      font: size.width * .04,
-                                                      width: size.width * .33,
-                                                      height: size.height *.046,
-
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(height: size.height * .007,),
-                                          ],
-                                        ),
-                                      ),
-                                    ):
-                                    Container():
-                                        Container();
                                   }
+                                  ):
 
-                  ),
+                                ordersState.status ==2?
+                                acceptedOrders.length ==0 ?
+                                Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height: size.height *.11,),
+                                      lottie.Lottie.asset(
+                                          'assets/images/cartt.json',
+                                          height: size.height *.3,
+                                          width: 400),
+                                      SizedBox(height: size.height *.02,),
+                                      Text(
+                                        LocaleKeys.empty_orders_accepted.tr(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: size.height *.03,
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ):
+                                ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: acceptedOrders.length,
+                                    itemBuilder: (ctx, index) {
+                                      Orders order = acceptedOrders[index];
+                                      return
+
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
+                                        //   width: size.width * .5,
+                                        //height: price != null ? 200: 130,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: <BoxShadow>[
+                                            BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.3),
+                                                offset: const Offset(1.1, 4.0),
+                                                blurRadius: 8.0),
+                                          ],
+
+                                          borderRadius:  BorderRadius.circular(20),
+                                        ),
+                                        child: Padding(
+                                          padding:  EdgeInsets.only(
+                                              top: 10, left: 5, right: 5, bottom: 8),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Stack(
+                                                      children: [
+                                                        Container(
+                                                          height: size.height * .14,
+                                                          width:order.details!.length>1? size.width * .28:size.width * .34,
+
+                                                          padding: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+                                                          decoration: BoxDecoration(
+                                                            color: AppTheme.secondary.withOpacity(1),
+                                                            border: Border.all(width: 4,color: Colors.white),
+                                                            borderRadius:  BorderRadius.circular(20),
+                                                          ),
+                                                          child: ClipRRect(
+                                                            borderRadius: BorderRadius.circular(7),
+                                                            child: CachedNetworkImage(
+                                                                imageUrl: order.details![0].product!.images!.image.toString()),
+                                                          ),
+                                                        ),
+                                                        if(order.details!.length >1)
+                                                          Container(
+                                                            height: size.height * .14,
+                                                            margin: EdgeInsets.only(left: context.locale.toString() == 'ar'?0:35,right: context.locale.toString() == 'ar'? 35:0,top: 10),
+                                                            child: Container(
+                                                              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                                                              decoration: BoxDecoration(
+                                                                color: AppTheme.yellow,
+                                                                border: Border.all(width: 4,color: Colors.white),
+                                                                borderRadius:  BorderRadius.circular(20),
+                                                              ),
+                                                              child: Center(
+                                                                child: ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(7),
+                                                                  child: CachedNetworkImage(
+                                                                      imageUrl: order.details![1].product!.images!.image.toString()),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: size.width *.04,),
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(order.uuid.toString(),  overflow: TextOverflow.ellipsis, maxLines: 1,
+                                                              softWrap: false,style: TextStyle( fontSize: size.width * .044,fontWeight: FontWeight.bold, height:  size.height*0.003,),),
+
+                                                            SizedBox(height: size.height * .005,),
+                                                            Row(
+                                                              children: [
+
+                                                                Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                                SizedBox(width: size.width * .01,),
+                                                                Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                                SizedBox(width: size.width * .05,),
+
+
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: size.height * .007,),
+                                                            Text("${order.total.toString()} ${LocaleKeys.kwd.tr()}" ,style: TextStyle( fontSize: size.width * .04,color: AppTheme.secondary, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                            SizedBox(height: size.height * .007,),
+                                                            Row(
+                                                              children: [
+                                                                Container(
+                                                                    padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                                    decoration: BoxDecoration(
+                                                                      color: AppTheme.secondary.withOpacity(.3),
+                                                                      //  border: Border.all(width: 4,color: Colors.white),
+                                                                      borderRadius:  BorderRadius.circular(5),
+                                                                    ),
+                                                                    child: Center(child: Text(order.orderStatus!.title!.en.toString() ,
+                                                                      style: TextStyle( fontSize: size.width * .025,color: Colors.black, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: size.height * .012,),
+
+                                                            if(order.orderStatusId == 1)
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  ordersState.removeOrder(order.id, context);
+                                                                  //   cartState.removeItem(index,context);
+                                                                },
+                                                                child: Container(
+                                                                    width: size.width * .2,
+                                                                    padding:EdgeInsets.symmetric(horizontal:  size.width * .02,vertical:   size.width * .0),
+                                                                    decoration: BoxDecoration(
+                                                                      // color: Colors.red,
+                                                                      border: Border.all(width: 1,color: Colors.red),
+                                                                      borderRadius:  BorderRadius.circular(5),
+                                                                    ),
+                                                                    child: Text(LocaleKeys.cancel_order.tr(),
+                                                                      style: TextStyle( fontSize: size.width * .035,color: Colors.red,fontWeight: FontWeight.bold,height:  size.height*0.003),
+                                                                    )
+                                                                ),
+                                                              ),
+                                                            //  SizedBox(height: size.height * .009,),
+
+
+
+                                                          ],
+                                                        ),
+
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: size.height * .007,),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                                                child: Divider(
+                                                  thickness: .8,
+                                                ),
+                                              ),
+                                              SizedBox(height: size.height * .007,),
+                                              Center(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    DefaultButton(
+                                                      textColor: AppTheme.secondary,
+                                                      color: AppTheme.white,
+                                                      borderColor: AppTheme.secondary,
+                                                      title: LocaleKeys.details.tr(),
+                                                      radius: 15,
+                                                      function: (){
+                                                        push(context,
+                                                          BlocProvider<OrderDetailsCubit>(
+                                                              create: (BuildContext context) => OrderDetailsCubit(OrderDetailsRepo(), order.id!),
+                                                              child: OrderDetailsScreen()),
+                                                        );
+                                                      },
+                                                      font: size.width * .042,
+                                                      width: size.width * .33,
+                                                      height: size.height *.046,
+
+                                                    ),
+                                                    if(order.orderStatusId != 7)
+                                                      SizedBox(width: size.width * .07,),
+                                                    if(order.orderStatusId != 7)
+                                                      DefaultButton(
+                                                        textColor: Colors.white,
+                                                        color: AppTheme.secondary,
+                                                        title: LocaleKeys.tracking.tr(),
+                                                        radius: 15,
+                                                        function: (){
+                                                          push(context,
+                                                              BlocProvider(
+                                                                  create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
+                                                                  child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
+
+                                                        },
+                                                        font: size.width * .04,
+                                                        width: size.width * .33,
+                                                        height: size.height *.046,
+
+                                                      ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: size.height * .007,),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+
+                                    }
+
+                                ):
+                                ordersState.status ==3?
+                                historyOrders.length ==0?
+                                Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height: size.height *.11,),
+                                      lottie.Lottie.asset(
+                                          'assets/images/cartt.json',
+                                          height: size.height *.3,
+                                          width: 400),
+                                      SizedBox(height: size.height *.02,),
+                                      Text(
+                                        LocaleKeys.empty_orders_history.tr(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: size.height *.03,
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ):
+                                ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: historyOrders.length,
+                                    itemBuilder: (ctx, index) {
+                                      Orders order = historyOrders[index];
+                                      return
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 10,right: 10,left: 10),
+                                        //   width: size.width * .5,
+                                        //height: price != null ? 200: 130,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: <BoxShadow>[
+                                            BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.3),
+                                                offset: const Offset(1.1, 4.0),
+                                                blurRadius: 8.0),
+                                          ],
+
+                                          borderRadius:  BorderRadius.circular(20),
+                                        ),
+                                        child: Padding(
+                                          padding:  EdgeInsets.only(
+                                              top: 10, left: 5, right: 5, bottom: 8),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Stack(
+                                                      children: [
+                                                        Container(
+                                                          height: size.height * .14,
+                                                          width:order.details!.length>1? size.width * .28:size.width * .34,
+
+                                                          padding: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+                                                          decoration: BoxDecoration(
+                                                            color: AppTheme.secondary.withOpacity(1),
+                                                            border: Border.all(width: 4,color: Colors.white),
+                                                            borderRadius:  BorderRadius.circular(20),
+                                                          ),
+                                                          child: ClipRRect(
+                                                            borderRadius: BorderRadius.circular(7),
+                                                            child: CachedNetworkImage(
+                                                                imageUrl: order.details![0].product!.images!.image.toString()),
+                                                          ),
+                                                        ),
+                                                        if(order.details!.length >1)
+                                                          Container(
+                                                            height: size.height * .14,
+                                                            margin: EdgeInsets.only(left: context.locale.toString() == 'ar'?0:35,right: context.locale.toString() == 'ar'? 35:0,top: 10),
+                                                            child: Container(
+                                                              padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                                                              decoration: BoxDecoration(
+                                                                color: AppTheme.yellow,
+                                                                border: Border.all(width: 4,color: Colors.white),
+                                                                borderRadius:  BorderRadius.circular(20),
+                                                              ),
+                                                              child: Center(
+                                                                child: ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(7),
+                                                                  child: CachedNetworkImage(
+                                                                      imageUrl: order.details![1].product!.images!.image.toString()),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: size.width *.04,),
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(order.uuid.toString(),  overflow: TextOverflow.ellipsis, maxLines: 1,
+                                                              softWrap: false,style: TextStyle( fontSize: size.width * .044,fontWeight: FontWeight.bold, height:  size.height*0.003,),),
+
+                                                            SizedBox(height: size.height * .005,),
+                                                            Row(
+                                                              children: [
+
+                                                                Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                                SizedBox(width: size.width * .01,),
+                                                                Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                                SizedBox(width: size.width * .05,),
+
+
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: size.height * .007,),
+                                                            Text("${order.total.toString()} ${LocaleKeys.kwd.tr()}" ,style: TextStyle( fontSize: size.width * .04,color: AppTheme.secondary, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                            SizedBox(height: size.height * .007,),
+                                                            Row(
+                                                              children: [
+                                                                Container(
+                                                                    padding: EdgeInsets.symmetric(vertical: 5,horizontal: 12),
+                                                                    decoration: BoxDecoration(
+                                                                      color: AppTheme.secondary.withOpacity(.3),
+                                                                      //  border: Border.all(width: 4,color: Colors.white),
+                                                                      borderRadius:  BorderRadius.circular(5),
+                                                                    ),
+                                                                    child: Center(child: Text(order.orderStatus!.title!.en.toString() ,
+                                                                      style: TextStyle( fontSize: size.width * .03,color: Colors.black, height:  size.height*0.002,fontWeight: FontWeight.bold),))),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: size.height * .012,),
+
+                                                            if(order.orderStatusId == 1)
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  ordersState.removeOrder(order.id, context);
+                                                                  //   cartState.removeItem(index,context);
+                                                                },
+                                                                child: Container(
+                                                                    width: size.width * .2,
+                                                                    padding:EdgeInsets.symmetric(horizontal:  size.width * .02,vertical:   size.width * .0),
+                                                                    decoration: BoxDecoration(
+                                                                      // color: Colors.red,
+                                                                      border: Border.all(width: 1,color: Colors.red),
+                                                                      borderRadius:  BorderRadius.circular(5),
+                                                                    ),
+                                                                    child: Text(LocaleKeys.cancel_order.tr(),
+                                                                      style: TextStyle( fontSize: size.width * .035,color: Colors.red,fontWeight: FontWeight.bold,height:  size.height*0.003),
+                                                                    )
+                                                                ),
+                                                              ),
+                                                            //  SizedBox(height: size.height * .009,),
+
+
+
+                                                          ],
+                                                        ),
+
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: size.height * .007,),
+                                              Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                                                child: Divider(
+                                                  thickness: .8,
+                                                ),
+                                              ),
+                                              SizedBox(height: size.height * .007,),
+                                              Center(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    DefaultButton(
+                                                      textColor: AppTheme.secondary,
+                                                      color: AppTheme.white,
+                                                      borderColor: AppTheme.secondary,
+                                                      title: LocaleKeys.details.tr(),
+                                                      radius: 15,
+                                                      function: (){
+                                                        push(context,
+                                                          BlocProvider<OrderDetailsCubit>(
+                                                              create: (BuildContext context) => OrderDetailsCubit(OrderDetailsRepo(), order.id!),
+                                                              child: OrderDetailsScreen()),
+                                                        );
+                                                      },
+                                                      font: size.width * .042,
+                                                      width: size.width * .33,
+                                                      height: size.height *.046,
+
+                                                    ),
+                                                    if(order.orderStatusId != 7)
+                                                      SizedBox(width: size.width * .07,),
+                                                    if(order.orderStatusId != 7)
+                                                      DefaultButton(
+                                                        textColor: Colors.white,
+                                                        color: AppTheme.secondary,
+                                                        title: LocaleKeys.tracking.tr(),
+                                                        radius: 15,
+                                                        function: (){
+                                                          push(context,
+                                                              BlocProvider(
+                                                                  create: (BuildContext context) => StatusCubit(TrackingOrderRepo(),order.id,order.orderMethodId!),
+                                                                  child: TrackOrderScreen(orderMethodId: order.orderMethodId!,)));
+
+                                                        },
+                                                        font: size.width * .04,
+                                                        width: size.width * .33,
+                                                        height: size.height *.046,
+
+                                                      ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: size.height * .007,),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                ):Container()
 
                               ],
                             ),

@@ -260,5 +260,10 @@ abstract class LocaleKeys {
   static const Coupon_Not_Available_in_this_time = "Coupon_Not_Available_in_this_time";
   static const Coupon_Not_Available_in_this_date = "Coupon_Not_Available_in_this_date";
   static const discount_error = "discount_error";
+  static const email_valid = "email_valid";
+  static const empty_orders_history = "empty_orders_history";
+  static const empty_orders_accepted = "empty_orders_accepted";
+  static const empty_orders_current = "empty_orders_current";
+
 
 }
