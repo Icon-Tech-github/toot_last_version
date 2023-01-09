@@ -105,7 +105,7 @@ class SingleDepartmentWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: size.height*0.017,
                         letterSpacing: 0.4,
-                        height:  size.height*0.0014,
+                        height:  size.height*0.0016,
                         color: AppTheme.white,
                       ),
                     ),

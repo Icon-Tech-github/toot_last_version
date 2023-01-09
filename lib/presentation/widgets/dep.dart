@@ -64,7 +64,7 @@ class _DepartmentsViewState extends State<DepartmentsView>
                 mainAxisSpacing: 0,
                 crossAxisSpacing: 0,
                 staggeredTileBuilder: (int index) =>
-                new StaggeredTile.count(1,1.22),
+                new StaggeredTile.count(1,1.27),
                 physics: NeverScrollableScrollPhysics(),
                 // shrinkWrap: true,
                 // scrollDirection: Axis.horizontal,

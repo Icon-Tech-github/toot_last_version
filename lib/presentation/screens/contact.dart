@@ -11,6 +11,7 @@ import 'package:loz/translations/locale_keys.g.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../../../theme.dart';
 
@@ -154,9 +155,13 @@ class _RegisterScreenState extends State<ContactUsScreen> {
                                         onTap: (){
 
                                           var whatsappUrl =
-                                              "whatsapp://send?phone=${contactState.data!.whatsapp.toString()}";
+                                          WhatsAppUnilink(
+                                            phoneNumber: '${contactState.data!.whatsapp.toString()}',
+                                            text: "",
+                                          );
+                                         //     "whatsapp://send?phone=${contactState.data!.whatsapp.toString()}";
                                           if(contactState.data?.whatsapp != null)
-                                          launch(whatsappUrl);
+                                          launch('$whatsappUrl');
                                         },
                                         child: Image.asset("assets/images/whatsapp.png",height: size.height * .06,)),
                                     InkWell(

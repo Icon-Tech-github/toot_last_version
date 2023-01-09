@@ -230,6 +230,7 @@ class _ProductsListState extends State<ProductsList>
       enablePullDown: false,
       child: SafeArea(
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
             children: [
               Padding(
@@ -393,67 +394,61 @@ class _ProductsListState extends State<ProductsList>
 
                   ProductsCubit productState = context.read<ProductsCubit>();
 
-                  return ListView(
-                      shrinkWrap: true,
-                      children: [
+                  return AnimatedBuilder(
+                    animation:   widget.mainScreenAnimationController!,
+                    builder: (BuildContext context, Widget? child) {
+                      return FadeTransition(
+                        opacity:   widget.mainScreenAnimationController!,
+                        child: Transform(
+                          transform: Matrix4.translationValues(
+                              0.0, 30 * (1.0 -   widget.mainScreenAnimationController!.value), 0.0),
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, childAspectRatio: 0.7),
+                            padding: const EdgeInsets.only(
+                                top: 0, bottom: 0, right: 4, left: 4),
+                            itemCount: products.length,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (BuildContext context, int index) {
+                              final int count =
+                              products.length > 10 ? 10 : products.length;
+                              final Animation<double> animation =
+                              Tween<double>(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                      parent: animationController!,
+                                      curve: Interval((1 / count) * index, 1.0,
+                                          curve: Curves.fastOutSlowIn)));
+                              animationController?.forward();
 
-                        AnimatedBuilder(
-                          animation:   widget.mainScreenAnimationController!,
-                          builder: (BuildContext context, Widget? child) {
-                            return FadeTransition(
-                              opacity:   widget.mainScreenAnimationController!,
-                              child: Transform(
-                                transform: Matrix4.translationValues(
-                                    0.0, 30 * (1.0 -   widget.mainScreenAnimationController!.value), 0.0),
-                                child: GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, childAspectRatio: 0.7),
-                                  padding: const EdgeInsets.only(
-                                      top: 0, bottom: 0, right: 4, left: 4),
-                                  itemCount: products.length,
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    final int count =
-                                    products.length > 10 ? 10 : products.length;
-                                    final Animation<double> animation =
-                                    Tween<double>(begin: 0.0, end: 1.0).animate(
-                                        CurvedAnimation(
-                                            parent: animationController!,
-                                            curve: Interval((1 / count) * index, 1.0,
-                                                curve: Curves.fastOutSlowIn)));
-                                    animationController?.forward();
-
-                                    return Center(
-                                      child: SingleProductWidget(
-                                        animation: animation,
-                                        startColor:   widget.startColor,
-                                        endColor:   widget.endColor,
-                                        animationController: animationController!,
-                                        product: products[index],
-                                        favToggle: (){
-                                          if(LocalStorage.getData(key: "token") != null)
-                                            productState.favToggle(products[index].id!,index);
-                                          else
-                                            push(context,
-                                                BlocProvider(
-                                                    create: (BuildContext context) =>
-                                                        AuthCubit(AuthRepo()),
-                                                    child: Login()));
-                                        },
-
-
-                                      ),
-                                    );
+                              return Center(
+                                child: SingleProductWidget(
+                                  animation: animation,
+                                  startColor:   widget.startColor,
+                                  endColor:   widget.endColor,
+                                  animationController: animationController!,
+                                  product: products[index],
+                                  favToggle: (){
+                                    if(LocalStorage.getData(key: "token") != null)
+                                      productState.favToggle(products[index].id!,index);
+                                    else
+                                      push(context,
+                                          BlocProvider(
+                                              create: (BuildContext context) =>
+                                                  AuthCubit(AuthRepo()),
+                                              child: Login()));
                                   },
+
+
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ]
+                      );
+                    },
                   );
 
 

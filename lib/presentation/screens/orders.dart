@@ -443,7 +443,7 @@ class _OrderState extends State<OrderScreen> {
                                                           Row(
                                                             children: [
 
-                                                              Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                              Text("${order.quantity} ${LocaleKeys.items.tr()}  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
                                                               SizedBox(width: size.width * .01,),
                                                               Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
                                                               SizedBox(width: size.width * .05,),
@@ -679,7 +679,7 @@ class _OrderState extends State<OrderScreen> {
                                                             Row(
                                                               children: [
 
-                                                                Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                                Text("${order.quantity} ${LocaleKeys.items.tr()}  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
                                                                 SizedBox(width: size.width * .01,),
                                                                 Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
                                                                 SizedBox(width: size.width * .05,),
@@ -912,7 +912,7 @@ class _OrderState extends State<OrderScreen> {
                                                             Row(
                                                               children: [
 
-                                                                Text("${order.quantity} items  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
+                                                                Text("${order.quantity} ${LocaleKeys.items.tr()}  |",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
                                                                 SizedBox(width: size.width * .01,),
                                                                 Text("${order.createdAt?.substring(0,order.createdAt.toString().indexOf(" "))}",style: TextStyle( fontSize: size.width * .035,color: Colors.grey, height:  size.height*0.0015,fontWeight: FontWeight.bold),),
                                                                 SizedBox(width: size.width * .05,),

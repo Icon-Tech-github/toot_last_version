@@ -144,8 +144,8 @@ class ProductDetails1 extends StatelessWidget {
                             borderRadius: 7,
                           ),
                           Container(
-                            height: 16,
-                            width: 16,
+                            height: 18,
+                            width: 18,
                             decoration: BoxDecoration(
                                 color: Colors.deepOrange, shape: BoxShape.circle),
                             child: Center(
@@ -153,7 +153,7 @@ class ProductDetails1 extends StatelessWidget {
                                   SingleProductCubit.cartCount.toString(),
                                   style: TextStyle(
                                       fontSize: 12,
-                                      height: size.height * 0.002,
+                                    //  height: size.height * 0.003,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500),
                                 )),
@@ -239,8 +239,8 @@ class ProductDetails1 extends StatelessWidget {
                           borderRadius: 7,
                         ),
                         Container(
-                          height: 16,
-                          width: 16,
+                          height: 18,
+                          width: 18,
                           decoration: BoxDecoration(
                               color: Colors.deepOrange, shape: BoxShape.circle),
                           child: Center(
@@ -248,7 +248,7 @@ class ProductDetails1 extends StatelessWidget {
                                 SingleProductCubit.cartCount.toString(),
                                 style: TextStyle(
                                     fontSize: 12,
-                                    height: size.height * 0.002,
+                                 //   height: size.height * 0.002,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500),
                               )),
