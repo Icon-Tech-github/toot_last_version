@@ -13,7 +13,6 @@
   "forget_password" : "نسيت كلمة المرور ؟",
   "dont_have_an_account" : "ليس عندك حساب ؟",
   "already_have_an_account" : "عندك حساب بالفعل ؟",
-  "loz_moz" :" 'لوز & موز'",
   "home" : "الرئيسية",
   "anther_branch": "اختر فرع اخر",
   "cart" : "السلة",
@@ -113,8 +112,9 @@
   "depends_on": "السعر حسب اختيارك",
   "empty_fav" : "المفضلة فارغة",
   "empty_cart" : "سلة التسوق فارغة",
-  "sign_in_to_make": "سجل الدخول لعرض طلباتك",
   "sign_in_to_show" : "سجل الدخول لعرض منتجاتك المفضلة",
+  "sign_in_to_make": "سجل الدخول لعرض طلباتك",
+
   "empty_orders" : "الطلبات فارغة",
   "empty_orders_current" : "الطلبات الحالية فارغة",
   "empty_orders_accepted" : "الطلبات قيد التحويل فارغة",

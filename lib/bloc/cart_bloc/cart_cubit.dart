@@ -156,7 +156,8 @@ if(products.length ==0)
 
   countIncrementAdnDecrement(String function, int i) {
     emit(CartInitial());
-    //double itemTotal = products[i].total!;
+    products[i].total =
+    (products[i].total! / products[i].count!);
     if (function == '+') {
       products[i].count = products[i].count! + 1;
     }
@@ -169,7 +170,7 @@ if(products.length ==0)
     }
 
     products[i].total =
-        (products[i].newPrice != 0 ? products[i].newPrice : products[i].price) *
+        products[i].total! *
             double.parse(products[i].count.toString());
     calculateTotal();
     calculateTax();

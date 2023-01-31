@@ -153,7 +153,7 @@ class ProductDetails1 extends StatelessWidget {
                                   SingleProductCubit.cartCount.toString(),
                                   style: TextStyle(
                                       fontSize: 12,
-                                    //  height: size.height * 0.003,
+                                      height: size.height * 0.0025,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500),
                                 )),
@@ -248,7 +248,7 @@ class ProductDetails1 extends StatelessWidget {
                                 SingleProductCubit.cartCount.toString(),
                                 style: TextStyle(
                                     fontSize: 12,
-                                 //   height: size.height * 0.002,
+                                    height: size.height * 0.0025,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500),
                               )),

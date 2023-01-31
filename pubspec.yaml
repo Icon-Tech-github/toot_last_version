@@ -101,7 +101,7 @@ dependencies:
 
 
 #dependency_overrides:
-#  firebase_core_platform_interface: 4.5.1
+  firebase_core_platform_interface: 4.5.1
 
 #  firebase_messaging_platform_interface: 3.1.6
 #  firebase_crashlytics_platform_interface: 3.1.13
