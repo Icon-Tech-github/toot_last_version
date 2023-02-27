@@ -117,8 +117,8 @@ class MoreScreen extends StatelessWidget {
                   children: [
                     Text(
                           (LocalStorage.getData(key: "userName") != null
-                              ? LocalStorage.getData(key: "userName")
-                              : "${LocaleKeys.Guest.tr()}"),
+                              ? "${LocaleKeys.hello.tr()} , ${LocalStorage.getData(key: "userName")}"
+                              : "${LocaleKeys.hello.tr()} , ${LocaleKeys.Guest.tr()}"),
                       style: TextStyle(
                           fontSize: 24, fontWeight: FontWeight.bold, height: size.height * 0.002,color: AppTheme.nearlyBlack),
                     ),

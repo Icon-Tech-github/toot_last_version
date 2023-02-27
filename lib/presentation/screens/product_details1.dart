@@ -151,9 +151,11 @@ class ProductDetails1 extends StatelessWidget {
                             child: Center(
                                 child: Text(
                                   SingleProductCubit.cartCount.toString(),
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12,
-                                      height: size.height * 0.0025,
+                                      fontFamily:"" ,
+                                      //height: size.height * 0.0025,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500),
                                 )),
