@@ -15,6 +15,7 @@ part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsRepo productsRepository;
+  String? depName;
 
   ProductsCubit(this.productsRepository,int id,context,lang) : super(ProductsInitial()) {
     onLoad(id,context,lang);
