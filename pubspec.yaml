@@ -186,6 +186,21 @@ flutter:
       - family: aref
         fonts:
           - asset: assets/fonts/18271-18271-18271-7438358.ttf
+
+
+      - family: ishraq
+        fonts:
+          - asset: assets/fonts/alfont_com_HS-Ishraq-Regular.otf
+      - family: Bressay
+        fonts:
+          - asset: assets/fonts/Bressay-Thin.ttf
+
+      - family: CordaleArabic
+        fonts:
+          - asset: assets/fonts/CordaleArabic-Regular-1.ttf
+      - family: OMNES
+        fonts:
+          - asset: assets/fonts/OMNES-ARABIC-REGULAR.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
