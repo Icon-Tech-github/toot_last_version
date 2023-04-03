@@ -12,7 +12,7 @@
         android:fullBackupOnly="false"
         android:usesCleartextTraffic="true"
         >
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA6pqUxVRxuv5mV0-RWjGl2Qg-wIsZA6PY"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB5BcV87jM6r0ZYGDvuqX0kksLy0LhVvRo"/>
 
         <activity
             android:name=".MainActivity"
