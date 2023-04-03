@@ -699,7 +699,7 @@ class CartList extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 6.0, vertical: 2),
                           child: Text(
-                              '${context.read<ConfirmOrderCubit>().calculateItems()} ',
+                              '${context.read<ConfirmOrderCubit>().products.length} ',
                             style: TextStyle(fontSize: size.height * 0.023, color: Colors.black, height: size.height * .0015,),
 
                           ),

@@ -80,11 +80,12 @@ int page =1;
       acceptedOrders = acceptProducts;
       historyOrders = historyProducts;
       for(int i =0; i< orders2.length ; i++){
+        print(orders2[i].orderStatusId.toString()+'lnfkdfjk');
         if(orders2[i].orderStatusId ==1)
           currentProducts.add(orders2[i]);
-        else if(orders2[i].orderStatusId !=1 && orders2[i].orderStatusId !=7)
+        else if(orders2[i].orderStatusId !=1 && orders2[i].orderStatusId !=7&& orders2[i].orderStatusId !=10)
           acceptProducts.add(orders2[i]);
-        else  if(orders2[i].orderStatusId ==7)
+        else  if(orders2[i].orderStatusId ==7 || orders2[i].orderStatusId ==10 )
           historyProducts.add(orders2[i]);
       }
       // if(currentOrders.length ==0)
@@ -117,11 +118,14 @@ int page =1;
      return format.format(time);
 
   }
-  void removeOrder(int id,context)async{
+  Future removeOrder(int id,context)async{
     emit(OrdersLoading(orders,currentOrders,acceptedOrders,historyOrders));
     Size size = MediaQuery.of(context).size;
     ordersRepo.removeOrder(LocalStorage.getData(key: "token"),id).then((data) {
       if( data != null) {
+        orders.removeWhere((element) => element.id == id);
+        currentOrders.removeWhere((element) => element.id == id);
+        // removeOrderFromList(id);
         showTopSnackBar(
             context,
             Card(
@@ -133,17 +137,29 @@ int page =1;
                     fontSize: size.height * 0.04),
               ),
             ));
-        for(int n =0; n< orders.length; n++) {
-          if(orders[n].id == id){
-            orders.removeAt(n);
-            break;
-          }
-        }
+        
+
+        // for(int n =0; n< orders.length; n++) {
+        //   if(orders[n].id == id){
+        //     orders.removeAt(n);
+        //     break;
+        //   }
+        // }
+
         emit(OrdersLoaded(orders: orders,currentOrders: currentOrders,acceptedOrders: acceptedOrders,historyOrders: historyOrders));
+        return true;
       }else{
         print("llllkkkkkkll");
+        return false;
 
       }});
+  }
+
+  removeOrderFromList(int id){
+    print('jflbgvgj2222222222222');
+    emit(OrdersInitial());
+    orders.removeWhere((element) => element.id == id);
+    emit(OrdersLoaded(orders: orders,currentOrders: currentOrders,acceptedOrders: acceptedOrders,historyOrders: historyOrders));
   }
 
   void switchStatus(int statusId){

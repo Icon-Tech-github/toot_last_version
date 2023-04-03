@@ -167,8 +167,8 @@ class RatingScreen extends StatelessWidget {
                               ),
                               Center(
                                 child: RatingBar.builder(
-                                  initialRating: 3,
-                                  minRating: 1,
+                                  initialRating: 0,
+                                  minRating: 0,
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,
@@ -199,8 +199,8 @@ class RatingScreen extends StatelessWidget {
                               ),
                               Center(
                                 child: RatingBar.builder(
-                                  initialRating: 3,
-                                  minRating: 1,
+                                  initialRating: 0,
+                                  minRating: 0,
                                   direction: Axis.horizontal,
                                   allowHalfRating: false,
                                   itemCount: 5,

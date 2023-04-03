@@ -533,9 +533,9 @@ class _OrderState extends State<OrderScreen> {
                                                     height: size.height *.046,
 
                                                   ),
-                                                  if(order.orderStatusId != 7)
+                                                  if(order.orderStatusId != 7&& order.orderStatusId != 10)
                                                   SizedBox(width: size.width * .07,),
-                                                  if(order.orderStatusId != 7)
+                                                  if(order.orderStatusId != 7 && order.orderStatusId != 10)
                                                   DefaultButton(
                                                     textColor: Colors.white,
                                                     color: AppTheme.secondary,
@@ -767,9 +767,9 @@ class _OrderState extends State<OrderScreen> {
                                                       height: size.height *.046,
 
                                                     ),
-                                                    if(order.orderStatusId != 7)
+                                                    if(order.orderStatusId != 7&& order.orderStatusId != 10)
                                                       SizedBox(width: size.width * .07,),
-                                                    if(order.orderStatusId != 7)
+                                                    if(order.orderStatusId != 7 && order.orderStatusId != 10)
                                                       DefaultButton(
                                                         textColor: Colors.white,
                                                         color: AppTheme.secondary,
@@ -1000,9 +1000,9 @@ class _OrderState extends State<OrderScreen> {
                                                       height: size.height *.046,
 
                                                     ),
-                                                    if(order.orderStatusId != 7)
+                                                    if(order.orderStatusId != 7&& order.orderStatusId != 10)
                                                       SizedBox(width: size.width * .07,),
-                                                    if(order.orderStatusId != 7)
+                                                    if(order.orderStatusId != 7 && order.orderStatusId != 10)
                                                       DefaultButton(
                                                         textColor: Colors.white,
                                                         color: AppTheme.secondary,
