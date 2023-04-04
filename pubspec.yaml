@@ -69,8 +69,8 @@ dependencies:
   flutter_local_notifications: ^9.9.1
   firebase_core:
   overlay_support:
-  flutter_isolate: ^2.0.2
-  callkeep: ^0.3.2
+#  flutter_isolate: ^2.0.2
+#  callkeep: ^0.3.2
   flutter_offline: ^2.1.0
   connectivity_plus:
   flutter_countdown_timer: ^4.1.0

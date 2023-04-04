@@ -63,7 +63,10 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthFailure(error: LocaleKeys.not_valid_number.tr()));
       }else  if (data ==  "401"){
         emit(AuthFailure(error: LocaleKeys.login_401.tr()));
-      }else  if (data ==  "422"){
+      }else  if (data ==  "400"){
+        emit(AuthFailure(error: LocaleKeys.login_400.tr()));
+      }
+      else  if (data ==  "422"){
         emit(AuthFailure(error: LocaleKeys.login_422.tr()));
       }
       else{

@@ -60,7 +60,7 @@ class OrdersRepo implements OrdersRepository {
   Future removeOrder(String token,int id) async{
     try
     {
-      var response = await dio.post(ServerConstants.API+'/order/$id/delete',
+      var response = await dio.post(ServerConstants.API+'/order/$id/cancel',
           options: Options(
             headers: {
               ...apiHeaders,

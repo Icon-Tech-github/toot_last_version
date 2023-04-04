@@ -152,6 +152,7 @@ abstract class LocaleKeys {
   static const  register_validate ="register_validate";
   static const login_401 ="login_401";
   static const login_422 = "login_422";
+  static const login_400 = "login_400";
   static const Order_already_rated ="Order_already_rated";
   static const code_not_received ="code_not_received";
   static const resend ="resend";

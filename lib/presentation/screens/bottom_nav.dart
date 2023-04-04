@@ -104,7 +104,9 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
       currentTab = widget.index;
 
     WidgetsBinding.instance.addObserver(this);
+    askPermission();
    fcmNotification();
+
     super.initState();
   }
   @override
@@ -115,32 +117,7 @@ class _BottomNavBarState extends State<BottomNavBar> with TickerProviderStateMix
 
 bool isClosed= false;
   bool isFromBackground= false;
-  late AppLifecycleState _lastState;
-  //@override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //
-  //   if (state == AppLifecycleState.resumed && _lastState == AppLifecycleState.paused) {
-  //     setState(() {
-  //
-  //     });
-  //     //now you know that your app went to the background and is back to the foreground
-  //   }
-  //   _lastState = state;
-  //   switch (state) {
-  //     case AppLifecycleState.resumed:
-  //       print("app in resumed");
-  //       break;
-  //     case AppLifecycleState.inactive:
-  //       print("app in inactive");
-  //       break;
-  //     case AppLifecycleState.paused:
-  //       print("app in paused");
-  //       break;
-  //     case AppLifecycleState.detached:
-  //       print("app in detached");
-  //       break;
-  //   }
-  // }
+
   void getCartCount() {
     List<String> cart = LocalStorage.getList(key: 'cart') ?? [];
     cartCount = cart.length;
@@ -148,12 +125,9 @@ bool isClosed= false;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
-  fcmNotification() async {
 
 
-
-
-    NotificationSettings settings =
+  askPermission()async{
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
       announcement: false,
@@ -163,6 +137,8 @@ bool isClosed= false;
       provisional: false,
       sound: true,
     );
+  }
+  fcmNotification() async {
 
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
@@ -252,10 +228,14 @@ bool isClosed= false;
               background:AppTheme.white,
               elevation: 3
           );
-          await NotificationRepo.getUnreadCount().then((data) {
-            NotificationRepo.unReadCount = int.parse(data.toString());
-            LocalStorage.saveData(key: "unReadCount", value:  int.parse(data.toString()));
-            print(NotificationRepo.unReadCount.toString() +"ssssssssss");
+          await NotificationRepo.getUnreadCount().then((data){
+            print(data.toString() +"ssssssssss");
+            if(data != null) {
+              NotificationRepo.unReadCount = int.tryParse(data);
+              LocalStorage.saveData(
+                  key: "unReadCount", value: int.tryParse(data));
+            }
+
           });
         } else if (message.data['order_id'] != null && message.data['type'].toString() == "1") {
           showSimpleNotification(
