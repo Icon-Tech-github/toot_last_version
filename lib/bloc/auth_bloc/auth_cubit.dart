@@ -56,7 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
      lang: LocalStorage.getData(key: "lang")
     )
         .then((data) async {
-     print(tokenFCM.toString()+'xkxksksk');
+     print(tokenFCM.toString());
       if(data == null){
         emit(AuthFailure(error: LocaleKeys.not_found.tr()));
       }else  if (data ==  "307"){

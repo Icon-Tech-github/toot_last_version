@@ -10,6 +10,7 @@ import 'package:loz/presentation/screens/points.dart';
 import 'package:loz/presentation/screens/transaction_screen.dart';
 import 'package:loz/presentation/widgets/menu_item.dart';
 import 'package:loz/theme.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -36,8 +37,31 @@ import 'about.dart';
 import 'bottom_nav.dart';
 import 'notifications.dart';
 
-class MoreScreen extends StatelessWidget {
+class MoreScreen extends StatefulWidget {
   const MoreScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MoreScreen> createState() => _MoreScreenState();
+}
+
+class _MoreScreenState extends State<MoreScreen> {
+
+  String version = '';
+
+  getPackageInfo() async{
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+   setState(() {
+     version = packageInfo.version;
+   });
+  }
+
+  @override
+  void initState() {
+    getPackageInfo();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -454,6 +478,20 @@ class MoreScreen extends StatelessWidget {
                 ),
             ],
           ),
+              SizedBox(height: size.height * .04,),
+              Text('version '+version,
+                style: TextStyle(
+                color: Colors.white,
+                fontSize: size.height*0.017,
+                  height: 0.2
+              ),),
+              Text('powered by Icontech',style: TextStyle(
+                  color: Colors.white,
+                  fontSize: size.height*0.017
+              ),),
+
+              SizedBox(height: size.height * .07,),
+
             ],
           ),
         ) ),

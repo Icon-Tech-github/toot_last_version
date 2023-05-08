@@ -25,6 +25,7 @@ class NotifyScreen extends StatefulWidget {
 
 class _NotifyScreenState extends State<NotifyScreen> {
   String? token = '';
+  bool readAll = false;
 
   void getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -200,14 +201,27 @@ class _NotifyScreenState extends State<NotifyScreen> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                        child: Text(
-                          LocaleKeys.mark_read.tr(),
-                          style: TextStyle(
-                            color: AppTheme.secondary,
-                            decoration: TextDecoration.underline,
-                            fontSize: size.width * .04,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                                value: readAll,
+                                activeColor: AppTheme.secondary,
+                                onChanged: (value){
+                                  setState(() {
+                                    readAll = true;
+                                  });
+
+                            }),
+                            Text(
+                              LocaleKeys.mark_read.tr(),
+                              style: TextStyle(
+                                color: AppTheme.secondary,
+                                fontSize: size.width * .04,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                          ],
                         ),
                       ),
                     ),
