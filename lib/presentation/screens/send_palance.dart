@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<SendBalanceScreen> {
                 context.read<BalanceCubit>().balance.clear();
                 context.read<BalanceCubit>().phone.clear();
                 showTopSnackBar(
-                    context,
+                    Overlay.of(context),
                     Card(
                       child: CustomSnackBar.success(
                         message:

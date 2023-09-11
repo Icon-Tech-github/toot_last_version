@@ -73,7 +73,7 @@ class ProductDetails1 extends StatelessWidget {
                                         .addToCard(context);
                                   } else {
                                     showTopSnackBar(
-                                        context,
+                                        Overlay.of(context),
                                         Card(
                                           child: CustomSnackBar.success(
                                             message: LocaleKeys.not_valid.tr(),

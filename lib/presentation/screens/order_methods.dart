@@ -101,7 +101,7 @@ class OrderMethodsScreen extends StatelessWidget {
                     if (LocalStorage.getData(key: "order_method_id") == null ||
                         LocalStorage.getData(key: "payment_method_id") == null) {
                       showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           Card(
                             child: CustomSnackBar.success(
                               message:

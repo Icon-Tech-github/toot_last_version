@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<ContactUsScreen> {
               context.read<ContactCubit>().phone.clear();
               context.read<ContactCubit>().massage.clear();
               showTopSnackBar(
-                  context,
+                  Overlay.of(context),
                   Card(
                     child: CustomSnackBar.success(
                       message:

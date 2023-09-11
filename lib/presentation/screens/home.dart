@@ -277,6 +277,7 @@
 import 'dart:io';
 
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -407,19 +408,14 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
   }
 
   void checkVersion(BuildContext context) async {
-    final updateAvailability = await getUpdateAvailability();
+bool update = false;
+    final availability = await getUpdateAvailability();
 
+    setState(() {
+     update = availability == UpdateAvailable();
+    });
 
-    final text = updateAvailability.fold(
-      available: () => "true",
-      notAvailable: () => 'false',
-      unknown: () => "It was not possible to determine if there is or not "
-          "an update for your app.",
-    );
-
-    print(text);
-
-    if(text=='true' && widget.fromSplash == true){
+    if(update && widget.fromSplash == true){
       showDialog(context: context,
           builder: (context){
             return AlertDialog(
@@ -521,6 +517,10 @@ class _AppBarUIAnimationState extends State<AppBarUIAnimation>
 
     CheckUserConnection();
     checkVersion(context);
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance; // Change here
+    _firebaseMessaging.getToken().then((token){
+      print("token is $token");
+    });
     productsAnimationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(

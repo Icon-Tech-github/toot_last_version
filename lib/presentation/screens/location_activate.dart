@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:android_intent_plus/android_intent.dart';
-import 'package:app_settings/app_settings.dart';
+// import 'package:android_intent_plus/android_intent.dart';
+// import 'package:app_settings/app_settings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,16 +51,21 @@ class _LocationActivateState extends State<LocationActivate> {
 
 
   setActiveLocation() async {
-    var platform = Theme.of(context).platform;
-
-    if (platform == TargetPlatform.iOS) {
-      AppSettings.openAppSettings();
-    } else {
-      final AndroidIntent intent = new AndroidIntent(
-        action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-      );
-      await intent.launch().then((value) => getUserLocation);
-    }
+    // var platform = Theme.of(context).platform;
+    await Geolocator.openLocationSettings().then((value) {
+      getUserLocation();
+    });
+    // if (platform == TargetPlatform.iOS) {
+    //   AppSettings.openAppSettings();
+    // } else {
+    //   await Geolocator.openLocationSettings().then((value) {
+    //     getUserLocation();
+    //   });
+    //   // final AndroidIntent intent = new AndroidIntent(
+    //   //   action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+    //   // );
+    //   // await intent.launch().then((value) => getUserLocation);
+    // }
   }
 
   getUserLocation() async {

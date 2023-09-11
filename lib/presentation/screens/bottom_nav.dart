@@ -9,7 +9,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/shims/dart_ui_real.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 //import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -163,8 +163,8 @@ bool isClosed= false;
         message.data['description_en'],
             NotificationDetails(
               android: AndroidNotificationDetails(
-                message.data['title_en'],
-                message.data['description_en'],
+                message.data['title_en']??'',
+                message.data['description_en']??'',
                 icon: 'resource://mipmap/launcher_icon',
               ),
             )):
@@ -204,7 +204,7 @@ bool isClosed= false;
                         children: [
                           Text(
                       LocalStorage.getData(key: 'lang') ==
-                          'en'? message.data['title_en']: message.data['title_ar'],
+                          'en'? (message.data['title_en'] ?? ''): (message.data['title_ar']?? ''),
                             style: TextStyle(
                                 color:AppTheme.orange,
                                 fontSize: 16,

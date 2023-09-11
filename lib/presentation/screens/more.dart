@@ -14,6 +14,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../bloc/about_bloc/about_cubit.dart';
 import '../../bloc/auth_bloc/auth_cubit.dart';
@@ -87,7 +88,7 @@ class _MoreScreenState extends State<MoreScreen> {
           ServerConstants.showDialog1(context, state.error, false, '');
         } else if (state is AuthSuccess) {
           showTopSnackBar(
-              context,
+              Overlay.of(context),
               Card(
                 child: CustomSnackBar.success(
                   message: LocaleKeys.logout_success.tr(),
@@ -485,10 +486,16 @@ class _MoreScreenState extends State<MoreScreen> {
                 fontSize: size.height*0.017,
                   height: 0.2
               ),),
-              Text('powered by Icontech',style: TextStyle(
-                  color: Colors.white,
-                  fontSize: size.height*0.017
-              ),),
+              InkWell(
+                onTap: ()async{
+                  await launchUrl(Uri.parse('https://icontds.com/'), mode: LaunchMode.inAppWebView);
+                },
+                child: Text('powered by ICON TECH',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: size.height*0.017,
+                ),),
+              ),
 
               SizedBox(height: size.height * .07,),
 

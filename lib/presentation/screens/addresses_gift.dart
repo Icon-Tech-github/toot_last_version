@@ -935,7 +935,7 @@ class _AddressGiftScreenState extends State<AddressGiftScreen> {
                   function: () {
                     if(LocalStorage.getData(key: "addressId") == null){
                       showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           Card(
                             child: CustomSnackBar.success(
                               message: LocaleKeys.Please_add_address.tr(),

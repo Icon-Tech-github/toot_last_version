@@ -105,7 +105,7 @@ class _CartListState extends State<CartList> {
       BlocConsumer<CartCubit, CartState>(listener: (context, state) {
       if (state is AddCouponFailure) {
         showTopSnackBar(
-            context,
+            Overlay.of(context),
             Card(
               child: CustomSnackBar.success(
                 message: state.error,
@@ -116,7 +116,7 @@ class _CartListState extends State<CartList> {
             ));
       } else if (state is UseBalanceFailure) {
         showTopSnackBar(
-            context,
+            Overlay.of(context),
             Card(
               child: CustomSnackBar.success(
                 message: state.error,
@@ -127,7 +127,7 @@ class _CartListState extends State<CartList> {
             ));
       } else if (state is UseBalanceSuccess) {
         showTopSnackBar(
-            context,
+            Overlay.of(context),
             Card(
               child: CustomSnackBar.success(
                 message:
@@ -139,7 +139,7 @@ class _CartListState extends State<CartList> {
             ));
       } else if (state is AddCouponSuccess) {
         showTopSnackBar(
-            context,
+            Overlay.of(context),
             Card(
               child: CustomSnackBar.success(
                 message:

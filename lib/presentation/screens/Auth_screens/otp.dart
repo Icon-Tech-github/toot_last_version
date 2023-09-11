@@ -39,7 +39,7 @@ String ?otpCode;
 
             Navigator.pop(context);
             showTopSnackBar(
-                context,
+                Overlay.of(context),
                 Card(
                   child: CustomSnackBar.success(
                     message:   LocaleKeys.resend_msg.tr(),

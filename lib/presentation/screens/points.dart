@@ -175,7 +175,7 @@ class PointsScreen extends StatelessWidget {
                     pointsState.convertPoints();
                     else
                       showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           Card(
                             child: CustomSnackBar.success(
                               message: "${LocaleKeys.minimum_amount.tr()} ${state.points.limit} ${LocaleKeys.points.tr()}",

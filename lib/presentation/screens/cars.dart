@@ -544,7 +544,7 @@ class _CarsScreenState extends State<CarsScreen> {
                   function: () {
                     if(LocalStorage.getData(key: "carId") == null){
                       showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           Card(
                             child: CustomSnackBar.success(
                               message: LocaleKeys.please_add_car.tr(),

@@ -1,7 +1,7 @@
 class GlobalUtils{
   static String storeId ='26344';//'26286'; //'';//'25557'; // Replace with your storeID
   static String key='CFN3~5G2DW@Qh2tQ';//'3T4x@bGfnD~4BxHj';//'';//'''';//'qMB6w@wm3tf-Gwrw';//'';//pQ6nP-7rHt@5WRF//Authentication Key : The Authentication Key will be supplied by Telr as part of the Mobile API setup process after you request that this integration type is enabled for your account. This should not be stored permanently within the App.
-  static String testmode='1 '; // Test mode : Test mode of zero indicates a live transaction. If this is set to any other value the transaction will be treated as a test.
+  static String testmode='0 '; // Test mode : Test mode of zero indicates a live transaction. If this is set to any other value the transaction will be treated as a test.
   static String custref=''; //This is parameter to identify the customers saved card details.
   static String devicetype='iOS'; // Let it be static as iOS for both
   static String deviceid='84173CD1-62DA-4594-87A5-624E038895C8';  // Application device ID

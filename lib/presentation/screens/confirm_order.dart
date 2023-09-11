@@ -75,7 +75,7 @@ class CartList extends StatelessWidget {
         listener: (context, state) {
           if (state is AddCouponFailure) {
             showTopSnackBar(
-                context,
+                Overlay.of(context),
                 Card(
                   child: CustomSnackBar.success(
                     message: state.error,
@@ -86,7 +86,7 @@ class CartList extends StatelessWidget {
                 ));
           } else if (state is UseBalanceFailure) {
             showTopSnackBar(
-                context,
+                Overlay.of(context),
                 Card(
                   child: CustomSnackBar.success(
                     message: state.error,
@@ -97,7 +97,7 @@ class CartList extends StatelessWidget {
                 ));
           } else if (state is UseBalanceSuccess) {
             showTopSnackBar(
-                context,
+                Overlay.of(context),
                 Card(
                   child: CustomSnackBar.success(
                     message:
@@ -109,7 +109,7 @@ class CartList extends StatelessWidget {
                 ));
           } else if (state is AddCouponSuccess) {
             showTopSnackBar(
-                context,
+                Overlay.of(context),
                 Card(
                   child: CustomSnackBar.success(
                     message:

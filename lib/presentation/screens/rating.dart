@@ -96,7 +96,7 @@ class RatingScreen extends StatelessWidget {
                     if (state is RateFailure) {
                       Navigator.pop(context);
                       showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           Card(
                             child: CustomSnackBar.success(
                               message: state.error,
@@ -125,7 +125,7 @@ class RatingScreen extends StatelessWidget {
                                 ),
                           ));
                       showTopSnackBar(
-                          context,
+                          Overlay.of(context),
                           Card(
                             child: CustomSnackBar.success(
                               message:   LocaleKeys.glad_msg.tr(),

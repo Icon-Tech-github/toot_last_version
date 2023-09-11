@@ -52,6 +52,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
   String _code = '';
   bool _showLoader = false;
   bool _showedOnce = false;
+  late final WebViewController _controller;
+
 
   // String cardToken = "";
   // String token = "";
@@ -78,7 +80,75 @@ class _WebViewScreenState extends State<WebViewScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+     // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+
+
+    // final WebViewController controller =
+    // WebViewController.fromPlatformCreationParams(params);
+    // #enddocregion platform_features
+
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            debugPrint('Page started loading: $url');
+            _showedOnce = false;
+          },
+          onPageFinished: (String url) {
+
+
+            if (url.contains('close')) {
+              setState(() {
+                loading = true;
+              });
+
+
+              createXml();
+
+            }
+            if (url.contains('abort')) {
+
+            }
+            if (url.contains('telr://internal?payment_token=')) {
+
+              String finalurl = url;
+
+              _token = finalurl.replaceAll('telr://internal?payment_token=', '');
+            }
+            else {
+              _token = '';
+
+            }
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+Page resource error:
+  code: ${error.errorCode}
+  description: ${error.description}
+  errorType: ${error.errorType}
+  isForMainFrame: ${error.isForMainFrame}
+          ''');
+          },
+          onUrlChange: (UrlChange change) {
+            debugPrint('url change to ${change.url}');
+          },
+        ),
+      )
+      // ..addJavaScriptChannel(
+      //   'Toaster',
+      //   onMessageReceived: (JavaScriptMessage message) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(content: Text(message.message)),
+      //     );
+      //   },
+      // )
+      ..loadRequest(Uri.parse(widget.url));
+
+    // _controller = controller;
     _url = widget.url;
     _code = widget.code;
 
@@ -191,10 +261,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
   }
 
   String _token = '';
-  final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+  // final Completer<WebViewController> _controller =
+  // Completer<WebViewController>();
 
-  final flutterWebviewPlugin = new WebView();
+  // final flutterWebviewPlugin = new WebView();
   bool loading = false;
   @override
   Widget build(BuildContext context) {
@@ -238,53 +308,54 @@ class _WebViewScreenState extends State<WebViewScreen> {
           ),
 
            Expanded(
-             child: WebView(
-              initialUrl: _url,
+             child: WebViewWidget(
+              // initialUrl: _url,
 
+              controller: _controller,
+              //
+              // javascriptMode: JavascriptMode.unrestricted,
+              // onWebViewCreated: (WebViewController webViewController) {
+              //   _controller.complete(webViewController);
+              // },
+              // onPageStarted: (String url) {
+              //
+              //   _showedOnce = false;
+              //   if (url.contains('close')) {
+              //
+              //   }
+              //   if (url.contains('abort')) {
+              //
+              //   }
+              // },
 
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController webViewController) {
-                _controller.complete(webViewController);
-              },
-              onPageStarted: (String url) {
-
-                _showedOnce = false;
-                if (url.contains('close')) {
-
-                }
-                if (url.contains('abort')) {
-
-                }
-              },
-
-              onPageFinished: (String url) {
-
-
-                if (url.contains('close')) {
-                  setState(() {
-                    loading = true;
-                  });
-
-
-                  createXml();
-
-                }
-                if (url.contains('abort')) {
-
-                }
-                if (url.contains('telr://internal?payment_token=')) {
-
-                  String finalurl = url;
-
-                  _token = finalurl.replaceAll('telr://internal?payment_token=', '');
-                }
-                else {
-                  _token = '';
-                  
-                }
-
-              },
-              gestureNavigationEnabled: true,
+              // onPageFinished: (String url) {
+              //
+              //
+              //   if (url.contains('close')) {
+              //     setState(() {
+              //       loading = true;
+              //     });
+              //
+              //
+              //     createXml();
+              //
+              //   }
+              //   if (url.contains('abort')) {
+              //
+              //   }
+              //   if (url.contains('telr://internal?payment_token=')) {
+              //
+              //     String finalurl = url;
+              //
+              //     _token = finalurl.replaceAll('telr://internal?payment_token=', '');
+              //   }
+              //   else {
+              //     _token = '';
+              //
+              //   }
+              //
+              // },
+              // gestureNavigationEnabled: true,
 
           ),
            ),
