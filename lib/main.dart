@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:loz/presentation/screens/bottom_nav.dart';
 import 'package:loz/presentation/screens/location_activate.dart';
 import 'package:loz/theme.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:ui' as ui;
 import 'local_storage.dart';
 
@@ -65,6 +67,7 @@ class _MyAppState extends State<MyApp>
 
   @override
   void initState() {
+
     // tabIconsList.forEach((TabIconData tab) {
     //   tab.isSelected = false;
     // });

@@ -294,6 +294,7 @@ import 'package:loz/presentation/widgets/dep.dart';
 import 'package:loz/presentation/widgets/home_ad.dart';
 import 'package:loz/translations/locale_keys.g.dart';
 import 'package:open_store/open_store.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:update_available/update_available.dart';
 
@@ -511,16 +512,28 @@ bool update = false;
 
   }
 
+  Future<void> requestNotificationPermissions() async {
+    await Permission.notification.request();
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
 
   @override
   void initState() {
-
+    requestNotificationPermissions();
     CheckUserConnection();
     checkVersion(context);
-    FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance; // Change here
-    _firebaseMessaging.getToken().then((token){
-      print("token is $token");
-    });
+    // FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance; // Change here
+    // _firebaseMessaging.getToken().then((token){
+    //   print("token is $token");
+    // });
     productsAnimationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
